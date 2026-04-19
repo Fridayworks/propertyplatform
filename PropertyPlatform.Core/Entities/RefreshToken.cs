@@ -1,0 +1,16 @@
+namespace PropertyPlatform.Core.Entities
+{
+    public class RefreshToken
+    {
+        public Guid TokenId { get; set; } = Guid.NewGuid();
+        public Guid TenantId { get; set; }
+        public string Token { get; set; } = string.Empty;
+        public DateTime ExpiryDate { get; set; } = DateTime.UtcNow.AddDays(30);
+        public bool IsRevoked { get; set; } = false;
+        public bool IsExpired => DateTime.UtcNow >= ExpiryDate;
+        public bool IsActive => !IsRevoked && !IsExpired;
+
+        // Navigation
+        public Tenant? Tenant { get; set; }
+    }
+}

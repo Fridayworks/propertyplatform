@@ -1,0 +1,135 @@
+@page
+@model PropertyPlatform.Web.Pages.SubscriptionsModel
+@{
+    ViewData["Title"] = "Subscription Plans";
+}
+
+<div class="bg-gray-50 py-12 min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h1 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+                Choose the right plan for your business
+            </h1>
+            <p class="mt-4 text-xl text-gray-600">
+                Current Plan: <span class="font-bold text-primary-600">@(Model.CurrentSubscription?.Plan ?? "Free")</span>
+                @if (Model.CurrentSubscription != null)
+                {
+                    <span class="text-sm text-gray-500 font-normal"> (Expires: @Model.CurrentSubscription.EndDate.ToString("MMM dd, yyyy"))</span>
+                }
+            </p>
+        </div>
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="mb-8 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded text-center">
+                @TempData["SuccessMessage"]
+            </div>
+        }
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Basic Plan -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden flex flex-col">
+                <div class="px-6 py-8">
+                    <h3 class="text-2xl font-bold text-gray-900">Basic</h3>
+                    <p class="mt-4 text-sm text-gray-500">Perfect for getting started.</p>
+                    <p class="mt-8">
+                        <span class="text-4xl font-extrabold text-gray-900">RM 0</span>
+                        <span class="text-base font-medium text-gray-500">/mo</span>
+                    </p>
+                    <ul class="mt-8 space-y-4">
+                        <li class="flex items-start">
+                            <svg class="h-5 w-5 text-green-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                            <span class="ml-3 text-sm text-gray-700">Up to 10 listings</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="h-5 w-5 text-green-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                            <span class="ml-3 text-sm text-gray-700">Basic analytics</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="mt-auto p-6 bg-gray-50 border-t border-gray-100">
+                    <button disabled class="w-full bg-gray-300 text-white font-bold py-2 px-4 rounded cursor-not-allowed">
+                        @(Model.CurrentSubscription?.Plan == "Basic" || Model.CurrentSubscription == null ? "Current Plan" : "Downgrade Unavailable")
+                    </button>
+                </div>
+            </div>
+
+            <!-- Pro Plan -->
+            <div class="bg-white rounded-lg shadow-lg border-2 border-primary-500 overflow-hidden flex flex-col scale-105 z-10">
+                <div class="bg-primary-500 py-1 text-center text-xs font-bold text-white uppercase tracking-widest">Most Popular</div>
+                <div class="px-6 py-8">
+                    <h3 class="text-2xl font-bold text-gray-900">Professional</h3>
+                    <p class="mt-4 text-sm text-gray-500">Boost your presence and leads.</p>
+                    <p class="mt-8">
+                        <span class="text-4xl font-extrabold text-gray-900">RM 99</span>
+                        <span class="text-base font-medium text-gray-500">/mo</span>
+                    </p>
+                    <ul class="mt-8 space-y-4">
+                        <li class="flex items-start">
+                            <svg class="h-5 w-5 text-green-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                            <span class="ml-3 text-sm text-gray-700">Up to 50 listings</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="h-5 w-5 text-green-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                            <span class="ml-3 text-sm text-gray-700">20 Bonus Boost Credits</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="h-5 w-5 text-green-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                            <span class="ml-3 text-sm text-gray-700">Priority lead scoring</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="mt-auto p-6 bg-gray-50 border-t border-gray-100">
+                    @if (Model.CurrentSubscription?.Plan == "Pro")
+                    {
+                        <button disabled class="w-full bg-primary-200 text-primary-700 font-bold py-2 px-4 rounded">Active Plan</button>
+                    }
+                    else
+                    {
+                        <form method="post" asp-page-handler="Upgrade" asp-route-plan="Pro">
+                            <button type="submit" class="w-full bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded transition-colors">Upgrade Now</button>
+                        </form>
+                    }
+                </div>
+            </div>
+
+            <!-- Premium Plan -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden flex flex-col">
+                <div class="px-6 py-8">
+                    <h3 class="text-2xl font-bold text-gray-900">Premium</h3>
+                    <p class="mt-4 text-sm text-gray-500">For top-tier property agencies.</p>
+                    <p class="mt-8">
+                        <span class="text-4xl font-extrabold text-gray-900">RM 299</span>
+                        <span class="text-base font-medium text-gray-500">/mo</span>
+                    </p>
+                    <ul class="mt-8 space-y-4">
+                        <li class="flex items-start">
+                            <svg class="h-5 w-5 text-green-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                            <span class="ml-3 text-sm text-gray-700">Unlimited listings</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="h-5 w-5 text-green-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                            <span class="ml-3 text-sm text-gray-700">100 Bonus Boost Credits</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="h-5 w-5 text-green-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                            <span class="ml-3 text-sm text-gray-700">Featured agent profile</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="mt-auto p-6 bg-gray-50 border-t border-gray-100">
+                    @if (Model.CurrentSubscription?.Plan == "Premium")
+                    {
+                        <button disabled class="w-full bg-primary-200 text-primary-700 font-bold py-2 px-4 rounded">Active Plan</button>
+                    }
+                    else
+                    {
+                        <form method="post" asp-page-handler="Upgrade" asp-route-plan="Premium">
+                            <button type="submit" class="w-full bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded transition-colors">Upgrade Now</button>
+                        </form>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

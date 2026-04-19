@@ -1,0 +1,217 @@
+@page "{id:guid}"
+@model PropertyPlatform.Web.Pages.EditListingModel
+@{
+    ViewData["Title"] = "Edit Listing";
+}
+
+<div class="bg-gray-50 py-12 min-h-screen">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-8 flex items-center justify-between">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900">Edit Listing</h1>
+                <p class="mt-2 text-sm text-gray-500">Update your property details.</p>
+            </div>
+            <a href="/Agents" class="text-sm font-medium text-primary-600 hover:text-primary-500">&larr; Back to Dashboard</a>
+        </div>
+
+        <div class="bg-white p-8 rounded-lg shadow-sm border border-gray-200">
+            <form method="post" enctype="multipart/form-data">
+                <input type="hidden" asp-for="Listing.ListingId" />
+                <div class="space-y-6">
+                    <div>
+                        <label asp-for="Listing.Title" class="block text-sm font-medium text-gray-700">Property Title</label>
+                        <input asp-for="Listing.Title" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm px-3 py-2 border" required />
+                        <span asp-validation-for="Listing.Title" class="text-red-500 text-xs"></span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label asp-for="Listing.Location" class="block text-sm font-medium text-gray-700">Location</label>
+                            <input asp-for="Listing.Location" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm px-3 py-2 border" required />
+                            <span asp-validation-for="Listing.Location" class="text-red-500 text-xs"></span>
+                        </div>
+                        <div>
+                            <label asp-for="Listing.Price" class="block text-sm font-medium text-gray-700">Price (RM)</label>
+                            <input asp-for="Listing.Price" type="number" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm px-3 py-2 border" required min="0" />
+                            <span asp-validation-for="Listing.Price" class="text-red-500 text-xs"></span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label asp-for="Listing.Status" class="block text-sm font-medium text-gray-700">Status</label>
+                            <select asp-for="Listing.Status" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm px-3 py-2 border">
+                                <option value="Active">Active</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Sold">Sold</option>
+                                <option value="Inactive">Inactive</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label asp-for="Listing.PropertyType" class="block text-sm font-medium text-gray-700">Property Type</label>
+                            <select asp-for="Listing.PropertyType" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm px-3 py-2 border">
+                                <option value="Condo">Condo</option>
+                                <option value="Terrace">Terrace</option>
+                                <option value="Semi-D">Semi-D</option>
+                                <option value="Bungalow">Bungalow</option>
+                                <option value="Landed">Landed</option>
+                                <option value="Office">Office</option>
+                                <option value="Retail">Retail</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-6">
+                        <div>
+                            <label asp-for="Bedrooms" class="block text-sm font-medium text-gray-700">Beds</label>
+                            <input asp-for="Bedrooms" type="number" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm px-3 py-2 border" min="0" />
+                        </div>
+                        <div>
+                            <label asp-for="Bathrooms" class="block text-sm font-medium text-gray-700">Baths</label>
+                            <input asp-for="Bathrooms" type="number" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm px-3 py-2 border" min="0" />
+                        </div>
+                        <div>
+                            <label asp-for="Sqft" class="block text-sm font-medium text-gray-700">Sqft</label>
+                            <input asp-for="Sqft" type="number" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm px-3 py-2 border" min="0" />
+                        </div>
+                    </div>
+
+                    <div>
+                        <label asp-for="Listing.Description" class="block text-sm font-medium text-gray-700">Description</label>
+                        <textarea asp-for="Listing.Description" rows="5" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm px-3 py-2 border" required></textarea>
+                        <span asp-validation-for="Listing.Description" class="text-red-500 text-xs"></span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-6 border-t border-gray-100">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-4">Property Images</label>
+                            
+                            @if (Model.Listing.Media.Any())
+                            {
+                                <div class="grid grid-cols-3 gap-2 mb-4">
+                                    @foreach (var media in Model.Listing.Media.OrderBy(m => m.SortOrder))
+                                    {
+                                        <div class="relative h-16 rounded overflow-hidden border border-gray-200">
+                                            <img src="@media.MediaUrl" class="h-full w-full object-cover">
+                                        </div>
+                                    }
+                                </div>
+                            }
+
+                            <div id="drop-zone" class="flex justify-center px-4 py-4 border-2 border-gray-300 border-dashed rounded-md hover:border-primary-500 transition-colors cursor-pointer bg-gray-50">
+                                <div class="space-y-1 text-center pointer-events-none">
+                                    <div class="text-xs text-gray-600">
+                                        <span class="text-primary-600 font-medium">Add more images</span>
+                                    </div>
+                                    <input id="NewImages" name="NewImages" type="file" class="sr-only" multiple accept="image/*">
+                                </div>
+                            </div>
+                            <div id="image-preview" class="mt-4 grid grid-cols-3 gap-2"></div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-4">Floor Plans</label>
+                            
+                            @if (Model.Listing.FloorPlans.Any())
+                            {
+                                <div class="grid grid-cols-3 gap-2 mb-4">
+                                    @foreach (var fp in Model.Listing.FloorPlans)
+                                    {
+                                        <div class="relative h-16 rounded overflow-hidden border border-gray-200">
+                                            <img src="@fp.ImageUrl" class="h-full w-full object-cover">
+                                        </div>
+                                    }
+                                </div>
+                            }
+
+                            <div id="drop-zone-fp" class="flex justify-center px-4 py-4 border-2 border-gray-300 border-dashed rounded-md hover:border-amber-500 transition-colors cursor-pointer bg-gray-50">
+                                <div class="space-y-1 text-center pointer-events-none">
+                                    <div class="text-xs text-gray-600">
+                                        <span class="text-amber-600 font-medium">Add floor plans</span>
+                                    </div>
+                                    <input id="FloorPlanImages" name="FloorPlanImages" type="file" class="sr-only" multiple accept="image/*">
+                                </div>
+                            </div>
+                            <div id="fp-preview" class="mt-4 grid grid-cols-3 gap-2"></div>
+                        </div>
+                    </div>
+
+                    <div class="pt-6 border-t border-gray-200 flex justify-between items-center">
+                        <button type="button" onclick="confirmDelete()" class="inline-flex justify-center py-2 px-4 border border-red-300 shadow-sm text-sm font-medium rounded-md text-red-700 bg-white hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                            Delete Listing
+                        </button>
+                        <div class="flex space-x-3">
+                            <a href="/Agents" class="inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                                Cancel
+                            </a>
+                            <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                                Save Changes
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <form id="delete-form" method="post" asp-page-handler="Delete" asp-route-id="@Model.Listing.ListingId" class="hidden"></form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        function setupDropZone(zoneId, inputId, previewId) {
+            const dropZone = document.getElementById(zoneId);
+            const fileInput = document.getElementById(inputId);
+            const preview = document.getElementById(previewId);
+
+            dropZone.addEventListener('click', () => fileInput.click());
+            fileInput.addEventListener('change', e => handleFiles(e.target.files, preview));
+
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropZone.addEventListener(eventName, e => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }, false);
+            });
+
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropZone.addEventListener(eventName, () => dropZone.classList.add('border-primary-500', 'bg-primary-50'), false);
+            });
+
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropZone.addEventListener(eventName, () => dropZone.classList.remove('border-primary-500', 'bg-primary-50'), false);
+            });
+
+            dropZone.addEventListener('drop', e => {
+                const dt = e.dataTransfer;
+                fileInput.files = dt.files;
+                handleFiles(dt.files, preview);
+            }, false);
+        }
+
+        function handleFiles(files, previewElement) {
+            previewElement.innerHTML = '';
+            [...files].forEach(file => {
+                if (!file.type.startsWith('image/')) return;
+                const reader = new FileReader();
+                reader.onload = e => {
+                    const div = document.createElement('div');
+                    div.className = 'relative h-20 rounded overflow-hidden border border-gray-200';
+                    div.innerHTML = `<img src="${e.target.result}" class="h-full w-full object-cover">`;
+                    previewElement.appendChild(div);
+                }
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function confirmDelete() {
+            if (confirm('Are you sure you want to delete this listing? This action cannot be undone.')) {
+                document.getElementById('delete-form').submit();
+            }
+        }
+
+        setupDropZone('drop-zone', 'NewImages', 'image-preview');
+        setupDropZone('drop-zone-fp', 'FloorPlanImages', 'fp-preview');
+    </script>
+}

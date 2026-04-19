@@ -1,0 +1,202 @@
+@page "{id:guid}"
+@model PropertyPlatform.Web.Pages.ListingModel
+@{
+    ViewData["Title"] = Model.Listing?.Title ?? "Listing Not Found";
+}
+
+<div class="bg-gray-50 py-8 min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        @if (Model.Listing == null)
+        {
+            <div class="text-center py-12">
+                <h1 class="text-3xl font-bold text-gray-900">Listing Not Found</h1>
+                <p class="mt-2 text-gray-500">The property you are looking for does not exist or has been removed.</p>
+                <a href="/Search" class="mt-4 inline-block text-primary-600 hover:text-primary-700 font-medium">Back to Search</a>
+            </div>
+        }
+        else
+        {
+            <!-- Back Link -->
+            <a href="/Search" class="inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 mb-6">
+                <svg class="flex-shrink-0 mr-1 h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                Back to search
+            </a>
+
+            <div class="bg-white shadow-sm overflow-hidden sm:rounded-lg border border-gray-200">
+                <!-- Image Header -->
+                @if (Model.Listing.Media.Any())
+                {
+                    <div class="relative">
+                        <div class="h-96 w-full overflow-hidden">
+                            <img src="@Model.Listing.Media.OrderBy(m => m.SortOrder).First().MediaUrl" alt="@Model.Listing.Title" class="w-full h-full object-cover">
+                        </div>
+                        @if (Model.Listing.Media.Count > 1)
+                        {
+                            <div class="absolute bottom-4 right-4 bg-black bg-opacity-75 text-white px-3 py-1 rounded text-sm font-medium">
+                                + @(Model.Listing.Media.Count - 1) Photos
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="h-96 bg-gray-200 w-full relative flex items-center justify-center">
+                        <svg class="h-24 w-24 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                          <polyline points="9 22 9 12 15 12 15 22" />
+                        </svg>
+                    </div>
+                }
+
+                <div class="px-4 py-5 sm:px-6 flex flex-col md:flex-row md:justify-between md:items-start gap-4">
+                    <div>
+                        <h1 class="text-3xl font-bold leading-tight text-gray-900">@Model.Listing.Title</h1>
+                        <p class="mt-1 max-w-2xl text-lg text-gray-500 flex items-center">
+                            <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                            </svg>
+                            @Model.Listing.Location
+                        </p>
+                        <div class="mt-4 flex flex-wrap gap-4">
+                            <div class="flex items-center text-sm text-gray-600 bg-white px-3 py-1 rounded-full border border-gray-200">
+                                <svg class="h-4 w-4 mr-1.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke-width="2" /></svg>
+                                @(Model.Listing.Features.FirstOrDefault(f => f.Key == "Bedrooms")?.Value ?? "0") Beds
+                            </div>
+                            <div class="flex items-center text-sm text-gray-600 bg-white px-3 py-1 rounded-full border border-gray-200">
+                                <svg class="h-4 w-4 mr-1.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V9a2 2 0 00-2-2h-2M8 7H6" stroke-width="2" /></svg>
+                                @(Model.Listing.Features.FirstOrDefault(f => f.Key == "Bathrooms")?.Value ?? "0") Baths
+                            </div>
+                            <div class="flex items-center text-sm text-gray-600 bg-white px-3 py-1 rounded-full border border-gray-200">
+                                <svg class="h-4 w-4 mr-1.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" stroke-width="2" /></svg>
+                                @(Model.Listing.Features.FirstOrDefault(f => f.Key == "Sqft")?.Value ?? "0") Sqft
+                            </div>
+                            <div class="flex items-center text-sm text-primary-600 bg-primary-50 px-3 py-1 rounded-full border border-primary-100 font-medium">
+                                @Model.Listing.PropertyType
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-primary-50 px-4 py-3 rounded-lg border border-primary-100 flex-shrink-0 text-center md:text-right">
+                        <p class="text-sm font-medium text-primary-800 uppercase tracking-wide">Asking Price</p>
+                        <p class="text-3xl font-extrabold text-primary-600">RM @Model.Listing.Price.ToString("N0")</p>
+                    </div>
+                </div>
+                
+                <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
+                    <dl class="sm:divide-y sm:divide-gray-200">
+                        <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dt class="text-sm font-medium text-gray-500">Property Details</dt>
+                            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                <p class="whitespace-pre-line">@Model.Listing.Description</p>
+                            </dd>
+                        </div>
+                        <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dt class="text-sm font-medium text-gray-500">Status</dt>
+                            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                    @Model.Listing.Status
+                                </span>
+                            </dd>
+                        </div>
+                        @if (Model.Listing.FloorPlans.Any())
+                        {
+                            <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">Floor Plans</dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                        @foreach (var fp in Model.Listing.FloorPlans)
+                                        {
+                                            <div class="border rounded-lg p-2 bg-gray-50">
+                                                <img src="@fp.ImageUrl" alt="Floor Plan" class="w-full h-auto rounded cursor-pointer hover:opacity-90" onclick="window.open('@fp.ImageUrl')">
+                                                @if (!string.IsNullOrEmpty(fp.Description))
+                                                {
+                                                    <p class="mt-2 text-xs text-gray-500 text-center">@fp.Description</p>
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                </dd>
+                            </div>
+                        }
+                        <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 bg-gray-50">
+                            <dt class="text-sm font-medium text-gray-900">Contact Agent</dt>
+                            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                @if (TempData["SuccessMessage"] != null)
+                                {
+                                    <div class="mb-4 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded text-sm">
+                                        @TempData["SuccessMessage"]
+                                    </div>
+                                }
+                                <div class="flex items-center gap-4 mb-6">
+                                    <div class="h-12 w-12 rounded-full bg-primary-600 flex items-center justify-center text-white text-xl font-bold">
+                                        @(Model.Listing.Tenant?.AgentProfile?.Name?.FirstOrDefault().ToString().ToUpper() ?? Model.Listing.Tenant?.Email?.FirstOrDefault().ToString().ToUpper() ?? "?")
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-gray-900">@(Model.Listing.Tenant?.AgentProfile?.Name ?? Model.Listing.Tenant?.Email)</p>
+                                        <p class="text-gray-500 text-sm">Registered Agent</p>
+                                    </div>
+                                </div>
+                                <form method="post" asp-page-handler="Contact" asp-route-id="@Model.Listing.ListingId" class="space-y-4">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label for="BuyerName" class="block text-xs font-medium text-gray-700 uppercase tracking-wider">Your Name</label>
+                                            <input type="text" id="BuyerName" name="BuyerName" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm px-3 py-2 border">
+                                        </div>
+                                        <div>
+                                            <label for="BuyerEmail" class="block text-xs font-medium text-gray-700 uppercase tracking-wider">Email Address</label>
+                                            <input type="email" id="BuyerEmail" name="BuyerEmail" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm px-3 py-2 border">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label for="BuyerPhone" class="block text-xs font-medium text-gray-700 uppercase tracking-wider">Phone Number</label>
+                                        <input type="tel" id="BuyerPhone" name="BuyerPhone" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm px-3 py-2 border">
+                                    </div>
+                                    <div>
+                                        <label for="Message" class="block text-xs font-medium text-gray-700 uppercase tracking-wider">Message</label>
+                                        <textarea id="Message" name="Message" rows="4" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm px-3 py-2 border">I'm interested in this property. Please contact me for more details.</textarea>
+                                    </div>
+                                    <button type="submit" class="w-full inline-flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                                        <svg class="-ml-1 mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                                        </svg>
+                                        Send Inquiry
+                                    </button>
+                                </form>
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+
+            <!-- AI Recommendations Section -->
+            @if (Model.RecommendedListings.Any())
+            {
+                <div class="mt-12">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6">Related Properties You Might Like</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        @foreach (var related in Model.RecommendedListings)
+                        {
+                            <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
+                                <a href="/Listing/@related.ListingId">
+                                    <div class="h-40 bg-gray-200">
+                                        @if (related.Media.Any())
+                                        {
+                                            <img src="@related.Media.First().MediaUrl" alt="@related.Title" class="w-full h-full object-cover">
+                                        }
+                                    </div>
+                                    <div class="p-4">
+                                        <h3 class="text-md font-semibold text-gray-900 truncate">@related.Title</h3>
+                                        <p class="text-xs text-gray-500 mt-1">@related.Location</p>
+                                        <p class="text-lg font-bold text-primary-600 mt-2">RM @related.Price.ToString("N0")</p>
+                                    </div>
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

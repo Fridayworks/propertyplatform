@@ -1,0 +1,17 @@
+C:\Users\Carso Thinkpad\.gemini\antigravity\scratch\PropertyPlatform\PropertyPlatform.Infrastructure\bin\Debug\net10.0\PropertyPlatform.Infrastructure.deps.json
+C:\Users\Carso Thinkpad\.gemini\antigravity\scratch\PropertyPlatform\PropertyPlatform.Infrastructure\bin\Debug\net10.0\PropertyPlatform.Infrastructure.runtimeconfig.json
+C:\Users\Carso Thinkpad\.gemini\antigravity\scratch\PropertyPlatform\PropertyPlatform.Infrastructure\bin\Debug\net10.0\PropertyPlatform.Infrastructure.dll
+C:\Users\Carso Thinkpad\.gemini\antigravity\scratch\PropertyPlatform\PropertyPlatform.Infrastructure\bin\Debug\net10.0\PropertyPlatform.Infrastructure.pdb
+C:\Users\Carso Thinkpad\.gemini\antigravity\scratch\PropertyPlatform\PropertyPlatform.Infrastructure\bin\Debug\net10.0\PropertyPlatform.Core.dll
+C:\Users\Carso Thinkpad\.gemini\antigravity\scratch\PropertyPlatform\PropertyPlatform.Infrastructure\bin\Debug\net10.0\PropertyPlatform.Core.pdb
+C:\Users\Carso Thinkpad\.gemini\antigravity\scratch\PropertyPlatform\PropertyPlatform.Infrastructure\obj\Debug\net10.0\PropertyPlatform.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\Carso Thinkpad\.gemini\antigravity\scratch\PropertyPlatform\PropertyPlatform.Infrastructure\obj\Debug\net10.0\PropertyPlatform.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Carso Thinkpad\.gemini\antigravity\scratch\PropertyPlatform\PropertyPlatform.Infrastructure\obj\Debug\net10.0\PropertyPlatform.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\Carso Thinkpad\.gemini\antigravity\scratch\PropertyPlatform\PropertyPlatform.Infrastructure\obj\Debug\net10.0\PropertyPlatform.Infrastructure.AssemblyInfo.cs
+C:\Users\Carso Thinkpad\.gemini\antigravity\scratch\PropertyPlatform\PropertyPlatform.Infrastructure\obj\Debug\net10.0\PropertyPlatform.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\Carso Thinkpad\.gemini\antigravity\scratch\PropertyPlatform\PropertyPlatform.Infrastructure\obj\Debug\net10.0\Property.29F5B94F.Up2Date
+C:\Users\Carso Thinkpad\.gemini\antigravity\scratch\PropertyPlatform\PropertyPlatform.Infrastructure\obj\Debug\net10.0\PropertyPlatform.Infrastructure.dll
+C:\Users\Carso Thinkpad\.gemini\antigravity\scratch\PropertyPlatform\PropertyPlatform.Infrastructure\obj\Debug\net10.0\refint\PropertyPlatform.Infrastructure.dll
+C:\Users\Carso Thinkpad\.gemini\antigravity\scratch\PropertyPlatform\PropertyPlatform.Infrastructure\obj\Debug\net10.0\PropertyPlatform.Infrastructure.pdb
+C:\Users\Carso Thinkpad\.gemini\antigravity\scratch\PropertyPlatform\PropertyPlatform.Infrastructure\obj\Debug\net10.0\PropertyPlatform.Infrastructure.genruntimeconfig.cache
+C:\Users\Carso Thinkpad\.gemini\antigravity\scratch\PropertyPlatform\PropertyPlatform.Infrastructure\obj\Debug\net10.0\ref\PropertyPlatform.Infrastructure.dll

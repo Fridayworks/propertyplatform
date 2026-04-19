@@ -1,0 +1,35 @@
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using PropertyPlatform.Core.Interfaces;
+using PropertyPlatform.Infrastructure.Data;
+using PropertyPlatform.Infrastructure.Services;
+
+namespace PropertyPlatform.Infrastructure
+{
+    public static class DependencyInjection
+    {
+        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+        {
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
+
+            services.AddHttpContextAccessor();
+
+            services.AddDbContext<ApplicationDbContext>((sp, options) =>
+            {
+                options.UseNpgsql(connectionString);
+            });
+            
+            // Add a factory or interceptor to set TenantId if we needed, but 
+            // since DbContext is scoped, it's better to just pass it or resolve it inside DbContext.
+            // Let's keep it simple for MVP: controllers/pages will pass the TenantId explicitly where needed,
+            // or we'll update ApplicationDbContext to accept IHttpContextAccessor.
+
+            services.AddScoped<IRecommendationService, RecommendationService>();
+            services.AddScoped<IFileStorageService, LocalFileStorageService>();
+
+            return services;
+        }
+    }
+}

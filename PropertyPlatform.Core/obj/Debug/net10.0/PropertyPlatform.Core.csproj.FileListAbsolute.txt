@@ -1,0 +1,11 @@
+C:\Users\Carso Thinkpad\.gemini\antigravity\scratch\PropertyPlatform\PropertyPlatform.Core\bin\Debug\net10.0\PropertyPlatform.Core.deps.json
+C:\Users\Carso Thinkpad\.gemini\antigravity\scratch\PropertyPlatform\PropertyPlatform.Core\bin\Debug\net10.0\PropertyPlatform.Core.dll
+C:\Users\Carso Thinkpad\.gemini\antigravity\scratch\PropertyPlatform\PropertyPlatform.Core\bin\Debug\net10.0\PropertyPlatform.Core.pdb
+C:\Users\Carso Thinkpad\.gemini\antigravity\scratch\PropertyPlatform\PropertyPlatform.Core\obj\Debug\net10.0\PropertyPlatform.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Carso Thinkpad\.gemini\antigravity\scratch\PropertyPlatform\PropertyPlatform.Core\obj\Debug\net10.0\PropertyPlatform.Core.AssemblyInfoInputs.cache
+C:\Users\Carso Thinkpad\.gemini\antigravity\scratch\PropertyPlatform\PropertyPlatform.Core\obj\Debug\net10.0\PropertyPlatform.Core.AssemblyInfo.cs
+C:\Users\Carso Thinkpad\.gemini\antigravity\scratch\PropertyPlatform\PropertyPlatform.Core\obj\Debug\net10.0\PropertyPlatform.Core.csproj.CoreCompileInputs.cache
+C:\Users\Carso Thinkpad\.gemini\antigravity\scratch\PropertyPlatform\PropertyPlatform.Core\obj\Debug\net10.0\PropertyPlatform.Core.dll
+C:\Users\Carso Thinkpad\.gemini\antigravity\scratch\PropertyPlatform\PropertyPlatform.Core\obj\Debug\net10.0\refint\PropertyPlatform.Core.dll
+C:\Users\Carso Thinkpad\.gemini\antigravity\scratch\PropertyPlatform\PropertyPlatform.Core\obj\Debug\net10.0\PropertyPlatform.Core.pdb
+C:\Users\Carso Thinkpad\.gemini\antigravity\scratch\PropertyPlatform\PropertyPlatform.Core\obj\Debug\net10.0\ref\PropertyPlatform.Core.dll

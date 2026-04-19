@@ -1,0 +1,164 @@
+@page
+@model PropertyPlatform.Web.Pages.CreateListingModel
+@{
+    ViewData["Title"] = "Create New Listing";
+}
+
+<div class="bg-gray-50 py-12 min-h-screen">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-8 flex items-center justify-between">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900">Create New Listing</h1>
+                <p class="mt-2 text-sm text-gray-500">Fill in the details to publish your property.</p>
+            </div>
+            <a href="/Agents" class="text-sm font-medium text-primary-600 hover:text-primary-500">&larr; Back to Dashboard</a>
+        </div>
+
+        <div class="bg-white p-8 rounded-lg shadow-sm border border-gray-200">
+            <form method="post" enctype="multipart/form-data">
+                <div class="space-y-6">
+                    <div>
+                        <label asp-for="Title" class="block text-sm font-medium text-gray-700">Property Title</label>
+                        <input asp-for="Title" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm px-3 py-2 border" placeholder="e.g. Modern 3-Bedroom Condo in KLCC" required />
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label asp-for="Location" class="block text-sm font-medium text-gray-700">Location</label>
+                            <input asp-for="Location" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm px-3 py-2 border" placeholder="e.g. KLCC, Kuala Lumpur" required />
+                        </div>
+                        <div>
+                            <label asp-for="Price" class="block text-sm font-medium text-gray-700">Price (RM)</label>
+                            <input asp-for="Price" type="number" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm px-3 py-2 border" required min="0" />
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label asp-for="PropertyType" class="block text-sm font-medium text-gray-700">Property Type</label>
+                            <select asp-for="PropertyType" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm px-3 py-2 border">
+                                <option value="Condo">Condo</option>
+                                <option value="Terrace">Terrace</option>
+                                <option value="Semi-D">Semi-D</option>
+                                <option value="Bungalow">Bungalow</option>
+                                <option value="Landed">Landed</option>
+                                <option value="Office">Office</option>
+                                <option value="Retail">Retail</option>
+                            </select>
+                        </div>
+                        <div class="grid grid-cols-3 gap-2">
+                            <div>
+                                <label asp-for="Bedrooms" class="block text-sm font-medium text-gray-700">Beds</label>
+                                <input asp-for="Bedrooms" type="number" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm px-3 py-2 border" min="0" />
+                            </div>
+                            <div>
+                                <label asp-for="Bathrooms" class="block text-sm font-medium text-gray-700">Baths</label>
+                                <input asp-for="Bathrooms" type="number" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm px-3 py-2 border" min="0" />
+                            </div>
+                            <div>
+                                <label asp-for="Sqft" class="block text-sm font-medium text-gray-700">Sqft</label>
+                                <input asp-for="Sqft" type="number" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm px-3 py-2 border" min="0" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label asp-for="Description" class="block text-sm font-medium text-gray-700">Description</label>
+                        <textarea asp-for="Description" rows="5" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm px-3 py-2 border" placeholder="Describe the property's features, amenities, and surroundings..." required></textarea>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Property Images</label>
+                            <div id="drop-zone" class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md hover:border-primary-500 transition-colors cursor-pointer">
+                                <div class="space-y-1 text-center pointer-events-none">
+                                    <svg class="mx-auto h-8 w-8 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                                        <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4-4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    <div class="text-xs text-gray-600">
+                                        <span class="text-primary-600 font-medium">Upload images</span> or drag
+                                    </div>
+                                    <input id="Images" name="Images" type="file" class="sr-only" multiple accept="image/*">
+                                </div>
+                            </div>
+                            <div id="image-preview" class="mt-4 grid grid-cols-3 gap-2"></div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Floor Plans</label>
+                            <div id="drop-zone-fp" class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md hover:border-amber-500 transition-colors cursor-pointer">
+                                <div class="space-y-1 text-center pointer-events-none">
+                                    <svg class="mx-auto h-8 w-8 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                                        <path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 4L9 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    <div class="text-xs text-gray-600">
+                                        <span class="text-amber-600 font-medium">Upload Floor Plan</span>
+                                    </div>
+                                    <input id="FloorPlanImages" name="FloorPlanImages" type="file" class="sr-only" multiple accept="image/*">
+                                </div>
+                            </div>
+                            <div id="fp-preview" class="mt-4 grid grid-cols-3 gap-2"></div>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 border-t border-gray-200 flex justify-end">
+                        <button type="submit" class="inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 w-full md:w-auto">
+                            Publish Listing
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function setupDropZone(zoneId, inputId, previewId) {
+            const dropZone = document.getElementById(zoneId);
+            const fileInput = document.getElementById(inputId);
+            const preview = document.getElementById(previewId);
+
+            dropZone.addEventListener('click', () => fileInput.click());
+            fileInput.addEventListener('change', e => handleFiles(e.target.files, preview));
+
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropZone.addEventListener(eventName, e => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }, false);
+            });
+
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropZone.addEventListener(eventName, () => dropZone.classList.add('border-primary-500', 'bg-primary-50'), false);
+            });
+
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropZone.addEventListener(eventName, () => dropZone.classList.remove('border-primary-500', 'bg-primary-50'), false);
+            });
+
+            dropZone.addEventListener('drop', e => {
+                const dt = e.dataTransfer;
+                fileInput.files = dt.files;
+                handleFiles(dt.files, preview);
+            }, false);
+        }
+
+        function handleFiles(files, previewElement) {
+            previewElement.innerHTML = '';
+            [...files].forEach(file => {
+                if (!file.type.startsWith('image/')) return;
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const div = document.createElement('div');
+                    div.className = 'relative h-20 rounded overflow-hidden border border-gray-200';
+                    div.innerHTML = `<img src="${e.target.result}" class="h-full w-full object-cover">`;
+                    previewElement.appendChild(div);
+                }
+                reader.readAsDataURL(file);
+            });
+        }
+
+        setupDropZone('drop-zone', 'Images', 'image-preview');
+        setupDropZone('drop-zone-fp', 'FloorPlanImages', 'fp-preview');
+    </script>
+}
