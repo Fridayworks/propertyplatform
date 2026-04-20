@@ -15,3 +15,21 @@ C:\Users\Carso Thinkpad\.gemini\antigravity\scratch\PropertyPlatform\PropertyPla
 C:\Users\Carso Thinkpad\.gemini\antigravity\scratch\PropertyPlatform\PropertyPlatform.Infrastructure\obj\Debug\net10.0\PropertyPlatform.Infrastructure.pdb
 C:\Users\Carso Thinkpad\.gemini\antigravity\scratch\PropertyPlatform\PropertyPlatform.Infrastructure\obj\Debug\net10.0\PropertyPlatform.Infrastructure.genruntimeconfig.cache
 C:\Users\Carso Thinkpad\.gemini\antigravity\scratch\PropertyPlatform\PropertyPlatform.Infrastructure\obj\Debug\net10.0\ref\PropertyPlatform.Infrastructure.dll
+D:\code\propertyplatform\PropertyPlatform.Infrastructure\obj\Debug\net10.0\PropertyPlatform.Infrastructure.csproj.AssemblyReference.cache
+D:\code\propertyplatform\PropertyPlatform.Infrastructure\obj\Debug\net10.0\PropertyPlatform.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+D:\code\propertyplatform\PropertyPlatform.Infrastructure\obj\Debug\net10.0\PropertyPlatform.Infrastructure.AssemblyInfoInputs.cache
+D:\code\propertyplatform\PropertyPlatform.Infrastructure\obj\Debug\net10.0\PropertyPlatform.Infrastructure.AssemblyInfo.cs
+D:\code\propertyplatform\PropertyPlatform.Infrastructure\obj\Debug\net10.0\PropertyPlatform.Infrastructure.csproj.CoreCompileInputs.cache
+D:\code\propertyplatform\PropertyPlatform.Infrastructure\obj\Debug\net10.0\PropertyPlatform.Infrastructure.sourcelink.json
+D:\code\propertyplatform\PropertyPlatform.Infrastructure\obj\Debug\net10.0\PropertyPlatform.Infrastructure.dll
+D:\code\propertyplatform\PropertyPlatform.Infrastructure\obj\Debug\net10.0\refint\PropertyPlatform.Infrastructure.dll
+D:\code\propertyplatform\PropertyPlatform.Infrastructure\obj\Debug\net10.0\PropertyPlatform.Infrastructure.pdb
+D:\code\propertyplatform\PropertyPlatform.Infrastructure\bin\Debug\net10.0\PropertyPlatform.Infrastructure.deps.json
+D:\code\propertyplatform\PropertyPlatform.Infrastructure\bin\Debug\net10.0\PropertyPlatform.Infrastructure.runtimeconfig.json
+D:\code\propertyplatform\PropertyPlatform.Infrastructure\bin\Debug\net10.0\PropertyPlatform.Infrastructure.dll
+D:\code\propertyplatform\PropertyPlatform.Infrastructure\bin\Debug\net10.0\PropertyPlatform.Infrastructure.pdb
+D:\code\propertyplatform\PropertyPlatform.Infrastructure\bin\Debug\net10.0\PropertyPlatform.Core.dll
+D:\code\propertyplatform\PropertyPlatform.Infrastructure\bin\Debug\net10.0\PropertyPlatform.Core.pdb
+D:\code\propertyplatform\PropertyPlatform.Infrastructure\obj\Debug\net10.0\Property.29F5B94F.Up2Date
+D:\code\propertyplatform\PropertyPlatform.Infrastructure\obj\Debug\net10.0\PropertyPlatform.Infrastructure.genruntimeconfig.cache
+D:\code\propertyplatform\PropertyPlatform.Infrastructure\obj\Debug\net10.0\ref\PropertyPlatform.Infrastructure.dll

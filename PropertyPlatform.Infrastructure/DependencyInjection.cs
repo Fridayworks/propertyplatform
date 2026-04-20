@@ -28,6 +28,9 @@ namespace PropertyPlatform.Infrastructure
 
             services.AddScoped<IRecommendationService, RecommendationService>();
             services.AddScoped<IFileStorageService, LocalFileStorageService>();
+            services.AddScoped<IWalletService, WalletService>();
+            services.AddScoped<IGamificationService, GamificationService>();
+            services.AddScoped<IReviewService, ReviewService>();
 
             return services;
         }

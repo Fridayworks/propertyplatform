@@ -13,11 +13,13 @@ namespace PropertyPlatform.Web.Pages
     {
         private readonly ApplicationDbContext _context;
         private readonly IFileStorageService _fileStorage;
+        private readonly IGamificationService _gamificationService;
 
-        public CreateListingModel(ApplicationDbContext context, IFileStorageService fileStorage)
+        public CreateListingModel(ApplicationDbContext context, IFileStorageService fileStorage, IGamificationService gamificationService)
         {
             _context = context;
             _fileStorage = fileStorage;
+            _gamificationService = gamificationService;
         }
 
         [BindProperty]
@@ -117,6 +119,11 @@ namespace PropertyPlatform.Web.Pages
             }
 
             await _context.SaveChangesAsync();
+
+            // Gamification: Track listing missions and award XP
+            await _gamificationService.AwardXPAsync(tenantId, 50); // 50 XP per listing
+            await _gamificationService.TrackActionAsync(tenantId, "FIRST_LISTING");
+            await _gamificationService.TrackActionAsync(tenantId, "UPLOAD_5_LISTINGS");
 
             return RedirectToPage("/Agents");
         }

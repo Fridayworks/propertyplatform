@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PropertyPlatform.Core.Entities;
+using PropertyPlatform.Core.Interfaces;
 using PropertyPlatform.Infrastructure.Data;
 using System.Security.Claims;
 
@@ -10,10 +11,12 @@ namespace PropertyPlatform.Web.Pages
     public class SignupModel : PageModel
     {
         private readonly ApplicationDbContext _context;
+        private readonly IWalletService _walletService;
 
-        public SignupModel(ApplicationDbContext context)
+        public SignupModel(ApplicationDbContext context, IWalletService walletService)
         {
             _context = context;
+            _walletService = walletService;
         }
 
         [BindProperty]
@@ -78,15 +81,15 @@ namespace PropertyPlatform.Web.Pages
                     NewTenantId = tenant.TenantId
                 });
 
-                // Reward referrer with 50 credits
-                var referrerProfile = _context.AgentProfiles.FirstOrDefault(p => p.TenantId == ReferrerId.Value);
-                if (referrerProfile != null)
-                {
-                    referrerProfile.Credits += 50;
-                }
-            }
+                await _context.SaveChangesAsync(); // Save referral first
 
-            await _context.SaveChangesAsync();
+                // Reward referrer with 50 credits via wallet service
+                await _walletService.AddCreditsAsync(ReferrerId.Value, 50, "Reward", $"Referral reward for new agent: {tenant.Email}");
+            }
+            else
+            {
+                await _context.SaveChangesAsync();
+            }
 
             // Auto log in after signup
             var claims = new List<Claim>

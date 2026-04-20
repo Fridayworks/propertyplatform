@@ -1,0 +1,227 @@
+@page "/a/{slug}"
+@model PropertyPlatform.Web.Pages.AgentLandingPageModel
+@{
+    ViewData["Title"] = $"{Model.AgentProfile.Name} - Property Agent";
+    Layout = "_Layout";
+}
+
+<div class="bg-white min-h-screen">
+    <!-- Premium Header / Hero -->
+    <div class="relative bg-primary-900 py-24 overflow-hidden">
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute -top-24 -left-24 w-96 h-96 bg-primary-400 rounded-full blur-3xl"></div>
+            <div class="absolute top-1/2 -right-24 w-64 h-64 bg-amber-400 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
+                <!-- Profile Image -->
+                <div class="relative group">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-primary-400 to-amber-400 rounded-full blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+                    <div class="relative h-40 w-40 rounded-full overflow-hidden border-4 border-white shadow-xl bg-white">
+                        @if (!string.IsNullOrEmpty(Model.AgentProfile.ProfilePhotoUrl))
+                        {
+                            <img src="@Model.AgentProfile.ProfilePhotoUrl" alt="@Model.AgentProfile.Name" class="h-full w-full object-cover">
+                        }
+                        else
+                        {
+                            <div class="h-full w-full flex items-center justify-center text-4xl font-bold text-primary-600 bg-primary-50">
+                                @Model.AgentProfile.Name[0]
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <!-- Agent Info -->
+                <div class="flex-1 text-center md:text-left">
+                    <h1 class="text-4xl font-extrabold text-white sm:text-5xl tracking-tight">
+                        @Model.AgentProfile.Name
+                    </h1>
+                    <div class="mt-3 flex flex-wrap justify-center md:justify-start gap-4 text-primary-100 text-sm font-medium">
+                        <span class="flex items-center">
+                            <svg class="h-4 w-4 mr-1 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            Licensed Agent (@Model.AgentProfile.REN_ID)
+                        </span>
+                        <span class="flex items-center">
+                            <svg class="h-4 w-4 mr-1 text-primary-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" stroke-width="2"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" stroke-width="2"/></svg>
+                            @Model.AgentProfile.OfficeAddress
+                        </span>
+                        <span class="flex items-center text-amber-400">
+                            <svg class="h-4 w-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            @(Model.AverageRating > 0 ? Model.AverageRating.ToString("0.0") : "N/A") (@Model.TotalReviews Reviews)
+                        </span>
+                    </div>
+
+                    <div class="mt-8 flex flex-col sm:flex-row justify-center md:justify-start gap-4">
+                        <a href="https://wa.me/@Model.AgentProfile.Phone.Replace(" ", "").Replace("+", "")" target="_blank" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-primary-900 bg-white hover:bg-primary-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-all transform hover:scale-105">
+                            <svg class="h-5 w-5 mr-2 text-green-500" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.319 1.592 5.548 0 10.061-4.512 10.063-10.066.002-2.69-.1044-5.216-2.943-7.056-1.901-1.841-4.428-2.856-7.119-2.856-5.548 0-10.06 4.512-10.062 10.066-.001 2.132.547 4.161 1.587 5.977l-1.005 3.677 3.774-.989z"/></svg>
+                            WhatsApp Agent
+                        </a>
+                        <a href="tel:@Model.AgentProfile.Phone" class="inline-flex items-center px-6 py-3 border border-primary-100 text-base font-medium rounded-full shadow-sm text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-all">
+                            Call @Model.AgentProfile.Phone
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Company Logo -->
+                <div class="hidden lg:block">
+                    @if (!string.IsNullOrEmpty(Model.AgentProfile.CompanyLogoUrl))
+                    {
+                        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
+                            <img src="@Model.AgentProfile.CompanyLogoUrl" alt="Agency Logo" class="h-16 w-auto brightness-0 invert opacity-80">
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            
+            <!-- Left Column: Bio & Stats -->
+            <div class="lg:col-span-1 space-y-12">
+                <section>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6">About Me</h2>
+                    <div class="prose prose-primary text-gray-600 leading-relaxed">
+                        @if (!string.IsNullOrEmpty(Model.AgentProfile.Bio))
+                        {
+                            @Html.Raw(Model.AgentProfile.Bio.Replace("\n", "<br/>"))
+                        }
+                        else
+                        {
+                            <p>Hi, I'm @Model.AgentProfile.Name. I specialize in properties in the @Model.AgentProfile.OfficeAddress area. With my expertise, I help buyers and investors find their perfect property matches.</p>
+                        }
+                    </div>
+                </section>
+
+                <section class="bg-gray-50 rounded-2xl p-8 border border-gray-100">
+                    <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-6">Market Statistics</h3>
+                    <div class="grid grid-cols-2 gap-8">
+                        <div>
+                            <p class="text-3xl font-extrabold text-primary-600">@Model.Listings.Count</p>
+                            <p class="text-sm text-gray-500 mt-1">Active Listings</p>
+                        </div>
+                        <div>
+                            <p class="text-3xl font-extrabold text-primary-600">@Model.AgentProfile.Credits</p>
+                            <p class="text-sm text-gray-500 mt-1">Agent Score</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right Column: Listings -->
+            <div class="lg:col-span-2">
+                <div class="flex items-center justify-between mb-8">
+                    <h2 class="text-2xl font-bold text-gray-900">Current Listings</h2>
+                    <span class="text-sm text-gray-500 font-medium">@Model.Listings.Count Total</span>
+                </div>
+
+                @if (!Model.Listings.Any())
+                {
+                    <div class="text-center py-24 bg-gray-50 rounded-3xl border border-dashed border-gray-300">
+                        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" stroke-width="2" /></svg>
+                        <h3 class="mt-2 text-sm font-medium text-gray-900">No active listings</h3>
+                        <p class="mt-1 text-sm text-gray-500">This agent hasn't published any properties yet.</p>
+                    </div>
+                }
+                else
+                {
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        @foreach (var listing in Model.Listings)
+                        {
+                            <a href="/Listing/@listing.ListingId" class="group flex flex-col bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                                <div class="relative h-48 w-full overflow-hidden">
+                                    <img src="@(listing.Media.FirstOrDefault()?.MediaUrl ?? "/img/placeholder.jpg")" alt="@listing.Title" class="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                    <div class="absolute top-4 left-4">
+                                        <span class="px-3 py-1 bg-white/90 backdrop-blur-md text-primary-900 text-xs font-bold rounded-full shadow-sm">@listing.PropertyType</span>
+                                    </div>
+                                    <div class="absolute bottom-4 right-4">
+                                        <span class="px-3 py-1 bg-primary-600 text-white text-sm font-bold rounded-lg shadow-lg">RM @listing.Price.ToString("N0")</span>
+                                    </div>
+                                </div>
+                                <div class="p-6">
+                                    <h3 class="text-lg font-bold text-gray-900 group-hover:text-primary-600 transition-colors line-clamp-1">@listing.Title</h3>
+                                    <p class="mt-2 text-sm text-gray-500 flex items-center">
+                                        <svg class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" stroke-width="2"/></svg>
+                                        @listing.Location
+                                    </p>
+                                    <div class="mt-4 pt-4 border-t border-gray-50 flex justify-between items-center text-xs font-medium text-gray-400">
+                                        <span>Added @listing.CreatedAt.ToString("MMM dd, yyyy")</span>
+                                        <span class="flex items-center text-primary-600">
+                                            View Details
+                                            <svg class="h-3 w-3 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 5l7 7-7 7" stroke-width="2"/></svg>
+                                        </span>
+                                    </div>
+                                </div>
+                            </a>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Reviews Section -->
+        <div class="mt-24 border-t border-gray-100 pt-16">
+            <div class="flex flex-col md:flex-row justify-between items-start gap-12">
+                <!-- Review Summary -->
+                <div class="md:w-1/3">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">Client Feedback</h2>
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="text-5xl font-extrabold text-primary-600">@Model.AverageRating.ToString("0.0")</div>
+                        <div>
+                            <div class="flex text-amber-400">
+                                @for(int i=1; i<=5; i++) {
+                                    <svg class="h-5 w-5 @(i <= Math.Round(Model.AverageRating) ? "fill-current" : "text-gray-200")" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                }
+                            </div>
+                            <p class="text-sm text-gray-500 mt-1">Based on @Model.TotalReviews reviews</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-8 leading-relaxed">Hear what others have to say about working with @Model.AgentProfile.Name. Professionalism and trust are our top priorities.</p>
+                    <a href="/SubmitReview?agentId=@Model.AgentProfile.TenantId" class="inline-flex items-center px-6 py-3 border border-primary-600 text-primary-600 font-bold rounded-full hover:bg-primary-50 transition-colors">
+                        Write a Review
+                    </a>
+                </div>
+
+                <!-- Review List -->
+                <div class="flex-1 space-y-8">
+                    @if (!Model.Reviews.Any())
+                    {
+                        <div class="bg-gray-50 rounded-2xl p-12 text-center border border-dashed border-gray-200">
+                            <p class="text-gray-500">No reviews yet. Be the first to leave feedback!</p>
+                        </div>
+                    }
+                    else
+                    {
+                        @foreach (var review in Model.Reviews)
+                        {
+                            <div class="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                                <div class="flex justify-between items-start mb-4">
+                                    <div>
+                                        <h4 class="font-bold text-gray-900">@review.ReviewerName</h4>
+                                        <p class="text-xs text-gray-400 mt-0.5">@review.CreatedAt.ToString("MMM dd, yyyy")</p>
+                                    </div>
+                                    <div class="flex text-amber-400">
+                                        @for(int i=1; i<=5; i++) {
+                                            <svg class="h-4 w-4 @(i <= review.Rating ? "fill-current" : "text-gray-200")" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                        }
+                                    </div>
+                                </div>
+                                <p class="text-gray-600 leading-relaxed italic">"@review.Comment"</p>
+                                @if (review.IsVerified)
+                                {
+                                    <div class="mt-4 flex items-center text-xs text-green-600 font-bold bg-green-50 w-fit px-2 py-1 rounded-full border border-green-100">
+                                        <svg class="h-3 w-3 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                                        Verified Interaction
+                                    </div>
+                                }
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

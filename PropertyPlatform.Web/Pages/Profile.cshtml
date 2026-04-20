@@ -70,14 +70,33 @@
                     </div>
                 </div>
 
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label asp-for="Profile.Slug" class="block text-sm font-medium text-gray-700">Public URL Slug</label>
+                        <div class="mt-1 flex rounded-md shadow-sm">
+                            <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 sm:text-sm">/a/</span>
+                            <input asp-for="Profile.Slug" class="flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-r-md border-gray-300 focus:ring-primary-500 focus:border-primary-500 sm:text-sm border" placeholder="john-doe" />
+                        </div>
+                        <span asp-validation-for="Profile.Slug" class="text-red-600 text-xs mt-1"></span>
+                        @if (!string.IsNullOrEmpty(Model.Profile.Slug))
+                        {
+                            <p class="mt-1 text-xs text-gray-500">Your page: <a href="/a/@Model.Profile.Slug" target="_blank" class="text-primary-600 hover:underline">/a/@Model.Profile.Slug &nearr;</a></p>
+                        }
+                    </div>
+                    <div>
+                        <label asp-for="Profile.REN_ID" class="block text-sm font-medium text-gray-700">REN ID (Real Estate Negotiator ID)</label>
+                        <input asp-for="Profile.REN_ID" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm px-3 py-2 border" required />
+                    </div>
+                </div>
+
                 <div>
-                    <label asp-for="Profile.REN_ID" class="block text-sm font-medium text-gray-700">REN ID (Real Estate Negotiator ID)</label>
-                    <input asp-for="Profile.REN_ID" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm px-3 py-2 border" required />
+                    <label asp-for="Profile.Bio" class="block text-sm font-medium text-gray-700">Bio / About Me</label>
+                    <textarea asp-for="Profile.Bio" rows="4" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm px-3 py-2 border" placeholder="Tell potential clients about your experience and expertise..."></textarea>
                 </div>
 
                 <div>
                     <label asp-for="Profile.OfficeAddress" class="block text-sm font-medium text-gray-700">Office Address</label>
-                    <textarea asp-for="Profile.OfficeAddress" rows="3" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm px-3 py-2 border"></textarea>
+                    <textarea asp-for="Profile.OfficeAddress" rows="2" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm px-3 py-2 border"></textarea>
                 </div>
 
                 <div class="pt-4 border-t border-gray-200">

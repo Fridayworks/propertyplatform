@@ -1,0 +1,102 @@
+@page
+@model PropertyPlatform.Web.Pages.WalletModel
+@{
+    ViewData["Title"] = "My Wallet";
+}
+
+<div class="bg-gray-50 py-12 min-h-screen">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-8 flex items-center justify-between">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900">Wallet & Credits</h1>
+                <p class="mt-2 text-sm text-gray-500">Track your credit usage and purchase history.</p>
+            </div>
+            <a href="/Agents" class="text-sm font-medium text-primary-600 hover:text-primary-500">&larr; Back to Dashboard</a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <!-- Balance Card -->
+            <div class="md:col-span-1 bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Available Credits</p>
+                <div class="flex items-baseline">
+                    <span class="text-4xl font-extrabold text-primary-600">@Model.Balance</span>
+                    <span class="ml-2 text-gray-400 font-medium">Credits</span>
+                </div>
+                <div class="mt-6">
+                    <a href="/Subscriptions" class="w-full inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary-600 hover:bg-primary-700 transition-colors">
+                        Buy Credits
+                    </a>
+                </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="md:col-span-2 bg-gradient-to-br from-primary-600 to-primary-800 p-6 rounded-2xl shadow-lg text-white">
+                <h3 class="text-lg font-bold mb-4">Why use credits?</h3>
+                <ul class="space-y-3 text-primary-50">
+                    <li class="flex items-start">
+                        <svg class="h-5 w-5 mr-2 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                        <span><strong>Boost Listings</strong>: Get 5x more visibility for 7 days.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="h-5 w-5 mr-2 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                        <span><strong>Custom Domains</strong>: Use your own URL for your landing page.</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Transaction History -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+            <div class="px-6 py-5 border-b border-gray-100 flex items-center justify-between">
+                <h2 class="text-lg font-bold text-gray-900">Transaction History</h2>
+                <span class="text-xs font-medium text-gray-400">Showing last 50 entries</span>
+            </div>
+            
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Date</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Type</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Description</th>
+                            <th scope="col" class="px-6 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-100">
+                        @if (!Model.Transactions.Any())
+                        {
+                            <tr>
+                                <td colspan="4" class="px-6 py-12 text-center text-sm text-gray-400">
+                                    No transactions found.
+                                </td>
+                            </tr>
+                        }
+                        @foreach (var tx in Model.Transactions)
+                        {
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    @tx.CreatedAt.ToString("MMM dd, yyyy HH:mm")
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2.5 py-0.5 rounded-full text-xs font-medium 
+                                        @(tx.Type == "Boost" ? "bg-amber-100 text-amber-800" : 
+                                          tx.Type == "Reward" ? "bg-green-100 text-green-800" : 
+                                          tx.Type == "Purchase" ? "bg-blue-100 text-blue-800" : 
+                                          "bg-gray-100 text-gray-800")">
+                                        @tx.Type
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 text-sm text-gray-900">
+                                    @tx.Description
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-bold @(tx.Amount > 0 ? "text-green-600" : "text-red-600")">
+                                    @(tx.Amount > 0 ? "+" : "")@tx.Amount
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -34,9 +34,26 @@
                 <p class="text-3xl font-bold text-gray-900">@Model.TotalViews</p>
             </div>
             <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                <p class="text-sm font-medium text-gray-500 uppercase">Social Proof</p>
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-3xl font-bold text-amber-500">@(Model.AverageRating > 0 ? Model.AverageRating.ToString("0.0") : "N/A")</p>
+                        <p class="text-xs text-gray-500">@Model.ReviewCount Reviews</p>
+                    </div>
+                    <div class="flex text-amber-400">
+                        @for(int i=1; i<=5; i++) {
+                            <svg class="h-4 w-4 @(i <= Math.Round(Model.AverageRating) ? "fill-current" : "text-gray-200")" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
                 <p class="text-sm font-medium text-gray-500 uppercase">Available Credits</p>
                 <div class="flex items-center justify-between">
-                    <p class="text-3xl font-bold text-amber-600">@Model.AgentCredits</p>
+                    <div>
+                        <p class="text-3xl font-bold text-amber-600">@Model.AgentCredits</p>
+                        <a href="/Wallet" class="text-xs font-medium text-gray-500 hover:text-primary-600 transition-colors">View Ledger &rarr;</a>
+                    </div>
                     <a href="/Subscriptions" class="text-xs font-medium text-primary-600 hover:underline">Upgrade / Top Up</a>
                 </div>
             </div>
@@ -54,6 +71,83 @@
                         <p class="text-sm font-medium text-gray-500 uppercase">Total Referrals</p>
                         <p class="text-xl font-bold text-gray-900">@Model.TotalReferrals</p>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gamification Section -->
+        <div class="mb-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Level & XP -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 flex flex-col justify-center">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="h-12 w-12 rounded-full bg-primary-600 flex items-center justify-center text-white text-xl font-bold shadow-lg">
+                            @Model.Gamification.Level
+                        </div>
+                        <div>
+                            <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Current Level</p>
+                            <p class="text-lg font-bold text-gray-900">Level @Model.Gamification.Level</p>
+                        </div>
+                    </div>
+                    <div class="text-right text-xs font-medium text-gray-500">
+                        @Model.Gamification.XPToNextLevel XP to Level @(Model.Gamification.Level + 1)
+                    </div>
+                </div>
+                <div class="w-full bg-gray-100 rounded-full h-3 overflow-hidden border border-gray-200">
+                    <div class="bg-primary-600 h-full transition-all duration-1000 shadow-inner" style="width: @Model.Gamification.LevelProgressPercentage%"></div>
+                </div>
+                <p class="mt-2 text-xs text-gray-400 text-center font-medium">@Model.Gamification.ExperiencePoints Total XP</p>
+            </div>
+
+            <!-- Badges -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 lg:col-span-1">
+                <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Earned Badges</h3>
+                <div class="flex flex-wrap gap-4">
+                    @if (!Model.Gamification.RecentBadges.Any())
+                    {
+                        <p class="text-xs text-gray-400 italic">Complete your profile to earn your first badge!</p>
+                    }
+                    else
+                    {
+                        @foreach (var badge in Model.Gamification.RecentBadges)
+                        {
+                            <div class="group relative" title="@badge.Description">
+                                <div class="h-12 w-12 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center text-2xl shadow-sm group-hover:scale-110 transition-transform">
+                                    @badge.IconUrl
+                                </div>
+                                <div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-gray-900 text-white text-[10px] rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-20 pointer-events-none">
+                                    @badge.Name
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+
+            <!-- Missions -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 lg:col-span-1">
+                <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Active Missions</h3>
+                <div class="space-y-4">
+                    @if (!Model.Gamification.ActiveMissions.Any())
+                    {
+                        <p class="text-xs text-gray-400 italic">All missions completed! Check back later.</p>
+                    }
+                    else
+                    {
+                        @foreach (var mission in Model.Gamification.ActiveMissions)
+                        {
+                            <div>
+                                <div class="flex justify-between items-center mb-1">
+                                    <p class="text-xs font-bold text-gray-700">@mission.Title</p>
+                                    <p class="text-[10px] font-medium text-gray-500">@mission.CurrentProgress / @mission.RequirementCount</p>
+                                </div>
+                                <div class="w-full bg-gray-100 rounded-full h-1.5 overflow-hidden">
+                                    <div class="bg-green-500 h-full transition-all duration-700" style="width: @mission.ProgressPercentage%"></div>
+                                </div>
+                                <p class="mt-1 text-[10px] text-gray-400">@mission.Description</p>
+                            </div>
+                        }
+                    }
                 </div>
             </div>
         </div>

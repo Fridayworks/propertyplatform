@@ -35,6 +35,12 @@ namespace PropertyPlatform.Infrastructure.Data
         public DbSet<Subscription> Subscriptions { get; set; } = null!;
         public DbSet<FeaturedListing> FeaturedListings { get; set; } = null!;
         public DbSet<RefreshToken> RefreshTokens { get; set; } = null!;
+        public DbSet<CreditTransaction> CreditTransactions { get; set; } = null!;
+        public DbSet<Badge> Badges { get; set; } = null!;
+        public DbSet<AgentBadge> AgentBadges { get; set; } = null!;
+        public DbSet<Mission> Missions { get; set; } = null!;
+        public DbSet<AgentMission> AgentMissions { get; set; } = null!;
+        public DbSet<AgentReview> AgentReviews { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -149,6 +155,36 @@ namespace PropertyPlatform.Infrastructure.Data
                 .WithMany()
                 .HasForeignKey(t => t.TenantId);
 
+            // CreditTransaction
+            modelBuilder.Entity<CreditTransaction>()
+                .HasOne(t => t.Tenant)
+                .WithMany()
+                .HasForeignKey(t => t.TenantId);
+
+            // Gamification
+            modelBuilder.Entity<AgentBadge>().HasKey(ab => ab.AgentBadgeId);
+            modelBuilder.Entity<AgentBadge>()
+                .HasOne(ab => ab.Badge)
+                .WithMany()
+                .HasForeignKey(ab => ab.BadgeId);
+
+            modelBuilder.Entity<AgentMission>().HasKey(am => am.AgentMissionId);
+            modelBuilder.Entity<AgentMission>()
+                .HasOne(am => am.Mission)
+                .WithMany()
+                .HasForeignKey(am => am.MissionId);
+
+            // Seed Data
+            modelBuilder.Entity<Badge>().HasData(
+                new Badge { BadgeId = Guid.Parse("00000000-0000-0000-0000-000000000001"), Name = "Rising Star", Code = "RISING_STAR", Description = "Joined the platform and completed initial setup.", IconUrl = "✨" },
+                new Badge { BadgeId = Guid.Parse("00000000-0000-0000-0000-000000000002"), Name = "Elite Lister", Code = "ELITE_LISTER", Description = "Uploaded 10 high-quality listings.", IconUrl = "🏆" }
+            );
+
+            modelBuilder.Entity<Mission>().HasData(
+                new Mission { MissionId = Guid.Parse("00000000-0000-0000-0000-000000000003"), Title = "First Listing", Code = "FIRST_LISTING", Description = "Upload your very first property listing.", RequirementCount = 1, XPReward = 100, CreditReward = 10 },
+                new Mission { MissionId = Guid.Parse("00000000-0000-0000-0000-000000000004"), Title = "Listing Spree", Code = "UPLOAD_5_LISTINGS", Description = "Upload 5 properties to the platform.", RequirementCount = 5, XPReward = 300, CreditReward = 50 }
+            );
+
             // SQLite decimal fix
             if (Database.ProviderName == "Microsoft.EntityFrameworkCore.Sqlite")
             {
@@ -161,6 +197,7 @@ namespace PropertyPlatform.Infrastructure.Data
             modelBuilder.Entity<PropertyListing>().HasIndex(l => l.TenantId);
             modelBuilder.Entity<PropertyListing>().HasIndex(l => l.Location);
             modelBuilder.Entity<UserEvent>().HasIndex(e => e.ListingId);
+            modelBuilder.Entity<AgentProfile>().HasIndex(a => a.Slug).IsUnique();
         }
     }
 }

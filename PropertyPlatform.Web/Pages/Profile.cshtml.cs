@@ -14,11 +14,13 @@ namespace PropertyPlatform.Web.Pages
     {
         private readonly ApplicationDbContext _context;
         private readonly IFileStorageService _fileStorage;
+        private readonly IGamificationService _gamificationService;
 
-        public ProfileModel(ApplicationDbContext context, IFileStorageService fileStorage)
+        public ProfileModel(ApplicationDbContext context, IFileStorageService fileStorage, IGamificationService gamificationService)
         {
             _context = context;
             _fileStorage = fileStorage;
+            _gamificationService = gamificationService;
         }
 
         [BindProperty]
@@ -62,6 +64,23 @@ namespace PropertyPlatform.Web.Pages
             profileToUpdate.Phone = Profile.Phone;
             profileToUpdate.REN_ID = Profile.REN_ID;
             profileToUpdate.OfficeAddress = Profile.OfficeAddress;
+            profileToUpdate.Bio = Profile.Bio;
+
+            // Handle Slug
+            if (!string.IsNullOrEmpty(Profile.Slug))
+            {
+                var slug = Profile.Slug.ToLower().Trim().Replace(" ", "-");
+                var existing = await _context.AgentProfiles
+                    .AnyAsync(p => p.Slug == slug && p.TenantId != tenantId);
+                
+                if (existing)
+                {
+                    ModelState.AddModelError("Profile.Slug", "This slug is already taken.");
+                    Profile = profileToUpdate;
+                    return Page();
+                }
+                profileToUpdate.Slug = slug;
+            }
 
             if (Photo != null)
             {
@@ -82,6 +101,13 @@ namespace PropertyPlatform.Web.Pages
             }
 
             await _context.SaveChangesAsync();
+
+            // Gamification: Award Rising Star badge if profile is robust
+            if (!string.IsNullOrEmpty(profileToUpdate.Bio) && !string.IsNullOrEmpty(profileToUpdate.ProfilePhotoUrl))
+            {
+                await _gamificationService.AwardBadgeAsync(tenantId, "RISING_STAR");
+            }
+
             TempData["SuccessMessage"] = "Profile updated successfully!";
             return RedirectToPage();
         }

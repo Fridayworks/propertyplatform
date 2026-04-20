@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using PropertyPlatform.Core.Entities;
+using PropertyPlatform.Core.Interfaces;
 using PropertyPlatform.Infrastructure.Data;
 using System.Security.Claims;
 
@@ -12,10 +13,12 @@ namespace PropertyPlatform.Web.Pages
     public class SubscriptionsModel : PageModel
     {
         private readonly ApplicationDbContext _context;
+        private readonly IWalletService _walletService;
 
-        public SubscriptionsModel(ApplicationDbContext context)
+        public SubscriptionsModel(ApplicationDbContext context, IWalletService walletService)
         {
             _context = context;
+            _walletService = walletService;
         }
 
         public Subscription? CurrentSubscription { get; set; }
@@ -56,15 +59,11 @@ namespace PropertyPlatform.Web.Pages
                 subscription.EndDate = DateTime.UtcNow.AddMonths(1);
             }
 
-            // Bonus credits for upgrading
-            var profile = await _context.AgentProfiles.FirstOrDefaultAsync(p => p.TenantId == tenantId);
-            if (profile != null)
-            {
-                if (plan == "Pro") profile.Credits += 20;
-                if (plan == "Premium") profile.Credits += 100;
-            }
-
             await _context.SaveChangesAsync();
+
+            // Bonus credits for upgrading via wallet service
+            if (plan == "Pro") await _walletService.AddCreditsAsync(tenantId, 20, "SubscriptionBonus", "Bonus for Pro Plan upgrade");
+            if (plan == "Premium") await _walletService.AddCreditsAsync(tenantId, 100, "SubscriptionBonus", "Bonus for Premium Plan upgrade");
             
             TempData["SuccessMessage"] = $"Successfully upgraded to {plan} plan!";
             return RedirectToPage();

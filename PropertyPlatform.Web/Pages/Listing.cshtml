@@ -134,7 +134,14 @@
                                         @(Model.Listing.Tenant?.AgentProfile?.Name?.FirstOrDefault().ToString().ToUpper() ?? Model.Listing.Tenant?.Email?.FirstOrDefault().ToString().ToUpper() ?? "?")
                                     </div>
                                     <div>
-                                        <p class="font-medium text-gray-900">@(Model.Listing.Tenant?.AgentProfile?.Name ?? Model.Listing.Tenant?.Email)</p>
+                                        @if (!string.IsNullOrEmpty(Model.Listing.Tenant?.AgentProfile?.Slug))
+                                        {
+                                            <a href="/a/@Model.Listing.Tenant.AgentProfile.Slug" class="font-medium text-gray-900 hover:text-primary-600 transition-colors">@(Model.Listing.Tenant?.AgentProfile?.Name ?? Model.Listing.Tenant?.Email)</a>
+                                        }
+                                        else
+                                        {
+                                            <p class="font-medium text-gray-900">@(Model.Listing.Tenant?.AgentProfile?.Name ?? Model.Listing.Tenant?.Email)</p>
+                                        }
                                         <p class="text-gray-500 text-sm">Registered Agent</p>
                                     </div>
                                 </div>
