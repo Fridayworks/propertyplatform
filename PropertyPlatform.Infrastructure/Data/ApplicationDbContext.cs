@@ -9,13 +9,16 @@ namespace PropertyPlatform.Infrastructure.Data
     {
         private readonly Guid _currentTenantId;
 
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IHttpContextAccessor httpContextAccessor)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IHttpContextAccessor? httpContextAccessor = null)
             : base(options)
         {
-            var userIdString = httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (Guid.TryParse(userIdString, out Guid tenantId))
+            if (httpContextAccessor != null)
             {
-                _currentTenantId = tenantId;
+                var userIdString = httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (Guid.TryParse(userIdString, out Guid tenantId))
+                {
+                    _currentTenantId = tenantId;
+                }
             }
         }
 

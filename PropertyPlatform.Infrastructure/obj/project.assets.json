@@ -2508,7 +2508,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Carso Thinkpad\\.nuget\\packages\\": {},
+    "C:\\Users\\carso\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
@@ -2517,14 +2517,14 @@
       "projectUniqueName": "D:\\code\\propertyplatform\\PropertyPlatform.Infrastructure\\PropertyPlatform.Infrastructure.csproj",
       "projectName": "PropertyPlatform.Infrastructure",
       "projectPath": "D:\\code\\propertyplatform\\PropertyPlatform.Infrastructure\\PropertyPlatform.Infrastructure.csproj",
-      "packagesPath": "C:\\Users\\Carso Thinkpad\\.nuget\\packages\\",
+      "packagesPath": "C:\\Users\\carso\\.nuget\\packages\\",
       "outputPath": "D:\\code\\propertyplatform\\PropertyPlatform.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Carso Thinkpad\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\carso\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],

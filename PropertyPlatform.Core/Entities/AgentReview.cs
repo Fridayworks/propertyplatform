@@ -1,7 +1,10 @@
 namespace PropertyPlatform.Core.Entities
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class AgentReview
     {
+        [Key]
         public Guid ReviewId { get; set; } = Guid.NewGuid();
         public Guid AgentTenantId { get; set; }
         public string ReviewerName { get; set; } = string.Empty;

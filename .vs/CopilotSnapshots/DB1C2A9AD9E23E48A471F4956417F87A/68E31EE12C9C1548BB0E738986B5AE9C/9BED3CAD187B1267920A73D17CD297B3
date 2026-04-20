@@ -1,0 +1,14 @@
+﻿namespace PropertyPlatform.Core.Entities
+{
+    public class Referral
+    {
+        public Guid ReferralId { get; set; } = Guid.NewGuid();
+        public Guid ReferrerTenantId { get; set; }
+        public Guid NewTenantId { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+        // Navigation
+        public Tenant? Referrer { get; set; }
+        public Tenant? NewTenant { get; set; }
+    }
+}

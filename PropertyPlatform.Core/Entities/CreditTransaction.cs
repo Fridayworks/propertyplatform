@@ -1,7 +1,10 @@
 namespace PropertyPlatform.Core.Entities
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class CreditTransaction
     {
+        [Key]
         public Guid TransactionId { get; set; } = Guid.NewGuid();
         public Guid TenantId { get; set; }
         public int Amount { get; set; } // Positive for credits, negative for debits

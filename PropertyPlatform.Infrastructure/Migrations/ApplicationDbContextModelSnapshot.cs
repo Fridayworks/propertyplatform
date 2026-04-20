@@ -22,17 +22,81 @@ namespace PropertyPlatform.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("PropertyPlatform.Core.Entities.AgentBadge", b =>
+                {
+                    b.Property<Guid>("AgentBadgeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("AwardedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("BadgeId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("AgentBadgeId");
+
+                    b.HasIndex("BadgeId");
+
+                    b.HasIndex("TenantId");
+
+                    b.ToTable("AgentBadges");
+                });
+
+            modelBuilder.Entity("PropertyPlatform.Core.Entities.AgentMission", b =>
+                {
+                    b.Property<Guid>("AgentMissionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("CompletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("CurrentProgress")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid>("MissionId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("AgentMissionId");
+
+                    b.HasIndex("MissionId");
+
+                    b.HasIndex("TenantId");
+
+                    b.ToTable("AgentMissions");
+                });
+
             modelBuilder.Entity("PropertyPlatform.Core.Entities.AgentProfile", b =>
                 {
                     b.Property<Guid>("AgentId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<string>("Bio")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("CompanyLogoUrl")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("Credits")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ExperiencePoints")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Level")
                         .HasColumnType("integer");
 
                     b.Property<string>("Name")
@@ -55,15 +119,134 @@ namespace PropertyPlatform.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<Guid>("TenantId")
                         .HasColumnType("uuid");
 
                     b.HasKey("AgentId");
 
+                    b.HasIndex("Slug")
+                        .IsUnique();
+
                     b.HasIndex("TenantId")
                         .IsUnique();
 
                     b.ToTable("AgentProfiles");
+                });
+
+            modelBuilder.Entity("PropertyPlatform.Core.Entities.AgentReview", b =>
+                {
+                    b.Property<Guid>("ReviewId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("AgentTenantId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsVerified")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("ReviewerEmail")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ReviewerName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("ReviewId");
+
+                    b.HasIndex("AgentTenantId");
+
+                    b.ToTable("AgentReviews");
+                });
+
+            modelBuilder.Entity("PropertyPlatform.Core.Entities.Badge", b =>
+                {
+                    b.Property<Guid>("BadgeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("IconUrl")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("BadgeId");
+
+                    b.ToTable("Badges");
+
+                    b.HasData(
+                        new
+                        {
+                            BadgeId = new Guid("00000000-0000-0000-0000-000000000001"),
+                            Code = "RISING_STAR",
+                            Description = "Joined the platform and completed initial setup.",
+                            IconUrl = "✨",
+                            Name = "Rising Star"
+                        },
+                        new
+                        {
+                            BadgeId = new Guid("00000000-0000-0000-0000-000000000002"),
+                            Code = "ELITE_LISTER",
+                            Description = "Uploaded 10 high-quality listings.",
+                            IconUrl = "🏆",
+                            Name = "Elite Lister"
+                        });
+                });
+
+            modelBuilder.Entity("PropertyPlatform.Core.Entities.CreditTransaction", b =>
+                {
+                    b.Property<Guid>("TransactionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("TransactionId");
+
+                    b.HasIndex("TenantId");
+
+                    b.ToTable("CreditTransactions");
                 });
 
             modelBuilder.Entity("PropertyPlatform.Core.Entities.FeaturedListing", b =>
@@ -190,6 +373,60 @@ namespace PropertyPlatform.Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("ListingAnalytics");
+                });
+
+            modelBuilder.Entity("PropertyPlatform.Core.Entities.Mission", b =>
+                {
+                    b.Property<Guid>("MissionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("CreditReward")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("RequirementCount")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("XPReward")
+                        .HasColumnType("integer");
+
+                    b.HasKey("MissionId");
+
+                    b.ToTable("Missions");
+
+                    b.HasData(
+                        new
+                        {
+                            MissionId = new Guid("00000000-0000-0000-0000-000000000003"),
+                            Code = "FIRST_LISTING",
+                            CreditReward = 10,
+                            Description = "Upload your very first property listing.",
+                            RequirementCount = 1,
+                            Title = "First Listing",
+                            XPReward = 100
+                        },
+                        new
+                        {
+                            MissionId = new Guid("00000000-0000-0000-0000-000000000004"),
+                            Code = "UPLOAD_5_LISTINGS",
+                            CreditReward = 50,
+                            Description = "Upload 5 properties to the platform.",
+                            RequirementCount = 5,
+                            Title = "Listing Spree",
+                            XPReward = 300
+                        });
                 });
 
             modelBuilder.Entity("PropertyPlatform.Core.Entities.PropertyFeature", b =>
@@ -329,6 +566,9 @@ namespace PropertyPlatform.Infrastructure.Migrations
                     b.Property<Guid>("TenantId")
                         .HasColumnType("uuid");
 
+                    b.Property<Guid?>("TenantId1")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("Token")
                         .IsRequired()
                         .HasColumnType("text");
@@ -336,6 +576,8 @@ namespace PropertyPlatform.Infrastructure.Migrations
                     b.HasKey("TokenId");
 
                     b.HasIndex("TenantId");
+
+                    b.HasIndex("TenantId1");
 
                     b.ToTable("RefreshTokens");
                 });
@@ -414,11 +656,71 @@ namespace PropertyPlatform.Infrastructure.Migrations
                     b.ToTable("UserEvents");
                 });
 
+            modelBuilder.Entity("PropertyPlatform.Core.Entities.AgentBadge", b =>
+                {
+                    b.HasOne("PropertyPlatform.Core.Entities.Badge", "Badge")
+                        .WithMany()
+                        .HasForeignKey("BadgeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PropertyPlatform.Core.Entities.Tenant", "Tenant")
+                        .WithMany()
+                        .HasForeignKey("TenantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Badge");
+
+                    b.Navigation("Tenant");
+                });
+
+            modelBuilder.Entity("PropertyPlatform.Core.Entities.AgentMission", b =>
+                {
+                    b.HasOne("PropertyPlatform.Core.Entities.Mission", "Mission")
+                        .WithMany()
+                        .HasForeignKey("MissionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PropertyPlatform.Core.Entities.Tenant", "Tenant")
+                        .WithMany()
+                        .HasForeignKey("TenantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Mission");
+
+                    b.Navigation("Tenant");
+                });
+
             modelBuilder.Entity("PropertyPlatform.Core.Entities.AgentProfile", b =>
                 {
                     b.HasOne("PropertyPlatform.Core.Entities.Tenant", "Tenant")
                         .WithOne("AgentProfile")
                         .HasForeignKey("PropertyPlatform.Core.Entities.AgentProfile", "TenantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Tenant");
+                });
+
+            modelBuilder.Entity("PropertyPlatform.Core.Entities.AgentReview", b =>
+                {
+                    b.HasOne("PropertyPlatform.Core.Entities.Tenant", "AgentTenant")
+                        .WithMany()
+                        .HasForeignKey("AgentTenantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AgentTenant");
+                });
+
+            modelBuilder.Entity("PropertyPlatform.Core.Entities.CreditTransaction", b =>
+                {
+                    b.HasOne("PropertyPlatform.Core.Entities.Tenant", "Tenant")
+                        .WithMany()
+                        .HasForeignKey("TenantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -537,6 +839,10 @@ namespace PropertyPlatform.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("PropertyPlatform.Core.Entities.Tenant", null)
+                        .WithMany("RefreshTokens")
+                        .HasForeignKey("TenantId1");
+
                     b.Navigation("Tenant");
                 });
 
@@ -584,6 +890,8 @@ namespace PropertyPlatform.Infrastructure.Migrations
                     b.Navigation("AgentProfile");
 
                     b.Navigation("PropertyListings");
+
+                    b.Navigation("RefreshTokens");
                 });
 #pragma warning restore 612, 618
         }

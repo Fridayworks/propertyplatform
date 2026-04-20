@@ -1,7 +1,10 @@
 namespace PropertyPlatform.Core.Entities
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class RefreshToken
     {
+        [Key]
         public Guid TokenId { get; set; } = Guid.NewGuid();
         public Guid TenantId { get; set; }
         public string Token { get; set; } = string.Empty;

@@ -1,7 +1,10 @@
 namespace PropertyPlatform.Core.Entities
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class Referral
     {
+        [Key]
         public Guid ReferralId { get; set; } = Guid.NewGuid();
         public Guid ReferrerTenantId { get; set; }
         public Guid NewTenantId { get; set; }
