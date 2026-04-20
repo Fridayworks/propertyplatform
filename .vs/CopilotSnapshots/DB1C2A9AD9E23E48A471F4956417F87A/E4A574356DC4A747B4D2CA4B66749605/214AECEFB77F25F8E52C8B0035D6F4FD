@@ -1,0 +1,300 @@
+﻿using Xunit;
+using PropertyPlatform.Core.Entities;
+using PropertyPlatform.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace PropertyPlatform.Tests
+{
+    public class IntegrationTests : IAsyncLifetime
+    {
+        private ApplicationDbContext _context;
+
+        public async Task InitializeAsync()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(databaseName: $"PropertyPlatformTest_Integration_{Guid.NewGuid()}")
+                .Options;
+
+            _context = new ApplicationDbContext(options);
+            await SeedTestData();
+        }
+
+        public async Task DisposeAsync()
+        {
+            await _context.DisposeAsync();
+        }
+
+        private async Task SeedTestData()
+        {
+            // Seed test tenant and initial listings
+            var tenant = new Tenant
+            {
+                TenantId = Guid.NewGuid(),
+                Email = "integrationagent@test.com",
+                PasswordHash = "hashed",
+                CreatedAt = DateTime.UtcNow
+            };
+
+            _context.Tenants.Add(tenant);
+            await _context.SaveChangesAsync();
+
+            // Seed some initial listings
+            var listings = new List<PropertyListing>
+            {
+                new PropertyListing
+                {
+                    ListingId = Guid.NewGuid(),
+                    Title = "Integration Test Property 1",
+                    Location = "Seattle, WA",
+                    Price = 3300,
+                    PropertyType = "Condo",
+                    Status = "Active",
+                    TenantId = tenant.TenantId,
+                    CreatedAt = DateTime.UtcNow,
+                    Media = new List<PropertyMedia>()
+                },
+                new PropertyListing
+                {
+                    ListingId = Guid.NewGuid(),
+                    Title = "Integration Test Property 2",
+                    Location = "Seattle, WA",
+                    Price = 4200,
+                    PropertyType = "Condo",
+                    Status = "Active",
+                    TenantId = tenant.TenantId,
+                    CreatedAt = DateTime.UtcNow,
+                    Media = new List<PropertyMedia>()
+                }
+            };
+
+            _context.PropertyListings.AddRange(listings);
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// INTEGRATION_001: End-to-end workflow - PDF upload → AI extraction → listing created → search results
+        /// Expected: User can search and find newly created listing
+        /// </summary>
+        [Fact]
+        public async Task EndToEndWorkflow_PDFUpload_ToSearchResult_ShouldCompleteSuccessfully()
+        {
+            // Arrange - Setup agent and property data
+            var agent = _context.Tenants.First();
+            var stopwatch = Stopwatch.StartNew();
+
+            // Step 1: Create listing (simulates PDF extraction)
+            var newListing = new PropertyListing
+            {
+                ListingId = Guid.NewGuid(),
+                Title = "Newly Created Property",
+                Location = "Seattle, WA",
+                Price = 3500,
+                Description = "Beautiful newly listed property in Seattle",
+                PropertyType = "Condo",
+                Status = "Active",
+                TenantId = agent.TenantId,
+                CreatedAt = DateTime.UtcNow,
+                Media = new List<PropertyMedia>()
+            };
+
+            // Act - Step 2: Save listing to database
+            _context.PropertyListings.Add(newListing);
+            await _context.SaveChangesAsync();
+
+            // Step 3: Search for newly created listing
+            var searchResults = await _context.PropertyListings
+                .Where(l => l.Location == "Seattle, WA" 
+                    && l.Status == "Active"
+                    && l.TenantId == agent.TenantId)
+                .ToListAsync();
+
+            stopwatch.Stop();
+
+            // Assert
+            Assert.NotEmpty(searchResults);
+            Assert.Contains(searchResults, l => l.ListingId == newListing.ListingId);
+            Assert.True(stopwatch.ElapsedMilliseconds < 1000,
+                $"End-to-end workflow took {stopwatch.ElapsedMilliseconds}ms, expected < 1000ms");
+        }
+
+        /// <summary>
+        /// INTEGRATION_002: Lead capture → CRM update → notification sent
+        /// Expected: Lead created, status updated, and email notification triggered
+        /// </summary>
+        [Fact]
+        public async Task LeadWorkflow_Capture_ToCRMUpdate_ToNotification_ShouldComplete()
+        {
+            // Arrange - Setup listing
+            var listing = _context.PropertyListings.First();
+            var stopwatch = Stopwatch.StartNew();
+
+            // Step 1: Create lead
+            var lead = new Lead
+            {
+                LeadId = Guid.NewGuid(),
+                ListingId = listing.ListingId,
+                BuyerName = "Integration Test Buyer",
+                BuyerEmail = "buyer.integration@test.com",
+                BuyerPhone = "555-0100",
+                Status = "New",
+                TenantId = listing.TenantId,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            // Act - Step 2: Save lead
+            _context.Add(lead);
+            await _context.SaveChangesAsync();
+
+            // Step 3: Update lead status (simulates CRM update)
+            lead.Status = "Contacted";
+            lead.Message = "Automated integration test - contacted via email";
+            _context.Update(lead);
+            await _context.SaveChangesAsync();
+
+            // Step 4: Verify notification would be triggered
+            var updatedLead = await _context.Set<Lead>()
+                .FirstAsync(l => l.LeadId == lead.LeadId);
+
+            stopwatch.Stop();
+
+            // Assert
+            Assert.NotNull(updatedLead);
+            Assert.Equal("Contacted", updatedLead.Status);
+            Assert.NotNull(updatedLead.Message);
+            Assert.Equal(listing.ListingId, updatedLead.ListingId);
+            Assert.True(stopwatch.ElapsedMilliseconds < 2000,
+                $"Lead workflow took {stopwatch.ElapsedMilliseconds}ms, expected < 2000ms");
+        }
+
+        /// <summary>
+        /// INTEGRATION_003: Multi-user workflow under concurrent load
+        /// Expected: Multiple agents can create, search, and manage listings without conflicts
+        /// </summary>
+        [Fact]
+        public async Task MultiUserWorkflow_ConcurrentOperations_ShouldMaintainDataIntegrity()
+        {
+            // Arrange - Create multiple agents
+            var agent1 = new Tenant
+            {
+                TenantId = Guid.NewGuid(),
+                Name = "Concurrent Agent 1",
+                Email = "agent1.concurrent@test.com",
+                IsActive = true,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            var agent2 = new Tenant
+            {
+                TenantId = Guid.NewGuid(),
+                Name = "Concurrent Agent 2",
+                Email = "agent2.concurrent@test.com",
+                IsActive = true,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            _context.Tenants.Add(agent1);
+            _context.Tenants.Add(agent2);
+            await _context.SaveChangesAsync();
+
+            var stopwatch = Stopwatch.StartNew();
+
+            // Act - Simulate concurrent operations
+            var task1 = CreateListingsForAgent(agent1, 5);
+            var task2 = CreateListingsForAgent(agent2, 5);
+            var task3 = SearchListingsForAgent(agent1);
+
+            await Task.WhenAll(task1, task2, task3);
+
+            stopwatch.Stop();
+
+            // Assert - Verify data integrity
+            var agent1Listings = await _context.PropertyListings
+                .Where(l => l.TenantId == agent1.TenantId)
+                .CountAsync();
+
+            var agent2Listings = await _context.PropertyListings
+                .Where(l => l.TenantId == agent2.TenantId)
+                .CountAsync();
+
+            Assert.Equal(5, agent1Listings);
+            Assert.Equal(5, agent2Listings);
+            Assert.True(stopwatch.ElapsedMilliseconds < 5000,
+                $"Multi-user workflow took {stopwatch.ElapsedMilliseconds}ms, expected < 5000ms");
+        }
+
+        /// <summary>
+        /// INTEGRATION_004: Advanced search with filters and sorting
+        /// Expected: Search returns correct results with proper pagination
+        /// </summary>
+        [Fact]
+        public async Task AdvancedSearch_WithMultipleFilters_ShouldReturnCorrectResults()
+        {
+            // Arrange
+            var agent = _context.Tenants.First();
+            var searchLocation = "Seattle, WA";
+            var minPrice = 3000m;
+            var maxPrice = 4500m;
+            var minBedrooms = 2;
+
+            // Act - Execute advanced search
+            var results = await _context.PropertyListings
+                .Where(l => l.TenantId == agent.TenantId
+                    && l.Location == searchLocation
+                    && l.Price >= minPrice
+                    && l.Price <= maxPrice
+                    && l.Bedrooms >= minBedrooms
+                    && l.Status == "Active")
+                .OrderByDescending(l => l.CreatedAt)
+                .ToListAsync();
+
+            // Assert
+            Assert.NotEmpty(results);
+            Assert.All(results, l =>
+            {
+                Assert.Equal(searchLocation, l.Location);
+                Assert.InRange(l.Price, minPrice, maxPrice);
+                Assert.True(l.Bedrooms >= minBedrooms);
+            });
+        }
+
+        // Helper method to create listings for an agent
+        private async Task CreateListingsForAgent(Tenant agent, int count)
+        {
+            var listings = new List<PropertyListing>();
+            for (int i = 0; i < count; i++)
+            {
+                listings.Add(new PropertyListing
+                {
+                    ListingId = Guid.NewGuid(),
+                    Title = $"Concurrent Listing {i + 1} for {agent.Name}",
+                    Location = "Concurrent Test City",
+                    Price = 300000 + (i * 50000),
+                    Bedrooms = (i % 4) + 1,
+                    SquareFootage = 1000 + (i * 200),
+                    PropertyType = new[] { "Apartment", "House", "Condo" }[i % 3],
+                    Status = "Active",
+                    TenantId = agent.TenantId,
+                    CreatedAt = DateTime.UtcNow,
+                    Media = new List<PropertyMedia>()
+                });
+            }
+
+            _context.PropertyListings.AddRange(listings);
+            await _context.SaveChangesAsync();
+        }
+
+        // Helper method to search listings for an agent
+        private async Task<List<PropertyListing>> SearchListingsForAgent(Tenant agent)
+        {
+            return await _context.PropertyListings
+                .Where(l => l.TenantId == agent.TenantId && l.Status == "Active")
+                .Take(10)
+                .ToListAsync();
+        }
+    }
+}

@@ -1,12 +1,184 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\code\\propertyplatform\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{5A4A414E-4152-7339-C4E7-E82BBAA93348}|PropertyPlatform.Tests\\PropertyPlatform.Tests.csproj|d:\\code\\propertyplatform\\propertyplatform.tests\\listingcreationtests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A4A414E-4152-7339-C4E7-E82BBAA93348}|PropertyPlatform.Tests\\PropertyPlatform.Tests.csproj|solutionrelative:propertyplatform.tests\\listingcreationtests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A4A414E-4152-7339-C4E7-E82BBAA93348}|PropertyPlatform.Tests\\PropertyPlatform.Tests.csproj|d:\\code\\propertyplatform\\propertyplatform.tests\\smartlistingenginetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A4A414E-4152-7339-C4E7-E82BBAA93348}|PropertyPlatform.Tests\\PropertyPlatform.Tests.csproj|solutionrelative:propertyplatform.tests\\smartlistingenginetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A4A414E-4152-7339-C4E7-E82BBAA93348}|PropertyPlatform.Tests\\PropertyPlatform.Tests.csproj|d:\\code\\propertyplatform\\propertyplatform.tests\\performancetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A4A414E-4152-7339-C4E7-E82BBAA93348}|PropertyPlatform.Tests\\PropertyPlatform.Tests.csproj|solutionrelative:propertyplatform.tests\\performancetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A4A414E-4152-7339-C4E7-E82BBAA93348}|PropertyPlatform.Tests\\PropertyPlatform.Tests.csproj|d:\\code\\propertyplatform\\propertyplatform.tests\\securitycompliancetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A4A414E-4152-7339-C4E7-E82BBAA93348}|PropertyPlatform.Tests\\PropertyPlatform.Tests.csproj|solutionrelative:propertyplatform.tests\\securitycompliancetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A4A414E-4152-7339-C4E7-E82BBAA93348}|PropertyPlatform.Tests\\PropertyPlatform.Tests.csproj|d:\\code\\propertyplatform\\propertyplatform.tests\\airiskvalidationtests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A4A414E-4152-7339-C4E7-E82BBAA93348}|PropertyPlatform.Tests\\PropertyPlatform.Tests.csproj|solutionrelative:propertyplatform.tests\\airiskvalidationtests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A4A414E-4152-7339-C4E7-E82BBAA93348}|PropertyPlatform.Tests\\PropertyPlatform.Tests.csproj|d:\\code\\propertyplatform\\propertyplatform.tests\\integrationtests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A4A414E-4152-7339-C4E7-E82BBAA93348}|PropertyPlatform.Tests\\PropertyPlatform.Tests.csproj|solutionrelative:propertyplatform.tests\\integrationtests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\carso\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\1863584566\\PropertySearchTests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A4A414E-4152-7339-C4E7-E82BBAA93348}|PropertyPlatform.Tests\\PropertyPlatform.Tests.csproj|d:\\code\\propertyplatform\\propertyplatform.tests\\propertysearchtests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A4A414E-4152-7339-C4E7-E82BBAA93348}|PropertyPlatform.Tests\\PropertyPlatform.Tests.csproj|solutionrelative:propertyplatform.tests\\propertysearchtests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\carso\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\1863584566\\LeadCaptureTests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A4A414E-4152-7339-C4E7-E82BBAA93348}|PropertyPlatform.Tests\\PropertyPlatform.Tests.csproj|d:\\code\\propertyplatform\\propertyplatform.tests\\leadcapturetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A4A414E-4152-7339-C4E7-E82BBAA93348}|PropertyPlatform.Tests\\PropertyPlatform.Tests.csproj|solutionrelative:propertyplatform.tests\\leadcapturetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 9,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "LeadCaptureTests.cs",
+              "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\LeadCaptureTests.cs",
+              "RelativeDocumentMoniker": "PropertyPlatform.Tests\\LeadCaptureTests.cs",
+              "ToolTip": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\LeadCaptureTests.cs",
+              "RelativeToolTip": "PropertyPlatform.Tests\\LeadCaptureTests.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAKUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-20T16:11:12.881Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "LeadCaptureTests.cs",
+              "DocumentMoniker": "C:\\Users\\carso\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\1863584566\\LeadCaptureTests.cs",
+              "ToolTip": "C:\\Users\\carso\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\1863584566\\LeadCaptureTests.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-20T16:11:00.277Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "PropertySearchTests.cs",
+              "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\PropertySearchTests.cs",
+              "RelativeDocumentMoniker": "PropertyPlatform.Tests\\PropertySearchTests.cs",
+              "ToolTip": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\PropertySearchTests.cs",
+              "RelativeToolTip": "PropertyPlatform.Tests\\PropertySearchTests.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAANAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-20T16:10:49.05Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "PropertySearchTests.cs",
+              "DocumentMoniker": "C:\\Users\\carso\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\1863584566\\PropertySearchTests.cs",
+              "ToolTip": "C:\\Users\\carso\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\1863584566\\PropertySearchTests.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-20T16:10:37.732Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "IntegrationTests.cs",
+              "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\IntegrationTests.cs",
+              "RelativeDocumentMoniker": "PropertyPlatform.Tests\\IntegrationTests.cs",
+              "ToolTip": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\IntegrationTests.cs",
+              "RelativeToolTip": "PropertyPlatform.Tests\\IntegrationTests.cs",
+              "ViewState": "AgIAAO4AAAAAAAAAAABBwCUBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-20T15:59:48.836Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AIRiskValidationTests.cs",
+              "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\AIRiskValidationTests.cs",
+              "RelativeDocumentMoniker": "PropertyPlatform.Tests\\AIRiskValidationTests.cs",
+              "ToolTip": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\AIRiskValidationTests.cs",
+              "RelativeToolTip": "PropertyPlatform.Tests\\AIRiskValidationTests.cs",
+              "ViewState": "AgIAAI4AAAAAAAAAAIBJwMgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-20T15:59:32.181Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "SecurityComplianceTests.cs",
+              "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\SecurityComplianceTests.cs",
+              "RelativeDocumentMoniker": "PropertyPlatform.Tests\\SecurityComplianceTests.cs",
+              "ToolTip": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\SecurityComplianceTests.cs",
+              "RelativeToolTip": "PropertyPlatform.Tests\\SecurityComplianceTests.cs",
+              "ViewState": "AgIAAFoAAAAAAAAAAIBJwLoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-20T15:59:19.281Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "PerformanceTests.cs",
+              "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\PerformanceTests.cs",
+              "RelativeDocumentMoniker": "PropertyPlatform.Tests\\PerformanceTests.cs",
+              "ToolTip": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\PerformanceTests.cs",
+              "RelativeToolTip": "PropertyPlatform.Tests\\PerformanceTests.cs",
+              "ViewState": "AgIAACYAAAAAAAAAAABBwMEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-20T15:59:07.134Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "SmartListingEngineTests.cs",
+              "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\SmartListingEngineTests.cs",
+              "RelativeDocumentMoniker": "PropertyPlatform.Tests\\SmartListingEngineTests.cs",
+              "ToolTip": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\SmartListingEngineTests.cs",
+              "RelativeToolTip": "PropertyPlatform.Tests\\SmartListingEngineTests.cs",
+              "ViewState": "AgIAAHoAAAAAAAAAAABRwI4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-20T15:58:45.168Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ListingCreationTests.cs",
+              "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\ListingCreationTests.cs",
+              "RelativeDocumentMoniker": "PropertyPlatform.Tests\\ListingCreationTests.cs",
+              "ToolTip": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\ListingCreationTests.cs",
+              "RelativeToolTip": "PropertyPlatform.Tests\\ListingCreationTests.cs",
+              "ViewState": "AgIAAIEAAAAAAAAAAIBJwKUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-20T15:58:35.76Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }

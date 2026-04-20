@@ -1,0 +1,202 @@
+﻿using Xunit;
+using PropertyPlatform.Core.Entities;
+using PropertyPlatform.Infrastructure.Data;
+using PropertyPlatform.Infrastructure.Services;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace PropertyPlatform.Tests
+{
+    public class PropertySearchTests : IAsyncLifetime
+    {
+        private ApplicationDbContext _context;
+        private RecommendationService _recommendationService;
+
+        public async Task InitializeAsync()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(databaseName: $"PropertyPlatformTest_{Guid.NewGuid()}")
+                .Options;
+
+            _context = new ApplicationDbContext(options);
+            _recommendationService = new RecommendationService(_context);
+
+            await SeedTestData();
+        }
+
+        public async Task DisposeAsync()
+        {
+            await _context.DisposeAsync();
+        }
+
+        private async Task SeedTestData()
+        {
+            // Create test listings
+            var listings = new List<PropertyListing>
+            {
+                new PropertyListing
+                {
+                    ListingId = Guid.NewGuid(),
+                    Title = "Sunset Heights",
+                    Location = "New York",
+                    Price = 2500,
+                    Status = "Active",
+                    Bedrooms = 3,
+                    SquareFootage = 2500,
+                    PropertyType = "Apartment",
+                    CreatedAt = DateTime.UtcNow,
+                    Media = new List<PropertyMedia>()
+                },
+                new PropertyListing
+                {
+                    ListingId = Guid.NewGuid(),
+                    Title = "Modern Luxury",
+                    Location = "New York",
+                    Price = 2800,
+                    Status = "Active",
+                    Bedrooms = 3,
+                    SquareFootage = 2800,
+                    PropertyType = "Apartment",
+                    CreatedAt = DateTime.UtcNow,
+                    Media = new List<PropertyMedia>()
+                },
+                new PropertyListing
+                {
+                    ListingId = Guid.NewGuid(),
+                    Title = "Budget Studio",
+                    Location = "New York",
+                    Price = 1500,
+                    Status = "Active",
+                    Bedrooms = 1,
+                    SquareFootage = 600,
+                    PropertyType = "Studio",
+                    CreatedAt = DateTime.UtcNow,
+                    Media = new List<PropertyMedia>()
+                },
+                new PropertyListing
+                {
+                    ListingId = Guid.NewGuid(),
+                    Title = "Luxury Penthouse",
+                    Location = "New York",
+                    Price = 5000,
+                    Status = "Active",
+                    Bedrooms = 4,
+                    SquareFootage = 4000,
+                    PropertyType = "Penthouse",
+                    CreatedAt = DateTime.UtcNow,
+                    Media = new List<PropertyMedia>()
+                }
+            };
+
+            _context.PropertyListings.AddRange(listings);
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// SEARCH_001: User searches with location="New York", budget=2000-3000, property type=apartment
+        /// Expected: Returns filtered results (2 listings) with pagination
+        /// </summary>
+        [Fact]
+        public async Task SearchByLocationBudgetType_ShouldReturnFilteredListings()
+        {
+            // Arrange
+            var location = "New York";
+            var minBudget = 2000m;
+            var maxBudget = 3000m;
+            var propertyType = "Apartment";
+
+            // Act
+            var listings = _context.PropertyListings
+                .Where(l => l.Location == location
+                    && l.Price >= minBudget
+                    && l.Price <= maxBudget
+                    && l.PropertyType == propertyType
+                    && l.Status == "Active")
+                .ToList();
+
+            // Assert
+            Assert.NotNull(listings);
+            Assert.Equal(2, listings.Count);
+            Assert.All(listings, l =>
+            {
+                Assert.Equal(location, l.Location);
+                Assert.InRange(l.Price, minBudget, maxBudget);
+                Assert.Equal(propertyType, l.PropertyType);
+                Assert.Equal("Active", l.Status);
+            });
+        }
+
+        /// <summary>
+        /// SEARCH_002: User filters by "3+ bedrooms", size=2500 sqft
+        /// Expected: Filters apply correctly; shows only 2 relevant listings
+        /// </summary>
+        [Fact]
+        public async Task SearchByBedroomsAndSize_ShouldReturnFilteredListings()
+        {
+            // Arrange
+            var minBedrooms = 3;
+            var minSquareFootage = 2500;
+
+            // Act
+            var listings = _context.PropertyListings
+                .Where(l => l.Bedrooms >= minBedrooms
+                    && l.SquareFootage >= minSquareFootage
+                    && l.Status == "Active")
+                .ToList();
+
+            // Assert
+            Assert.NotNull(listings);
+            Assert.Equal(2, listings.Count);
+            Assert.All(listings, l =>
+            {
+                Assert.True(l.Bedrooms >= minBedrooms);
+                Assert.True(l.SquareFootage >= minSquareFootage);
+            });
+        }
+
+        /// <summary>
+        /// SEARCH_003: User searches with invalid budget format (e.g., $1000-3000)
+        /// Expected: Returns error message
+        /// </summary>
+        [Fact]
+        public void SearchWithInvalidBudgetFormat_ShouldThrowValidationError()
+        {
+            // Arrange
+            var invalidBudget = "$1000-3000";
+
+            // Act & Assert
+            var exception = Assert.Throws<FormatException>(() =>
+            {
+                decimal.Parse(invalidBudget.TrimStart('$'));
+            });
+
+            Assert.NotNull(exception);
+            Assert.Contains("Input string was not in a correct format", exception.Message);
+        }
+
+        /// <summary>
+        /// Performance test: Response time should be <= 2.5 seconds
+        /// </summary>
+        [Fact]
+        public async Task Search_ShouldCompleteWithin2500Milliseconds()
+        {
+            // Arrange
+            var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+
+            // Act
+            var listings = await _context.PropertyListings
+                .Where(l => l.Location == "New York" && l.Status == "Active")
+                .ToListAsync();
+
+            stopwatch.Stop();
+
+            // Assert
+            Assert.NotNull(listings);
+            Assert.True(stopwatch.ElapsedMilliseconds <= 2500, 
+                $"Search took {stopwatch.ElapsedMilliseconds}ms, expected <= 2500ms");
+        }
+    }
+}

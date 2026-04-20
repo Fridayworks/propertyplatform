@@ -1,0 +1,163 @@
+﻿using Xunit;
+using PropertyPlatform.Core.Entities;
+using PropertyPlatform.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace PropertyPlatform.Tests
+{
+    public class LeadCaptureTests : IAsyncLifetime
+    {
+        private ApplicationDbContext _context;
+
+        public async Task InitializeAsync()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(databaseName: $"PropertyPlatformTest_Lead_{Guid.NewGuid()}")
+                .Options;
+
+            _context = new ApplicationDbContext(options);
+            await SeedTestData();
+        }
+
+        public async Task DisposeAsync()
+        {
+            await _context.DisposeAsync();
+        }
+
+        private async Task SeedTestData()
+        {
+            // Seed test tenant and listing
+            var tenant = new Tenant
+            {
+                TenantId = Guid.NewGuid(),
+                Email = "leadagent@test.com",
+                PasswordHash = "hashed",
+                CreatedAt = DateTime.UtcNow
+            };
+
+            var listing = new PropertyListing
+            {
+                ListingId = Guid.NewGuid(),
+                Title = "3BR House",
+                Location = "Miami, FL",
+                Price = 4000,
+                PropertyType = "Condo",
+                Status = "Active",
+                TenantId = tenant.TenantId,
+                CreatedAt = DateTime.UtcNow,
+                Media = new List<PropertyMedia>()
+            };
+
+            _context.Tenants.Add(tenant);
+            _context.PropertyListings.Add(listing);
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// LEAD_001: Potential buyer submits inquiry with valid email
+        /// Expected: Lead captured and stored; validation passes
+        /// </summary>
+        [Fact]
+        public async Task CaptureLead_WithValidEmail_ShouldCreateLeadRecord()
+        {
+            // Arrange
+            var listing = _context.PropertyListings.First();
+            var buyerEmail = "buyer@example.com";
+            var buyerName = "John Doe";
+            var phoneNumber = "555-0123";
+
+            var lead = new Lead
+            {
+                LeadId = Guid.NewGuid(),
+                ListingId = listing.ListingId,
+                BuyerName = buyerName,
+                BuyerEmail = buyerEmail,
+                BuyerPhone = phoneNumber,
+                Status = "New",
+                TenantId = tenant.TenantId,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            // Act
+            _context.Add(lead);
+            await _context.SaveChangesAsync();
+
+            var savedLead = _context.Set<Lead>()
+                .FirstOrDefault(l => l.LeadId == lead.LeadId);
+
+            // Assert
+            Assert.NotNull(savedLead);
+            Assert.Equal(buyerEmail, savedLead.BuyerEmail);
+            Assert.Equal(buyerName, savedLead.BuyerName);
+            Assert.Equal("New", savedLead.Status);
+            Assert.Equal(listing.ListingId, savedLead.ListingId);
+        }
+
+        /// <summary>
+        /// LEAD_002: System validates that lead's unit/property exists
+        /// Expected: Lead validation passes if listing exists; fails if property not found
+        /// </summary>
+        [Fact]
+        public async Task ValidateLead_WithNonexistentListing_ShouldReturnValidationError()
+        {
+            // Arrange
+            var nonexistentListingId = Guid.NewGuid();
+            var existingListing = _context.PropertyListings.First();
+
+            // Act & Assert - Verify listing exists
+            var listingExists = await _context.PropertyListings
+                .AnyAsync(l => l.ListingId == existingListing.ListingId);
+
+            Assert.True(listingExists, "Valid listing should exist");
+
+            var invalidListingExists = await _context.PropertyListings
+                .AnyAsync(l => l.ListingId == nonexistentListingId);
+
+            Assert.False(invalidListingExists, "Nonexistent listing should not exist");
+        }
+
+        /// <summary>
+        /// LEAD_003: After lead capture, status updated and notification sent
+        /// Expected: Lead status changes; email notification triggered
+        /// </summary>
+        [Fact]
+        public async Task UpdateLeadStatus_AndTriggerNotification_ShouldChangeStatusAndLog()
+        {
+            // Arrange
+            var listing = _context.PropertyListings.First();
+            var lead = new Lead
+            {
+                LeadId = Guid.NewGuid(),
+                ListingId = listing.ListingId,
+                BuyerName = "Jane Smith",
+                BuyerEmail = "jane@example.com",
+                BuyerPhone = "555-9876",
+                Status = "New",
+                TenantId = tenant.TenantId,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            _context.Add(lead);
+            await _context.SaveChangesAsync();
+
+            // Act - Update lead status
+            lead.Status = "Contacted";
+            lead.Message = "Agent contacted lead via email";
+            _context.Update(lead);
+            await _context.SaveChangesAsync();
+
+            var updatedLead = _context.Set<Lead>()
+                .FirstOrDefault(l => l.LeadId == lead.LeadId);
+
+            // Assert
+            Assert.NotNull(updatedLead);
+            Assert.Equal("Contacted", updatedLead.Status);
+            Assert.NotNull(updatedLead.Message);
+            Assert.Contains("contacted", updatedLead.Message.ToLower());
+        }
+    }
+}

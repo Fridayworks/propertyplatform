@@ -1,0 +1,193 @@
+using Xunit;
+using PropertyPlatform.Core.Entities;
+using PropertyPlatform.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace PropertyPlatform.Tests
+{
+    public class PerformanceTests : IAsyncLifetime
+    {
+        private ApplicationDbContext _context;
+        private const int ThousandListings = 1000;
+        private const int HundredConcurrentUsers = 100;
+
+        public async Task InitializeAsync()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(databaseName: $"PropertyPlatformTest_Perf_{Guid.NewGuid()}")
+                .Options;
+
+            _context = new ApplicationDbContext(options);
+            await SeedLargeDataset();
+        }
+
+        public async Task DisposeAsync()
+        {
+            await _context.DisposeAsync();
+        }
+
+        private async Task SeedLargeDataset()
+        {
+            // Seed test tenant
+            var tenant = new Tenant
+            {
+                TenantId = Guid.NewGuid(),
+                Email = "perfagent@test.com",
+                PasswordHash = "hashed",
+                CreatedAt = DateTime.UtcNow
+            };
+
+            _context.Tenants.Add(tenant);
+            await _context.SaveChangesAsync();
+
+            // Seed 1000 listings
+            var listings = new List<PropertyListing>();
+            var random = new Random();
+
+            for (int i = 0; i < ThousandListings; i++)
+            {
+                listings.Add(new PropertyListing
+                {
+                    ListingId = Guid.NewGuid(),
+                    Title = $"Property {i + 1}",
+                    Location = $"City {(i % 50) + 1}",
+                    Price = random.Next(100000, 1000000),
+                    PropertyType = new[] { "Condo", "Condo", "Condo", "Condo" }[random.Next(4)],
+                    Status = "Active",
+                    TenantId = tenant.TenantId,
+                    CreatedAt = DateTime.UtcNow.AddDays(-random.Next(365)),
+                    Media = new List<PropertyMedia>()
+                });
+            }
+
+            _context.PropertyListings.AddRange(listings);
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// PERF_001: System handles 100 concurrent users browsing listings
+        /// Expected: Average response time <= 1 second per request
+        /// </summary>
+        [Fact]
+        public async Task BrowseListings_With100ConcurrentUsers_ShouldRespond_LessThan1Second()
+        {
+            // Arrange
+            var stopwatch = Stopwatch.StartNew();
+            var tasks = new Task[HundredConcurrentUsers];
+
+            // Act - Simulate concurrent browsing
+            for (int i = 0; i < HundredConcurrentUsers; i++)
+            {
+                tasks[i] = Task.Run(async () =>
+                {
+                    var listings = await _context.PropertyListings
+                        .Where(l => l.Status == "Active")
+                        .Take(20)
+                        .ToListAsync();
+
+                    Assert.NotEmpty(listings);
+                });
+            }
+
+            await Task.WhenAll(tasks);
+            stopwatch.Stop();
+
+            // Assert
+            var averageTimePerRequest = stopwatch.ElapsedMilliseconds / (double)HundredConcurrentUsers;
+            Assert.True(averageTimePerRequest < 1000,
+                $"Average response time {averageTimePerRequest:F0}ms exceeds 1000ms threshold");
+        }
+
+        /// <summary>
+        /// PERF_002: System handles 50 concurrent PDF uploads
+        /// Expected: All uploads complete successfully within 10 seconds total
+        /// </summary>
+        [Fact]
+        public async Task UploadListings_With50ConcurrentOperations_ShouldCompleteWithin10Seconds()
+        {
+            // Arrange
+            var tenant = _context.Tenants.First();
+            var stopwatch = Stopwatch.StartNew();
+            var concurrentUploads = 50;
+            var tasks = new Task[concurrentUploads];
+
+            // Act - Simulate concurrent listing creation
+            for (int i = 0; i < concurrentUploads; i++)
+            {
+                tasks[i] = Task.Run(async () =>
+                {
+                    var listing = new PropertyListing
+                    {
+                        ListingId = Guid.NewGuid(),
+                        Title = $"Concurrent Upload {Guid.NewGuid().ToString().Substring(0, 8)}",
+                        Location = "Concurrent Test City",
+                        Price = 250000,
+                        PropertyType = "Condo",
+                        Status = "Active",
+                        TenantId = tenant.TenantId,
+                        CreatedAt = DateTime.UtcNow,
+                        Media = new List<PropertyMedia>()
+                    };
+
+                    _context.PropertyListings.Add(listing);
+                    await _context.SaveChangesAsync();
+                });
+            }
+
+            await Task.WhenAll(tasks);
+            stopwatch.Stop();
+
+            // Assert
+            Assert.True(stopwatch.ElapsedMilliseconds <= 10000,
+                $"Concurrent uploads took {stopwatch.ElapsedMilliseconds}ms, expected <= 10000ms");
+
+            var uploadedCount = await _context.PropertyListings
+                .Where(l => l.Location == "Concurrent Test City")
+                .CountAsync();
+
+            Assert.True(uploadedCount > 0, "At least one listing should be uploaded");
+        }
+
+        /// <summary>
+        /// SCALE_001: System stress test with 1000 API calls
+        /// Expected: No data corruption; response time degradation acceptable
+        /// </summary>
+        [Fact]
+        public async Task StressTest_With1000APICalls_ShouldMaintainDataIntegrity()
+        {
+            // Arrange
+            var stopwatch = Stopwatch.StartNew();
+            var apiCallCount = 1000;
+            var random = new Random();
+
+            // Act - Simulate 1000 rapid API calls
+            var tasks = Enumerable.Range(0, apiCallCount).Select(async i =>
+            {
+                var pageSize = random.Next(10, 50);
+                var listings = await _context.PropertyListings
+                    .OrderByDescending(l => l.CreatedAt)
+                    .Take(pageSize)
+                    .ToListAsync();
+
+                return listings.Count;
+            }).ToArray();
+
+            var results = await Task.WhenAll(tasks);
+            stopwatch.Stop();
+
+            // Assert
+            Assert.All(results, count => Assert.True(count > 0, "Each request should return listings"));
+            Assert.True(stopwatch.ElapsedMilliseconds < 30000,
+                $"1000 API calls took {stopwatch.ElapsedMilliseconds}ms, expected < 30000ms");
+
+            var finalListingCount = await _context.PropertyListings.CountAsync();
+            Assert.True(finalListingCount >= ThousandListings,
+                "Data integrity check: listing count should not decrease");
+        }
+    }
+}

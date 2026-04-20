@@ -2,5 +2,6 @@
   <Project Path="PropertyPlatform.API/PropertyPlatform.API.csproj" />
   <Project Path="PropertyPlatform.Core/PropertyPlatform.Core.csproj" />
   <Project Path="PropertyPlatform.Infrastructure/PropertyPlatform.Infrastructure.csproj" />
+  <Project Path="PropertyPlatform.Tests/PropertyPlatform.Tests.csproj" />
   <Project Path="PropertyPlatform.Web/PropertyPlatform.Web.csproj" />
 </Solution>

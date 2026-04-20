@@ -443,3 +443,4 @@ D:\code\propertyplatform\PropertyPlatform.Web\obj\Debug\net10.0\compressed\82fcw
 D:\code\propertyplatform\PropertyPlatform.Web\obj\Debug\net10.0\compressed\6mobag0jo1-{0}-m9qm4tazc0-m9qm4tazc0.gz
 D:\code\propertyplatform\PropertyPlatform.Web\obj\Debug\net10.0\compressed\7jxbu5dfgd-{0}-jjsuc0puko-jjsuc0puko.gz
 D:\code\propertyplatform\PropertyPlatform.Web\obj\Debug\net10.0\compressed\k20fj3142x-{0}-9vr69e8ynj-9vr69e8ynj.gz
+D:\code\propertyplatform\PropertyPlatform.Web\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt

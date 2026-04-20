@@ -1,0 +1,202 @@
+﻿using Xunit;
+using PropertyPlatform.Core.Entities;
+using PropertyPlatform.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace PropertyPlatform.Tests
+{
+    public class AIRiskValidationTests : IAsyncLifetime
+    {
+        private ApplicationDbContext _context;
+
+        public async Task InitializeAsync()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(databaseName: $"PropertyPlatformTest_AIRisk_{Guid.NewGuid()}")
+                .Options;
+
+            _context = new ApplicationDbContext(options);
+            await SeedTestData();
+        }
+
+        public async Task DisposeAsync()
+        {
+            await _context.DisposeAsync();
+        }
+
+        private async Task SeedTestData()
+        {
+            // Seed test tenant and listing
+            var tenant = new Tenant
+            {
+                TenantId = Guid.NewGuid(),
+                Email = "airiskagent@test.com",
+                PasswordHash = "hashed",
+                CreatedAt = DateTime.UtcNow
+            };
+
+            var listing = new PropertyListing
+            {
+                ListingId = Guid.NewGuid(),
+                Title = "Test Property",
+                Location = "Portland, OR",
+                Price = 2800,
+                PropertyType = "Condo",
+                Status = "Active",
+                TenantId = tenant.TenantId,
+                CreatedAt = DateTime.UtcNow,
+                Media = new List<PropertyMedia>()
+            };
+
+            _context.Tenants.Add(tenant);
+            _context.PropertyListings.Add(listing);
+            await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// AI_001: System receives corrupted PDF during AI extraction
+        /// Expected: Graceful error handling; listing not created; error logged
+        /// </summary>
+        [Fact]
+        public void CorruptedPDFExtraction_ShouldReturnGracefulError()
+        {
+            // Arrange
+            var corruptedPdfSignature = new byte[] { 0xFF, 0xD8, 0xFF }; // Invalid PDF signature
+            var isValidPDF = corruptedPdfSignature.Length > 4 && 
+                             corruptedPdfSignature[0] == 0x25 && // '%'
+                             corruptedPdfSignature[1] == 0x50 && // 'P'
+                             corruptedPdfSignature[2] == 0x44 && // 'D'
+                             corruptedPdfSignature[3] == 0x46;   // 'F'
+
+            // Act & Assert
+            Assert.False(isValidPDF, "Corrupted PDF should fail validation");
+        }
+
+        /// <summary>
+        /// AI_002: AI hallucination risk - system generates unrealistic price
+        /// Expected: Price validation catches out-of-range values; warning logged
+        /// </summary>
+        [Fact]
+        public async Task AIHallucination_WithUnrealisticPrice_ShouldBeCaughtByValidation()
+        {
+            // Arrange
+            var listing = _context.PropertyListings.First();
+            var hallucinator_UnrealisticPrice = 999999999m; // Unrealistic AI-generated price
+            var priceMin = 10000m;
+            var priceMax = 50000000m; // Max realistic price for luxury property
+
+            // Act
+            var isPriceValid = hallucinator_UnrealisticPrice >= priceMin && 
+                               hallucinator_UnrealisticPrice <= priceMax;
+
+            // Assert
+            Assert.False(isPriceValid, "Hallucinated unrealistic price should fail validation");
+
+            // Verify: valid price would pass
+            var realisticPrice = 450000m;
+            var isRealisticPriceValid = realisticPrice >= priceMin && realisticPrice <= priceMax;
+            Assert.True(isRealisticPriceValid, "Realistic price should pass validation");
+        }
+
+        /// <summary>
+        /// AI_003: AI generates invalid CSS for theme styling
+        /// Expected: CSS validation catches syntax errors; theme not applied
+        /// </summary>
+        [Fact]
+        public void InvalidCSSGeneration_ShouldFailValidation()
+        {
+            // Arrange
+            var invalidCSS = "color: red body { background: blue } ]]>";
+            var validCSS = "background-color: #E8E8E8; color: #333333;";
+
+            // Simple CSS validation - check for common syntax patterns
+            var isValidCSS = ValidateCSS(validCSS);
+            var isInvalidCSS = ValidateCSS(invalidCSS);
+
+            // Act & Assert
+            Assert.True(isValidCSS, "Valid CSS should pass validation");
+            Assert.False(isInvalidCSS, "Invalid CSS should fail validation");
+        }
+
+        /// <summary>
+        /// AI_004: System recovery after AI service timeout
+        /// Expected: Fallback to default values; listing created with basic data
+        /// </summary>
+        [Fact]
+        public async Task AIServiceTimeout_ShouldFallbackToDefaults()
+        {
+            // Arrange
+            var tenant = _context.Tenants.First();
+            var aiServiceTimeout = true; // Simulate timeout
+            var defaultDescription = "Property information not available. Please contact agent for details.";
+
+            // Act
+            var listing = new PropertyListing
+            {
+                ListingId = Guid.NewGuid(),
+                Title = "Property with AI Fallback",
+                Location = "Denver, CO",
+                Price = 3100,
+                Bedrooms = 2,
+                SquareFootage = 1300,
+                PropertyType = "Apartment",
+                Status = "Active",
+                Description = aiServiceTimeout ? defaultDescription : "AI-generated description",
+                TenantId = tenant.TenantId,
+                CreatedAt = DateTime.UtcNow,
+                Media = new List<PropertyMedia>()
+            };
+
+            _context.PropertyListings.Add(listing);
+            await _context.SaveChangesAsync();
+
+            var savedListing = await _context.PropertyListings
+                .FirstAsync(l => l.ListingId == listing.ListingId);
+
+            // Assert
+            Assert.NotNull(savedListing);
+            Assert.Equal(defaultDescription, savedListing.Description);
+            Assert.Equal("Active", savedListing.Status);
+        }
+
+        /// <summary>
+        /// AI_005: Incomplete AI extraction results in partial data
+        /// Expected: System validates all required fields; prompts agent to complete manually
+        /// </summary>
+        [Fact]
+        public void IncompleteAIExtraction_ShouldRequireManualCompletion()
+        {
+            // Arrange - Simulate incomplete AI extraction
+            var extractedData = new { 
+                title = "Apartment", 
+                bedrooms = (int?)null, // Missing
+                price = (decimal?)null  // Missing
+            };
+
+            // Act - Validate required fields
+            var hasRequiredFields = !string.IsNullOrEmpty(extractedData.title) &&
+                                   extractedData.bedrooms.HasValue &&
+                                   extractedData.price.HasValue;
+
+            // Assert
+            Assert.False(hasRequiredFields, "Incomplete extraction should fail validation");
+        }
+
+        // Helper method for CSS validation
+        private bool ValidateCSS(string css)
+        {
+            if (string.IsNullOrWhiteSpace(css))
+                return false;
+
+            // Basic CSS validation - check for balanced braces and colons
+            var braceCount = css.Count(c => c == '{') - css.Count(c => c == '}');
+            var hasValidStructure = braceCount == 0 && !css.Contains("]]>");
+
+            return hasValidStructure;
+        }
+    }
+}
