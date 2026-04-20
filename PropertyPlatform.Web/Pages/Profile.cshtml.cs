@@ -38,11 +38,12 @@ namespace PropertyPlatform.Web.Pages
             if (!Guid.TryParse(tenantIdString, out Guid tenantId))
                 return RedirectToPage("/Login");
 
-            Profile = await _context.AgentProfiles.FirstOrDefaultAsync(p => p.TenantId == tenantId);
+            var profile = await _context.AgentProfiles.FirstOrDefaultAsync(p => p.TenantId == tenantId);
 
-            if (Profile == null)
+            Profile = profile ?? new AgentProfile { TenantId = tenantId };
+
+            if (profile == null)
             {
-                Profile = new AgentProfile { TenantId = tenantId };
                 _context.AgentProfiles.Add(Profile);
                 await _context.SaveChangesAsync();
             }

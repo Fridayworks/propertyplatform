@@ -409,7 +409,6 @@ D:\code\propertyplatform\PropertyPlatform.Web\obj\Debug\net10.0\staticwebassets.
 D:\code\propertyplatform\PropertyPlatform.Web\obj\Debug\net10.0\staticwebassets.development.json
 D:\code\propertyplatform\PropertyPlatform.Web\obj\Debug\net10.0\staticwebassets.build.endpoints.json
 D:\code\propertyplatform\PropertyPlatform.Web\obj\Debug\net10.0\swae.build.ex.cache
-D:\code\propertyplatform\PropertyPlatform.Web\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt
 D:\code\propertyplatform\PropertyPlatform.Web\obj\Debug\net10.0\Property.9711DC85.Up2Date
 D:\code\propertyplatform\PropertyPlatform.Web\obj\Debug\net10.0\PropertyPlatform.Web.genruntimeconfig.cache
 D:\code\propertyplatform\PropertyPlatform.Web\obj\Debug\net10.0\ref\PropertyPlatform.Web.dll

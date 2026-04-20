@@ -129,10 +129,10 @@ namespace PropertyPlatform.Infrastructure.Services
                 .Where(am => am.TenantId == tenantId && !am.IsCompleted)
                 .Select(am => new AgentMissionDto
                 {
-                    Title = am.Mission.Title,
-                    Description = am.Mission.Description,
+                    Title = am.Mission!.Title,
+                    Description = am.Mission!.Description,
                     CurrentProgress = am.CurrentProgress,
-                    RequirementCount = am.Mission.RequirementCount,
+                    RequirementCount = am.Mission!.RequirementCount,
                     IsCompleted = am.IsCompleted
                 })
                 .ToListAsync();

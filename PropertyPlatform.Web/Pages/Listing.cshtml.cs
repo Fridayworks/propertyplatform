@@ -33,11 +33,11 @@ namespace PropertyPlatform.Web.Pages
         public async Task<IActionResult> OnGetAsync(Guid id)
         {
             Listing = await _context.PropertyListings
-                .Include(l => l.Tenant)
-                .ThenInclude(t => t.AgentProfile)
-                .Include(l => l.Media)
-                .Include(l => l.Features)
-                .Include(l => l.FloorPlans)
+                .Include(l => l!.Tenant)
+                .ThenInclude(t => t!.AgentProfile)
+                .Include(l => l!.Media)
+                .Include(l => l!.Features)
+                .Include(l => l!.FloorPlans)
                 .FirstOrDefaultAsync(l => l.ListingId == id);
 
             if (Listing == null)

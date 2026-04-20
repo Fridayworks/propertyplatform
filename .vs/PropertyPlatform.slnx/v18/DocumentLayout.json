@@ -1,122 +1,12 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\code\\propertyplatform\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{61F46670-3161-E438-858C-81A7170E679E}|PropertyPlatform.API\\PropertyPlatform.API.csproj|d:\\code\\propertyplatform\\propertyplatform.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{61F46670-3161-E438-858C-81A7170E679E}|PropertyPlatform.API\\PropertyPlatform.API.csproj|solutionrelative:propertyplatform.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7658A0CE-40D7-368C-2870-8A13F7206D8E}|PropertyPlatform.Core\\PropertyPlatform.Core.csproj|d:\\code\\propertyplatform\\propertyplatform.core\\entities\\agentreview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7658A0CE-40D7-368C-2870-8A13F7206D8E}|PropertyPlatform.Core\\PropertyPlatform.Core.csproj|solutionrelative:propertyplatform.core\\entities\\agentreview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7658A0CE-40D7-368C-2870-8A13F7206D8E}|PropertyPlatform.Core\\PropertyPlatform.Core.csproj|d:\\code\\propertyplatform\\propertyplatform.core\\entities\\credittransaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7658A0CE-40D7-368C-2870-8A13F7206D8E}|PropertyPlatform.Core\\PropertyPlatform.Core.csproj|solutionrelative:propertyplatform.core\\entities\\credittransaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7658A0CE-40D7-368C-2870-8A13F7206D8E}|PropertyPlatform.Core\\PropertyPlatform.Core.csproj|d:\\code\\propertyplatform\\propertyplatform.core\\entities\\referral.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7658A0CE-40D7-368C-2870-8A13F7206D8E}|PropertyPlatform.Core\\PropertyPlatform.Core.csproj|solutionrelative:propertyplatform.core\\entities\\referral.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7658A0CE-40D7-368C-2870-8A13F7206D8E}|PropertyPlatform.Core\\PropertyPlatform.Core.csproj|d:\\code\\propertyplatform\\propertyplatform.core\\entities\\refreshtoken.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7658A0CE-40D7-368C-2870-8A13F7206D8E}|PropertyPlatform.Core\\PropertyPlatform.Core.csproj|solutionrelative:propertyplatform.core\\entities\\refreshtoken.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7658A0CE-40D7-368C-2870-8A13F7206D8E}|PropertyPlatform.Core\\PropertyPlatform.Core.csproj|d:\\code\\propertyplatform\\propertyplatform.core\\entities\\subscription.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7658A0CE-40D7-368C-2870-8A13F7206D8E}|PropertyPlatform.Core\\PropertyPlatform.Core.csproj|solutionrelative:propertyplatform.core\\entities\\subscription.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 5,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Subscription.cs",
-              "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Core\\Entities\\Subscription.cs",
-              "RelativeDocumentMoniker": "PropertyPlatform.Core\\Entities\\Subscription.cs",
-              "ToolTip": "D:\\code\\propertyplatform\\PropertyPlatform.Core\\Entities\\Subscription.cs",
-              "RelativeToolTip": "PropertyPlatform.Core\\Entities\\Subscription.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAABQwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T14:14:38.111Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "RefreshToken.cs",
-              "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Core\\Entities\\RefreshToken.cs",
-              "RelativeDocumentMoniker": "PropertyPlatform.Core\\Entities\\RefreshToken.cs",
-              "ToolTip": "D:\\code\\propertyplatform\\PropertyPlatform.Core\\Entities\\RefreshToken.cs",
-              "RelativeToolTip": "PropertyPlatform.Core\\Entities\\RefreshToken.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAABQwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T14:14:37.955Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Referral.cs",
-              "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Core\\Entities\\Referral.cs",
-              "RelativeDocumentMoniker": "PropertyPlatform.Core\\Entities\\Referral.cs",
-              "ToolTip": "D:\\code\\propertyplatform\\PropertyPlatform.Core\\Entities\\Referral.cs",
-              "RelativeToolTip": "PropertyPlatform.Core\\Entities\\Referral.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAABQwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T14:14:37.819Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "CreditTransaction.cs",
-              "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Core\\Entities\\CreditTransaction.cs",
-              "RelativeDocumentMoniker": "PropertyPlatform.Core\\Entities\\CreditTransaction.cs",
-              "ToolTip": "D:\\code\\propertyplatform\\PropertyPlatform.Core\\Entities\\CreditTransaction.cs",
-              "RelativeToolTip": "PropertyPlatform.Core\\Entities\\CreditTransaction.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAEBUwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T14:14:19.955Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "AgentReview.cs",
-              "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Core\\Entities\\AgentReview.cs",
-              "RelativeDocumentMoniker": "PropertyPlatform.Core\\Entities\\AgentReview.cs",
-              "ToolTip": "D:\\code\\propertyplatform\\PropertyPlatform.Core\\Entities\\AgentReview.cs",
-              "RelativeToolTip": "PropertyPlatform.Core\\Entities\\AgentReview.cs",
-              "ViewState": "AgIAABEAAAAAAAAAAEBUwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T14:12:02.097Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.API\\Program.cs",
-              "RelativeDocumentMoniker": "PropertyPlatform.API\\Program.cs",
-              "ToolTip": "D:\\code\\propertyplatform\\PropertyPlatform.API\\Program.cs",
-              "RelativeToolTip": "PropertyPlatform.API\\Program.cs",
-              "ViewState": "AgIAABgAAAAAAAAAAAAAAC0AAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T14:08:16.46Z",
-              "EditorCaption": ""
-            }
-          ]
-        }
-      ]
+      "DocumentGroups": []
     }
   ]
 }

@@ -29,12 +29,14 @@ namespace PropertyPlatform.Web.Pages
             if (string.IsNullOrEmpty(slug)) return NotFound();
 
             // Ignore global query filters for public agent discovery
-            AgentProfile = await _context.AgentProfiles
+            var agentProfile = await _context.AgentProfiles
                 .IgnoreQueryFilters()
-                .Include(a => a.Tenant)
+                .Include(a => a!.Tenant)
                 .FirstOrDefaultAsync(a => a.Slug == slug);
 
-            if (AgentProfile == null) return NotFound();
+            if (agentProfile == null) return NotFound();
+
+            AgentProfile = agentProfile;
 
             Listings = await _context.PropertyListings
                 .IgnoreQueryFilters()

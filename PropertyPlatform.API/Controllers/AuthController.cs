@@ -28,9 +28,53 @@ namespace PropertyPlatform.API.Controllers
             public string Password { get; set; } = string.Empty;
         }
 
+        public class RegisterRequest
+        {
+            public string Email { get; set; } = string.Empty;
+            public string Password { get; set; } = string.Empty;
+            public string Name { get; set; } = string.Empty;
+            public string Phone { get; set; } = string.Empty;
+        }
+
         public class RefreshRequest
         {
             public string RefreshToken { get; set; } = string.Empty;
+        }
+
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] RegisterRequest request)
+        {
+            if (_context.Tenants.Any(t => t.Email == request.Email))
+            {
+                return BadRequest("Email already exists");
+            }
+
+            var tenant = new Tenant
+            {
+                Email = request.Email,
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password),
+                CreatedAt = DateTime.UtcNow
+            };
+
+            _context.Tenants.Add(tenant);
+            await _context.SaveChangesAsync();
+
+            // Create agent profile
+            var agentProfile = new AgentProfile
+            {
+                TenantId = tenant.TenantId,
+                Name = request.Name,
+                Phone = request.Phone,
+                REN_ID = string.Empty, // To be filled later
+                OfficeAddress = string.Empty,
+                ProfilePhotoUrl = string.Empty,
+                CompanyLogoUrl = string.Empty
+            };
+
+            _context.AgentProfiles.Add(agentProfile);
+            await _context.SaveChangesAsync();
+
+            return Ok("Agent registered successfully");
         }
 
         [HttpPost("login")]

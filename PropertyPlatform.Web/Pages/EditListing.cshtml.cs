@@ -43,16 +43,18 @@ namespace PropertyPlatform.Web.Pages
             if (!Guid.TryParse(tenantIdString, out Guid tenantId))
                 return RedirectToPage("/Login");
 
-            Listing = await _context.PropertyListings
-                .Include(l => l.Media)
-                .Include(l => l.Features)
-                .Include(l => l.FloorPlans)
+            var listing = await _context.PropertyListings
+                .Include(l => l!.Media)
+                .Include(l => l!.Features)
+                .Include(l => l!.FloorPlans)
                 .FirstOrDefaultAsync(m => m.ListingId == id);
 
-            if (Listing == null)
+            if (listing == null)
             {
                 return NotFound();
             }
+
+            Listing = listing;
 
             if (Listing.TenantId != tenantId)
             {

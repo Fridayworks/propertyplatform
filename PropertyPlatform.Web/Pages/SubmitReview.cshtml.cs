@@ -37,11 +37,13 @@ namespace PropertyPlatform.Web.Pages
 
         public async Task<IActionResult> OnGetAsync()
         {
-            AgentProfile = await _context.AgentProfiles
+            var agentProfile = await _context.AgentProfiles
                 .IgnoreQueryFilters()
                 .FirstOrDefaultAsync(p => p.TenantId == AgentId);
 
-            if (AgentProfile == null) return NotFound();
+            if (agentProfile == null) return NotFound();
+
+            AgentProfile = agentProfile;
 
             return Page();
         }
