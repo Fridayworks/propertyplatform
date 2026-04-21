@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using PropertyPlatform.Core.Constants;
 using PropertyPlatform.Core.Entities;
 using PropertyPlatform.Core.Interfaces;
 using PropertyPlatform.Infrastructure.Data;
@@ -36,6 +38,12 @@ namespace PropertyPlatform.Web.Pages
 
         [BindProperty]
         public string PropertyType { get; set; } = "Condo";
+
+        [BindProperty(SupportsGet = true)]
+        public string ListingType { get; set; } = ListingTypeKeys.Sale;
+
+        public List<FeatureConfig> EnabledListingTypes { get; set; } = new();
+        public string SelectedListingTypeName { get; set; } = "Sale";
         
         [BindProperty]
         public int Bedrooms { get; set; }
@@ -52,8 +60,19 @@ namespace PropertyPlatform.Web.Pages
         [BindProperty]
         public List<IFormFile> FloorPlanImages { get; set; } = new List<IFormFile>();
 
-        public void OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
+            await LoadListingTypesAsync();
+
+            ListingType = NormalizeListingType(ListingType);
+            var selectedType = EnabledListingTypes.FirstOrDefault(t => t.FeatureKey == ListingType);
+            if (selectedType == null)
+            {
+                return RedirectToPage("/SelectListingType");
+            }
+
+            SelectedListingTypeName = selectedType.DisplayName;
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -62,12 +81,23 @@ namespace PropertyPlatform.Web.Pages
             if (!Guid.TryParse(tenantIdString, out Guid tenantId))
                 return RedirectToPage("/Login");
 
+            await LoadListingTypesAsync();
+            ListingType = NormalizeListingType(ListingType);
+            var selectedType = EnabledListingTypes.FirstOrDefault(t => t.FeatureKey == ListingType);
+            if (selectedType == null)
+            {
+                ModelState.AddModelError(nameof(ListingType), "This listing type is currently disabled.");
+                return Page();
+            }
+            SelectedListingTypeName = selectedType.DisplayName;
+
             var newListing = new PropertyListing
             {
                 TenantId = tenantId,
                 Title = Title,
                 Location = Location,
                 Price = Price,
+                ListingType = ListingType,
                 PropertyType = PropertyType,
                 Status = "Active",
                 Description = string.IsNullOrEmpty(Description) ? "A great property." : Description
@@ -126,6 +156,21 @@ namespace PropertyPlatform.Web.Pages
             await _gamificationService.TrackActionAsync(tenantId, "UPLOAD_5_LISTINGS");
 
             return RedirectToPage("/Agents");
+        }
+
+        private async Task LoadListingTypesAsync()
+        {
+            EnabledListingTypes = await _context.FeatureConfigs
+                .AsNoTracking()
+                .Where(f => f.Category == "ListingType" && f.IsEnabled)
+                .OrderBy(f => f.SortOrder)
+                .ToListAsync();
+        }
+
+        private static string NormalizeListingType(string? listingType)
+        {
+            var normalized = listingType?.Trim().ToLowerInvariant();
+            return ListingTypeKeys.All.Contains(normalized) ? normalized! : ListingTypeKeys.Sale;
         }
     }
 }

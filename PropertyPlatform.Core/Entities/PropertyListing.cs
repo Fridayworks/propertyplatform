@@ -9,6 +9,7 @@ namespace PropertyPlatform.Core.Entities
         public string Location { get; set; } = string.Empty;
         public decimal Price { get; set; }
         public string Status { get; set; } = "Active";
+        public string ListingType { get; set; } = "sale"; // sale, rent, new-project
         public string PropertyType { get; set; } = "Condo"; // Condo, Terrace, Semi-D, Landed, etc.
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;

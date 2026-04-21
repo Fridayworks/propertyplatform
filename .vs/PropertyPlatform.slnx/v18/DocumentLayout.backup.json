@@ -48,32 +48,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 9,
+          "SelectedChildIndex": 3,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "LeadCaptureTests.cs",
-              "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\LeadCaptureTests.cs",
-              "RelativeDocumentMoniker": "PropertyPlatform.Tests\\LeadCaptureTests.cs",
-              "ToolTip": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\LeadCaptureTests.cs",
-              "RelativeToolTip": "PropertyPlatform.Tests\\LeadCaptureTests.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAKUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T16:11:12.881Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "LeadCaptureTests.cs",
-              "DocumentMoniker": "C:\\Users\\carso\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\1863584566\\LeadCaptureTests.cs",
-              "ToolTip": "C:\\Users\\carso\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\1863584566\\LeadCaptureTests.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T16:11:00.277Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Document",
               "DocumentIndex": 7,
@@ -84,8 +60,7 @@
               "RelativeToolTip": "PropertyPlatform.Tests\\PropertySearchTests.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAANAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T16:10:49.05Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-20T16:10:49.05Z"
             },
             {
               "$type": "Document",
@@ -95,8 +70,7 @@
               "ToolTip": "C:\\Users\\carso\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\1863584566\\PropertySearchTests.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T16:10:37.732Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-20T16:10:37.732Z"
             },
             {
               "$type": "Document",
@@ -108,8 +82,30 @@
               "RelativeToolTip": "PropertyPlatform.Tests\\IntegrationTests.cs",
               "ViewState": "AgIAAO4AAAAAAAAAAABBwCUBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T15:59:48.836Z",
+              "WhenOpened": "2026-04-20T15:59:48.836Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ListingCreationTests.cs",
+              "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\ListingCreationTests.cs",
+              "RelativeDocumentMoniker": "PropertyPlatform.Tests\\ListingCreationTests.cs",
+              "ToolTip": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\ListingCreationTests.cs",
+              "RelativeToolTip": "PropertyPlatform.Tests\\ListingCreationTests.cs",
+              "ViewState": "AgIAAI8AAAAAAAAAAAAcwKUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-20T15:58:35.76Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "LeadCaptureTests.cs",
+              "DocumentMoniker": "C:\\Users\\carso\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\1863584566\\LeadCaptureTests.cs",
+              "ToolTip": "C:\\Users\\carso\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\1863584566\\LeadCaptureTests.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-20T16:11:00.277Z"
             },
             {
               "$type": "Document",
@@ -121,8 +117,19 @@
               "RelativeToolTip": "PropertyPlatform.Tests\\AIRiskValidationTests.cs",
               "ViewState": "AgIAAI4AAAAAAAAAAIBJwMgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T15:59:32.181Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-20T15:59:32.181Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "LeadCaptureTests.cs",
+              "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\LeadCaptureTests.cs",
+              "RelativeDocumentMoniker": "PropertyPlatform.Tests\\LeadCaptureTests.cs",
+              "ToolTip": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\LeadCaptureTests.cs",
+              "RelativeToolTip": "PropertyPlatform.Tests\\LeadCaptureTests.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAKUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-20T16:11:12.881Z"
             },
             {
               "$type": "Document",
@@ -134,8 +141,7 @@
               "RelativeToolTip": "PropertyPlatform.Tests\\SecurityComplianceTests.cs",
               "ViewState": "AgIAAFoAAAAAAAAAAIBJwLoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T15:59:19.281Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-20T15:59:19.281Z"
             },
             {
               "$type": "Document",
@@ -147,8 +153,7 @@
               "RelativeToolTip": "PropertyPlatform.Tests\\PerformanceTests.cs",
               "ViewState": "AgIAACYAAAAAAAAAAABBwMEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T15:59:07.134Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-20T15:59:07.134Z"
             },
             {
               "$type": "Document",
@@ -160,21 +165,7 @@
               "RelativeToolTip": "PropertyPlatform.Tests\\SmartListingEngineTests.cs",
               "ViewState": "AgIAAHoAAAAAAAAAAABRwI4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T15:58:45.168Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ListingCreationTests.cs",
-              "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\ListingCreationTests.cs",
-              "RelativeDocumentMoniker": "PropertyPlatform.Tests\\ListingCreationTests.cs",
-              "ToolTip": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\ListingCreationTests.cs",
-              "RelativeToolTip": "PropertyPlatform.Tests\\ListingCreationTests.cs",
-              "ViewState": "AgIAAIEAAAAAAAAAAIBJwKUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T15:58:35.76Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-20T15:58:45.168Z"
             }
           ]
         }

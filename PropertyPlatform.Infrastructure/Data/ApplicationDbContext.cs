@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using PropertyPlatform.Core.Constants;
 using PropertyPlatform.Core.Entities;
 using System.Security.Claims;
 
@@ -44,6 +45,7 @@ namespace PropertyPlatform.Infrastructure.Data
         public DbSet<Mission> Missions { get; set; } = null!;
         public DbSet<AgentMission> AgentMissions { get; set; } = null!;
         public DbSet<AgentReview> AgentReviews { get; set; } = null!;
+        public DbSet<FeatureConfig> FeatureConfigs { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -177,6 +179,9 @@ namespace PropertyPlatform.Infrastructure.Data
                 .WithMany()
                 .HasForeignKey(am => am.MissionId);
 
+            modelBuilder.Entity<FeatureConfig>().HasKey(f => f.FeatureConfigId);
+            modelBuilder.Entity<FeatureConfig>().HasIndex(f => f.FeatureKey).IsUnique();
+
             // Seed Data
             modelBuilder.Entity<Badge>().HasData(
                 new Badge { BadgeId = Guid.Parse("00000000-0000-0000-0000-000000000001"), Name = "Rising Star", Code = "RISING_STAR", Description = "Joined the platform and completed initial setup.", IconUrl = "✨" },
@@ -186,6 +191,42 @@ namespace PropertyPlatform.Infrastructure.Data
             modelBuilder.Entity<Mission>().HasData(
                 new Mission { MissionId = Guid.Parse("00000000-0000-0000-0000-000000000003"), Title = "First Listing", Code = "FIRST_LISTING", Description = "Upload your very first property listing.", RequirementCount = 1, XPReward = 100, CreditReward = 10 },
                 new Mission { MissionId = Guid.Parse("00000000-0000-0000-0000-000000000004"), Title = "Listing Spree", Code = "UPLOAD_5_LISTINGS", Description = "Upload 5 properties to the platform.", RequirementCount = 5, XPReward = 300, CreditReward = 50 }
+            );
+
+            modelBuilder.Entity<FeatureConfig>().HasData(
+                new FeatureConfig
+                {
+                    FeatureConfigId = Guid.Parse("00000000-0000-0000-0000-000000000101"),
+                    FeatureKey = ListingTypeKeys.Sale,
+                    DisplayName = "Sale",
+                    Description = "Allow agents to publish resale or subsale property listings.",
+                    Category = "ListingType",
+                    IsEnabled = true,
+                    SortOrder = 1,
+                    UpdatedAt = new DateTime(2026, 4, 21, 0, 0, 0, DateTimeKind.Utc)
+                },
+                new FeatureConfig
+                {
+                    FeatureConfigId = Guid.Parse("00000000-0000-0000-0000-000000000102"),
+                    FeatureKey = ListingTypeKeys.Rent,
+                    DisplayName = "Rent",
+                    Description = "Allow agents to publish rental property listings.",
+                    Category = "ListingType",
+                    IsEnabled = true,
+                    SortOrder = 2,
+                    UpdatedAt = new DateTime(2026, 4, 21, 0, 0, 0, DateTimeKind.Utc)
+                },
+                new FeatureConfig
+                {
+                    FeatureConfigId = Guid.Parse("00000000-0000-0000-0000-000000000103"),
+                    FeatureKey = ListingTypeKeys.NewProject,
+                    DisplayName = "New Project",
+                    Description = "Allow agents to publish new launch and project listings.",
+                    Category = "ListingType",
+                    IsEnabled = true,
+                    SortOrder = 3,
+                    UpdatedAt = new DateTime(2026, 4, 21, 0, 0, 0, DateTimeKind.Utc)
+                }
             );
 
             // SQLite decimal fix
@@ -198,6 +239,7 @@ namespace PropertyPlatform.Infrastructure.Data
 
             // Indexes
             modelBuilder.Entity<PropertyListing>().HasIndex(l => l.TenantId);
+            modelBuilder.Entity<PropertyListing>().HasIndex(l => l.ListingType);
             modelBuilder.Entity<PropertyListing>().HasIndex(l => l.Location);
             modelBuilder.Entity<UserEvent>().HasIndex(e => e.ListingId);
             modelBuilder.Entity<AgentProfile>().HasIndex(a => a.Slug).IsUnique();

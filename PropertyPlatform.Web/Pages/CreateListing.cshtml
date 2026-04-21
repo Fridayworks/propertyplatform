@@ -8,15 +8,25 @@
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="mb-8 flex items-center justify-between">
             <div>
-                <h1 class="text-3xl font-bold text-gray-900">Create New Listing</h1>
+                <h1 class="text-3xl font-bold text-gray-900">Create @Model.SelectedListingTypeName Listing</h1>
                 <p class="mt-2 text-sm text-gray-500">Fill in the details to publish your property.</p>
             </div>
-            <a href="/Agents" class="text-sm font-medium text-primary-600 hover:text-primary-500">&larr; Back to Dashboard</a>
+            <div class="flex items-center gap-4">
+                <a href="/SelectListingType" class="text-sm font-medium text-primary-600 hover:text-primary-500">Change type</a>
+                <a href="/Agents" class="text-sm font-medium text-primary-600 hover:text-primary-500">&larr; Back to Dashboard</a>
+            </div>
         </div>
 
         <div class="bg-white p-8 rounded-lg shadow-sm border border-gray-200">
             <form method="post" enctype="multipart/form-data">
+                <input type="hidden" asp-for="ListingType" />
                 <div class="space-y-6">
+                    <div class="rounded-md border border-primary-100 bg-primary-50 px-4 py-3">
+                        <p class="text-sm font-semibold text-primary-700">Listing type: @Model.SelectedListingTypeName</p>
+                        <p class="mt-1 text-xs text-primary-700">This option is controlled by the admin configuration panel.</p>
+                        <span asp-validation-for="ListingType" class="text-red-500 text-xs"></span>
+                    </div>
+
                     <div>
                         <label asp-for="Title" class="block text-sm font-medium text-gray-700">Property Title</label>
                         <input asp-for="Title" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm px-3 py-2 border" placeholder="e.g. Modern 3-Bedroom Condo in KLCC" required />

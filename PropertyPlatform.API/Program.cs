@@ -49,6 +49,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 var app = builder.Build();
 
+app.MigrateDatabase();
+
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();

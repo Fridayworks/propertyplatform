@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PropertyPlatform.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f52791050a361853f7961038c259dc0395cf9074")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+44028dc05d6fe73c0941f2861f76afaa1f92a14d")]
 [assembly: System.Reflection.AssemblyProductAttribute("PropertyPlatform.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PropertyPlatform.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

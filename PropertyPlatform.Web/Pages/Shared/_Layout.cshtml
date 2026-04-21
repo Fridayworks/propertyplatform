@@ -1,3 +1,10 @@
+@using System.Security.Claims
+@inject IConfiguration Configuration
+@{
+    var adminEmails = Configuration.GetSection("Admin:Emails").Get<string[]>() ?? Array.Empty<string>();
+    var currentEmail = User.FindFirstValue(ClaimTypes.Name);
+    var isAdmin = !string.IsNullOrWhiteSpace(currentEmail) && adminEmails.Any(email => string.Equals(email, currentEmail, StringComparison.OrdinalIgnoreCase));
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -64,6 +71,10 @@
                     @if (User.Identity?.IsAuthenticated == true)
                     {
                         <a href="/Leads" class="text-gray-500 hover:text-gray-900 px-3 py-2 text-sm font-medium transition-colors">My Leads</a>
+                        @if (isAdmin)
+                        {
+                            <a href="/Admin/FeatureConfig" class="text-gray-500 hover:text-gray-900 px-3 py-2 text-sm font-medium transition-colors">Admin</a>
+                        }
                     }
                     else
                     {

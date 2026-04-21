@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using PropertyPlatform.Core.Constants;
 using PropertyPlatform.Core.Entities;
 using PropertyPlatform.Infrastructure.Data;
 using System.Security.Claims;
@@ -36,12 +37,20 @@ namespace PropertyPlatform.API.Controllers
             public string Location { get; set; } = string.Empty;
             public decimal Price { get; set; }
             public string Status { get; set; } = "Draft";
+            public string ListingType { get; set; } = ListingTypeKeys.Sale;
+            public string PropertyType { get; set; } = "Condo";
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateListing([FromBody] CreateListingRequest request)
         {
             var tenantId = GetCurrentTenantId();
+            var listingType = NormalizeListingType(request.ListingType);
+
+            if (!await IsListingTypeEnabledAsync(listingType))
+            {
+                return BadRequest($"Listing type '{request.ListingType}' is disabled.");
+            }
 
             var listing = new PropertyListing
             {
@@ -50,6 +59,8 @@ namespace PropertyPlatform.API.Controllers
                 Description = request.Description,
                 Location = request.Location,
                 Price = request.Price,
+                ListingType = listingType,
+                PropertyType = request.PropertyType,
                 Status = request.Status,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow
@@ -106,8 +117,15 @@ namespace PropertyPlatform.API.Controllers
             listing.Description = request.Description;
             listing.Location = request.Location;
             listing.Price = request.Price;
+            listing.ListingType = NormalizeListingType(request.ListingType);
+            listing.PropertyType = request.PropertyType;
             listing.Status = request.Status;
             listing.UpdatedAt = DateTime.UtcNow;
+
+            if (!await IsListingTypeEnabledAsync(listing.ListingType))
+            {
+                return BadRequest($"Listing type '{request.ListingType}' is disabled.");
+            }
 
             await _context.SaveChangesAsync();
 
@@ -131,6 +149,18 @@ namespace PropertyPlatform.API.Controllers
             await _context.SaveChangesAsync();
 
             return Ok();
+        }
+
+        private static string NormalizeListingType(string? listingType)
+        {
+            var normalized = listingType?.Trim().ToLowerInvariant();
+            return ListingTypeKeys.All.Contains(normalized) ? normalized! : ListingTypeKeys.Sale;
+        }
+
+        private async Task<bool> IsListingTypeEnabledAsync(string listingType)
+        {
+            return await _context.FeatureConfigs
+                .AnyAsync(f => f.Category == "ListingType" && f.FeatureKey == listingType && f.IsEnabled);
         }
     }
 }

@@ -22,6 +22,8 @@ namespace PropertyPlatform.API.Controllers
             [FromQuery] string? location,
             [FromQuery] decimal? minPrice,
             [FromQuery] decimal? maxPrice,
+            [FromQuery] string? listingType,
+            [FromQuery] string? propertyType,
             [FromQuery] int page = 1,
             [FromQuery] int pageSize = 10)
         {
@@ -45,6 +47,16 @@ namespace PropertyPlatform.API.Controllers
             if (maxPrice.HasValue)
             {
                 query = query.Where(l => l.Price <= maxPrice.Value);
+            }
+
+            if (!string.IsNullOrEmpty(listingType))
+            {
+                query = query.Where(l => l.ListingType == listingType);
+            }
+
+            if (!string.IsNullOrEmpty(propertyType))
+            {
+                query = query.Where(l => l.PropertyType == propertyType);
             }
 
             var totalCount = await query.CountAsync();

@@ -1,0 +1,46 @@
+@page
+@model PropertyPlatform.Web.Pages.SelectListingTypeModel
+@{
+    ViewData["Title"] = "Select Listing Type";
+}
+
+<div class="bg-gray-50 py-12 min-h-screen">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-8 flex items-center justify-between">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900">Select Listing Type</h1>
+                <p class="mt-2 text-sm text-gray-500">Choose how this property should be published.</p>
+            </div>
+            <a href="/Agents" class="text-sm font-medium text-primary-600 hover:text-primary-500">&larr; Back to Dashboard</a>
+        </div>
+
+        @if (!Model.ListingTypes.Any())
+        {
+            <div class="rounded-lg border border-amber-200 bg-amber-50 p-6">
+                <h2 class="text-lg font-semibold text-amber-900">No listing types are currently enabled</h2>
+                <p class="mt-2 text-sm text-amber-800">Please contact an administrator before creating a listing.</p>
+            </div>
+        }
+        else
+        {
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                @foreach (var type in Model.ListingTypes)
+                {
+                    <a href="/CreateListing?listingType=@type.FeatureKey" class="group block rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-primary-500 hover:shadow-md">
+                        <div class="flex h-12 w-12 items-center justify-center rounded-md bg-primary-50 text-primary-700 font-bold">
+                            @type.DisplayName.Substring(0, 1)
+                        </div>
+                        <h2 class="mt-5 text-xl font-bold text-gray-900">@type.DisplayName</h2>
+                        <p class="mt-2 min-h-12 text-sm text-gray-500">@type.Description</p>
+                        <span class="mt-6 inline-flex items-center text-sm font-semibold text-primary-600 group-hover:text-primary-700">
+                            Continue
+                            <svg class="ml-2 h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M3 10a1 1 0 011-1h9.586l-3.293-3.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414-1.414L13.586 11H4a1 1 0 01-1-1z" clip-rule="evenodd" />
+                            </svg>
+                        </span>
+                    </a>
+                }
+            </div>
+        }
+    </div>
+</div>

@@ -20,15 +20,17 @@ namespace PropertyPlatform.Web.Pages
         public decimal? MinPrice { get; set; }
         public decimal? MaxPrice { get; set; }
         public string? PropertyType { get; set; }
+        public string? ListingType { get; set; }
         public int PageNumber { get; set; }
         public int TotalPages { get; set; }
 
-        public async Task OnGetAsync(string? query, decimal? minPrice, decimal? maxPrice, string? propertyType, int p = 1)
+        public async Task OnGetAsync(string? query, decimal? minPrice, decimal? maxPrice, string? propertyType, string? listingType, int p = 1)
         {
             SearchQuery = query;
             MinPrice = minPrice;
             MaxPrice = maxPrice;
             PropertyType = propertyType;
+            ListingType = listingType;
             PageNumber = p <= 0 ? 1 : p;
             int pageSize = 12;
 
@@ -57,6 +59,11 @@ namespace PropertyPlatform.Web.Pages
             if (!string.IsNullOrEmpty(propertyType))
             {
                 q = q.Where(l => l.PropertyType == propertyType);
+            }
+
+            if (!string.IsNullOrEmpty(listingType))
+            {
+                q = q.Where(l => l.ListingType == listingType);
             }
 
             int totalCount = await q.CountAsync();

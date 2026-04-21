@@ -249,6 +249,80 @@ namespace PropertyPlatform.Infrastructure.Migrations
                     b.ToTable("CreditTransactions");
                 });
 
+            modelBuilder.Entity("PropertyPlatform.Core.Entities.FeatureConfig", b =>
+                {
+                    b.Property<Guid>("FeatureConfigId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("DisplayName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("FeatureKey")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsEnabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("SortOrder")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("FeatureConfigId");
+
+                    b.HasIndex("FeatureKey")
+                        .IsUnique();
+
+                    b.ToTable("FeatureConfigs");
+
+                    b.HasData(
+                        new
+                        {
+                            FeatureConfigId = new Guid("00000000-0000-0000-0000-000000000101"),
+                            Category = "ListingType",
+                            Description = "Allow agents to publish resale or subsale property listings.",
+                            DisplayName = "Sale",
+                            FeatureKey = "sale",
+                            IsEnabled = true,
+                            SortOrder = 1,
+                            UpdatedAt = new DateTime(2026, 4, 21, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            FeatureConfigId = new Guid("00000000-0000-0000-0000-000000000102"),
+                            Category = "ListingType",
+                            Description = "Allow agents to publish rental property listings.",
+                            DisplayName = "Rent",
+                            FeatureKey = "rent",
+                            IsEnabled = true,
+                            SortOrder = 2,
+                            UpdatedAt = new DateTime(2026, 4, 21, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            FeatureConfigId = new Guid("00000000-0000-0000-0000-000000000103"),
+                            Category = "ListingType",
+                            Description = "Allow agents to publish new launch and project listings.",
+                            DisplayName = "New Project",
+                            FeatureKey = "new-project",
+                            IsEnabled = true,
+                            SortOrder = 3,
+                            UpdatedAt = new DateTime(2026, 4, 21, 0, 0, 0, 0, DateTimeKind.Utc)
+                        });
+                });
+
             modelBuilder.Entity("PropertyPlatform.Core.Entities.FeaturedListing", b =>
                 {
                     b.Property<Guid>("FeatureId")
@@ -466,6 +540,10 @@ namespace PropertyPlatform.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("ListingType")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Location")
                         .IsRequired()
                         .HasColumnType("text");
@@ -492,6 +570,8 @@ namespace PropertyPlatform.Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("ListingId");
+
+                    b.HasIndex("ListingType");
 
                     b.HasIndex("Location");
 

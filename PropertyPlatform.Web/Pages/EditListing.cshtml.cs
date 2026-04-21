@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using PropertyPlatform.Core.Constants;
 using PropertyPlatform.Core.Entities;
 using PropertyPlatform.Core.Interfaces;
 using PropertyPlatform.Infrastructure.Data;
@@ -37,11 +38,15 @@ namespace PropertyPlatform.Web.Pages
         [BindProperty]
         public int Sqft { get; set; }
 
+        public List<FeatureConfig> ListingTypes { get; set; } = new();
+
         public async Task<IActionResult> OnGetAsync(Guid id)
         {
             var tenantIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (!Guid.TryParse(tenantIdString, out Guid tenantId))
                 return RedirectToPage("/Login");
+
+            await LoadListingTypesAsync();
 
             var listing = await _context.PropertyListings
                 .Include(l => l!.Media)
@@ -85,11 +90,21 @@ namespace PropertyPlatform.Web.Pages
             if (listingToUpdate == null) return NotFound();
             if (listingToUpdate.TenantId != tenantId) return Forbid();
 
+            await LoadListingTypesAsync();
+            Listing.ListingType = NormalizeListingType(Listing.ListingType);
+            if (!ListingTypes.Any(t => t.FeatureKey == Listing.ListingType))
+            {
+                ModelState.AddModelError("Listing.ListingType", "This listing type is currently disabled.");
+                Listing = listingToUpdate;
+                return Page();
+            }
+
             listingToUpdate.Title = Listing.Title;
             listingToUpdate.Location = Listing.Location;
             listingToUpdate.Price = Listing.Price;
             listingToUpdate.Description = Listing.Description;
             listingToUpdate.Status = Listing.Status;
+            listingToUpdate.ListingType = Listing.ListingType;
             listingToUpdate.PropertyType = Listing.PropertyType;
             listingToUpdate.UpdatedAt = DateTime.UtcNow;
 
@@ -170,6 +185,21 @@ namespace PropertyPlatform.Web.Pages
         private bool ListingExists(Guid id)
         {
             return _context.PropertyListings.Any(e => e.ListingId == id);
+        }
+
+        private async Task LoadListingTypesAsync()
+        {
+            ListingTypes = await _context.FeatureConfigs
+                .AsNoTracking()
+                .Where(f => f.Category == "ListingType" && f.IsEnabled)
+                .OrderBy(f => f.SortOrder)
+                .ToListAsync();
+        }
+
+        private static string NormalizeListingType(string? listingType)
+        {
+            var normalized = listingType?.Trim().ToLowerInvariant();
+            return ListingTypeKeys.All.Contains(normalized) ? normalized! : ListingTypeKeys.Sale;
         }
     }
 }
