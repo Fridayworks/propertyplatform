@@ -258,7 +258,7 @@ namespace PropertyPlatform.Infrastructure.Data
                 new FeatureConfig
                 {
                     FeatureConfigId = new Guid("00000000-0000-0000-0000-000000000201"),
-                    FeatureKey = "ENABLE_SALE",
+                    FeatureKey = "sale",
                     DisplayName = "Property Sale",
                     Description = "Allow agents to create listings for property sales.",
                     Category = "ListingType",
@@ -269,7 +269,7 @@ namespace PropertyPlatform.Infrastructure.Data
                 new FeatureConfig
                 {
                     FeatureConfigId = new Guid("00000000-0000-0000-0000-000000000202"),
-                    FeatureKey = "ENABLE_RENT",
+                    FeatureKey = "rent",
                     DisplayName = "Property Rental",
                     Description = "Allow agents to create listings for residential or commercial rentals.",
                     Category = "ListingType",
@@ -280,7 +280,7 @@ namespace PropertyPlatform.Infrastructure.Data
                 new FeatureConfig
                 {
                     FeatureConfigId = new Guid("00000000-0000-0000-0000-000000000203"),
-                    FeatureKey = "ENABLE_NEW_PROJECT",
+                    FeatureKey = "new-project",
                     DisplayName = "New Projects",
                     Description = "Allow agents to create listings for new developer projects.",
                     Category = "ListingType",

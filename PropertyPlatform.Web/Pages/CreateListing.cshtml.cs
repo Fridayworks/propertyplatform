@@ -54,6 +54,14 @@ namespace PropertyPlatform.Web.Pages
         [BindProperty]
         public int Sqft { get; set; }
 
+        // Rent Specific
+        [BindProperty]
+        public string RentalConfiguration { get; set; } = "Whole Unit";
+
+        // New Project Specific
+        [BindProperty]
+        public string ProjectOverview { get; set; } = string.Empty;
+
         [BindProperty]
         public List<IFormFile> Images { get; set; } = new List<IFormFile>();
 
@@ -107,6 +115,16 @@ namespace PropertyPlatform.Web.Pages
             newListing.Features.Add(new PropertyFeature { Key = "Bedrooms", Value = Bedrooms.ToString() });
             newListing.Features.Add(new PropertyFeature { Key = "Bathrooms", Value = Bathrooms.ToString() });
             newListing.Features.Add(new PropertyFeature { Key = "Sqft", Value = Sqft.ToString() });
+
+            if (ListingType == PropertyPlatform.Core.Constants.ListingTypeKeys.Rent)
+            {
+                newListing.Features.Add(new PropertyFeature { Key = "RentalConfiguration", Value = RentalConfiguration });
+            }
+            
+            if (ListingType == PropertyPlatform.Core.Constants.ListingTypeKeys.NewProject)
+            {
+                newListing.Description = string.IsNullOrEmpty(ProjectOverview) ? Description : ProjectOverview;
+            }
 
             _context.PropertyListings.Add(newListing);
 
