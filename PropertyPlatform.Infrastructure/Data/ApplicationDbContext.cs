@@ -218,9 +218,76 @@ namespace PropertyPlatform.Infrastructure.Data
 
         private void ConfigureSeedData(ModelBuilder modelBuilder)
         {
+            var adminTenantId = new Guid("00000000-0000-0000-0000-000000000100");
+            var adminAgentId = new Guid("00000000-0000-0000-0000-000000000101");
+
+            modelBuilder.Entity<Tenant>().HasData(
+                new Tenant
+                {
+                    TenantId = adminTenantId,
+                    Name = "Platform Administration",
+                    CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+                }
+            );
+
+            modelBuilder.Entity<AgentProfile>().HasData(
+                new AgentProfile
+                {
+                    AgentId = adminAgentId,
+                    TenantId = adminTenantId,
+                    Name = "Platform Admin",
+                    Email = "admin",
+                    PasswordHash = "$2a$11$pxNvtTsemAwY0LSFV3JE6.k2WEG1OzVBkbMHIOs3rsQmUDrTV2.r.", // 123456$$
+                    Phone = "000-000-0000",
+                    REN_ID = "ADMIN-001",
+                    OfficeAddress = "System HQ",
+                    ProfilePhotoUrl = "https://via.placeholder.com/150",
+                    CompanyLogoUrl = "https://via.placeholder.com/150",
+                    Slug = "admin",
+                    Bio = "System Administrator"
+                }
+            );
+
             modelBuilder.Entity<Badge>().HasData(
                 new Badge { BadgeId = new Guid("00000000-0000-0000-0000-000000000001"), Code = "RISING_STAR", Name = "Rising Star", Description = "Joined the platform and completed initial setup.", IconUrl = "✨" },
                 new Badge { BadgeId = new Guid("00000000-0000-0000-0000-000000000002"), Code = "ELITE_LISTER", Name = "Elite Lister", Description = "Uploaded 10 high-quality listings.", IconUrl = "🏆" }
+            );
+
+            modelBuilder.Entity<FeatureConfig>().HasData(
+                new FeatureConfig
+                {
+                    FeatureConfigId = new Guid("00000000-0000-0000-0000-000000000201"),
+                    FeatureKey = "ENABLE_SALE",
+                    DisplayName = "Property Sale",
+                    Description = "Allow agents to create listings for property sales.",
+                    Category = "ListingType",
+                    IsEnabled = true,
+                    SortOrder = 1,
+                    UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+                },
+                new FeatureConfig
+                {
+                    FeatureConfigId = new Guid("00000000-0000-0000-0000-000000000202"),
+                    FeatureKey = "ENABLE_RENT",
+                    DisplayName = "Property Rental",
+                    Description = "Allow agents to create listings for residential or commercial rentals.",
+                    Category = "ListingType",
+                    IsEnabled = true,
+                    SortOrder = 2,
+                    UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+                },
+                new FeatureConfig
+                {
+                    FeatureConfigId = new Guid("00000000-0000-0000-0000-000000000203"),
+                    FeatureKey = "ENABLE_NEW_PROJECT",
+                    DisplayName = "New Projects",
+                    Description = "Allow agents to create listings for new developer projects.",
+                    Category = "ListingType",
+                    IsEnabled = true,
+                    SortOrder = 3,
+                    UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+                }
             );
         }
     }

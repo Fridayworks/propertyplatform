@@ -1,0 +1,197 @@
+@page
+@model PropertyPlatform.Web.Pages.Admin.IndexModel
+@{
+    ViewData["Title"] = "Admin Control Tower";
+}
+
+<div class="bg-gray-50 min-h-screen py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="mb-8 flex items-center justify-between">
+            <div>
+                <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">Admin Control Tower</h1>
+                <p class="mt-2 text-sm text-gray-500">Platform-wide governance and operational intelligence.</p>
+            </div>
+            <div class="flex items-center space-x-4">
+                <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                    System Healthy
+                </span>
+                <a href="/Agents" class="text-sm font-medium text-primary-600 hover:text-primary-500 transition-colors">&larr; Back to Dashboard</a>
+            </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 mb-8">
+            <div class="bg-white overflow-hidden shadow-sm rounded-xl border border-gray-100 p-6">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 bg-blue-50 rounded-lg p-3 text-blue-600">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                    </div>
+                    <div class="ml-5 w-0 flex-1">
+                        <dl>
+                            <dt class="text-sm font-medium text-gray-500 truncate">Total Agents</dt>
+                            <dd class="flex items-baseline">
+                                <div class="text-2xl font-bold text-gray-900">@Model.TotalAgents</div>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white overflow-hidden shadow-sm rounded-xl border border-gray-100 p-6">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 bg-indigo-50 rounded-lg p-3 text-indigo-600">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                        </svg>
+                    </div>
+                    <div class="ml-5 w-0 flex-1">
+                        <dl>
+                            <dt class="text-sm font-medium text-gray-500 truncate">Live Listings</dt>
+                            <dd class="flex items-baseline">
+                                <div class="text-2xl font-bold text-gray-900">@Model.TotalListings</div>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white overflow-hidden shadow-sm rounded-xl border border-gray-100 p-6">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 bg-amber-50 rounded-lg p-3 text-amber-600">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
+                        </svg>
+                    </div>
+                    <div class="ml-5 w-0 flex-1">
+                        <dl>
+                            <dt class="text-sm font-medium text-gray-500 truncate">Active Leads</dt>
+                            <dd class="flex items-baseline">
+                                <div class="text-2xl font-bold text-gray-900">@Model.TotalLeads</div>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white overflow-hidden shadow-sm rounded-xl border border-gray-100 p-6">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 bg-green-50 rounded-lg p-3 text-green-600">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <div class="ml-5 w-0 flex-1">
+                        <dl>
+                            <dt class="text-sm font-medium text-gray-500 truncate">Platform Revenue</dt>
+                            <dd class="flex items-baseline">
+                                <div class="text-2xl font-bold text-gray-900">RM @Model.TotalRevenue.ToString("N2")</div>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Governance Modules -->
+        <h2 class="text-lg font-bold text-gray-900 mb-6 flex items-center gap-2">
+            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
+            Governance Modules
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            <!-- Feature Configuration -->
+            <a href="/Admin/FeatureConfig" class="group relative bg-white p-6 rounded-xl border border-gray-100 shadow-sm transition-all hover:shadow-md hover:border-primary-500 overflow-hidden">
+                <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                    <svg class="h-16 w-16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" /></svg>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 group-hover:text-primary-600 transition-colors">Site Configuration</h3>
+                <p class="mt-2 text-sm text-gray-500">Enable/disable listing types, region flags, and global feature toggles.</p>
+                <div class="mt-4 inline-flex items-center text-xs font-bold text-primary-600 uppercase tracking-wider">
+                    Enter Module &rarr;
+                </div>
+            </a>
+
+            <!-- User Governance -->
+            <a href="/Admin/Users" class="group relative bg-white p-6 rounded-xl border border-gray-100 shadow-sm transition-all hover:shadow-md hover:border-primary-500 overflow-hidden">
+                <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                    <svg class="h-16 w-16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 group-hover:text-primary-600 transition-colors">User Governance</h3>
+                <p class="mt-2 text-sm text-gray-500">Manage agent accounts, verification status, and platform access levels.</p>
+                <div class="mt-4 inline-flex items-center text-xs font-bold text-primary-600 uppercase tracking-wider">
+                    Enter Module &rarr;
+                </div>
+            </a>
+
+            <!-- Role Permissions (Placeholder) -->
+            <div class="relative bg-white p-6 rounded-xl border border-gray-100 shadow-sm opacity-60">
+                <div class="absolute top-2 right-2 px-2 py-1 bg-gray-100 rounded text-[10px] font-bold text-gray-500 uppercase">Coming Soon</div>
+                <h3 class="text-lg font-bold text-gray-900">Role Permissions</h3>
+                <p class="mt-2 text-sm text-gray-500">Define fine-grained access control matrix for different admin roles.</p>
+            </div>
+
+            <!-- CMS / Articles -->
+            <div class="relative bg-white p-6 rounded-xl border border-gray-100 shadow-sm opacity-60">
+                <div class="absolute top-2 right-2 px-2 py-1 bg-gray-100 rounded text-[10px] font-bold text-gray-500 uppercase">Coming Soon</div>
+                <h3 class="text-lg font-bold text-gray-900">CMS & News</h3>
+                <p class="mt-2 text-sm text-gray-500">Publish platform-wide news, articles, and marketing campaigns.</p>
+            </div>
+
+            <!-- Dynamic Menu Builder -->
+            <div class="relative bg-white p-6 rounded-xl border border-gray-100 shadow-sm opacity-60">
+                <div class="absolute top-2 right-2 px-2 py-1 bg-gray-100 rounded text-[10px] font-bold text-gray-500 uppercase">Coming Soon</div>
+                <h3 class="text-lg font-bold text-gray-900">Menu Builder</h3>
+                <p class="mt-2 text-sm text-gray-500">Modify navigation links and global site structure dynamically.</p>
+            </div>
+
+            <!-- Audit Logs -->
+            <div class="relative bg-white p-6 rounded-xl border border-gray-100 shadow-sm opacity-60">
+                <div class="absolute top-2 right-2 px-2 py-1 bg-gray-100 rounded text-[10px] font-bold text-gray-500 uppercase">Coming Soon</div>
+                <h3 class="text-lg font-bold text-gray-900">Audit Logs</h3>
+                <p class="mt-2 text-sm text-gray-500">Traceable history of all administrative actions and system changes.</p>
+            </div>
+        </div>
+
+        <!-- Recent System Activity (Placeholder) -->
+        <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+                <h3 class="text-md font-bold text-gray-900">Recent Platform Activity</h3>
+                <span class="text-xs text-gray-400">Live Stream</span>
+            </div>
+            <div class="p-6">
+                <div class="space-y-6">
+                    <div class="flex gap-4">
+                        <div class="h-8 w-8 rounded-full bg-green-50 flex items-center justify-center text-green-600">
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-900 font-medium">New Listing Created</p>
+                            <p class="text-xs text-gray-500">Agent "Ahmad" listed "Condo in Mont Kiara" &bull; 2 mins ago</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="h-8 w-8 rounded-full bg-blue-50 flex items-center justify-center text-blue-600">
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-900 font-medium">New Agent Registered</p>
+                            <p class="text-xs text-gray-500">Agent "Sarah Wong" joined the platform &bull; 15 mins ago</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="h-8 w-8 rounded-full bg-amber-50 flex items-center justify-center text-amber-600">
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-900 font-medium">Feature Config Updated</p>
+                            <p class="text-xs text-gray-500">Admin enabled "New Projects" toggle &bull; 1 hour ago</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

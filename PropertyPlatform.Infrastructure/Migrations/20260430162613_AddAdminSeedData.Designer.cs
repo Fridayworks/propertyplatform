@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PropertyPlatform.Infrastructure.Data;
@@ -11,9 +12,11 @@ using PropertyPlatform.Infrastructure.Data;
 namespace PropertyPlatform.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260430162613_AddAdminSeedData")]
+    partial class AddAdminSeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -311,41 +314,6 @@ namespace PropertyPlatform.Infrastructure.Migrations
                     b.HasKey("FeatureConfigId");
 
                     b.ToTable("FeatureConfigs");
-
-                    b.HasData(
-                        new
-                        {
-                            FeatureConfigId = new Guid("00000000-0000-0000-0000-000000000201"),
-                            Category = "ListingType",
-                            Description = "Allow agents to create listings for property sales.",
-                            DisplayName = "Property Sale",
-                            FeatureKey = "ENABLE_SALE",
-                            IsEnabled = true,
-                            SortOrder = 1,
-                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
-                        },
-                        new
-                        {
-                            FeatureConfigId = new Guid("00000000-0000-0000-0000-000000000202"),
-                            Category = "ListingType",
-                            Description = "Allow agents to create listings for residential or commercial rentals.",
-                            DisplayName = "Property Rental",
-                            FeatureKey = "ENABLE_RENT",
-                            IsEnabled = true,
-                            SortOrder = 2,
-                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
-                        },
-                        new
-                        {
-                            FeatureConfigId = new Guid("00000000-0000-0000-0000-000000000203"),
-                            Category = "ListingType",
-                            Description = "Allow agents to create listings for new developer projects.",
-                            DisplayName = "New Projects",
-                            FeatureKey = "ENABLE_NEW_PROJECT",
-                            IsEnabled = true,
-                            SortOrder = 3,
-                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
-                        });
                 });
 
             modelBuilder.Entity("PropertyPlatform.Core.Entities.FeaturedListing", b =>

@@ -34,6 +34,14 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cRmVhdHVyZUNvbmZpZy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/code/propertyplatform/PropertyPlatform.Web/Pages/Admin/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/code/propertyplatform/PropertyPlatform.Web/Pages/Admin/Users.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cVXNlcnMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/code/propertyplatform/PropertyPlatform.Web/Pages/AgentLandingPage.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWdlbnRMYW5kaW5nUGFnZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

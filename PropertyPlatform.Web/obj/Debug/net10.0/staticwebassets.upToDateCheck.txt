@@ -128,4 +128,6 @@ wwwroot\lib\jquery\dist\jquery.slim.min.map
 wwwroot\uploads\listings\0629e1c1-0928-4d7b-94f0-296ebc4a95a8_IMG_20260213_213653.jpg
 wwwroot\uploads\listings\a63f4869-712b-4e84-8edf-b9ab9544a54e_Gemini_Generated_Image_oksv7eoksv7eoksv.png
 wwwroot\uploads\listings\f4c300f5-d85d-4ed9-ad18-ac288f124ac3_IMG_20260213_213703.jpg
+wwwroot\uploads\logos\7d239240-5a24-4a50-8643-fdaa94d7be3e_lrt-man.jpg
 wwwroot\uploads\logos\a760a113-fa3a-4ecf-bc77-03afbb297831_modelme.png
+wwwroot\uploads\logos\e6a53726-e693-4c3d-bb3d-96c83bb71965_lrt-man.jpg
