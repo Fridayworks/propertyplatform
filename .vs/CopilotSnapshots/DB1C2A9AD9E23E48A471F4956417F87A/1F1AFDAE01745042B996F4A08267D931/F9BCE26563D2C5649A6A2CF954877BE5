@@ -1,0 +1,57 @@
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using PropertyPlatform.Infrastructure.Data;
+using System.Security.Claims;
+
+namespace PropertyPlatform.Web.Pages
+{
+    public class LoginModel : PageModel
+    {
+        private readonly ApplicationDbContext _context;
+
+        public LoginModel(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
+        [BindProperty]
+        public string Email { get; set; } = string.Empty;
+
+        [BindProperty]
+        public string Password { get; set; } = string.Empty;
+
+        public string? ErrorMessage { get; set; }
+
+        public void OnGet()
+        {
+        }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (!ModelState.IsValid)
+                return Page();
+
+            var tenant = _context.Tenants.FirstOrDefault(t => t.Email == Email);
+            
+            if (tenant == null || !BCrypt.Net.BCrypt.Verify(Password, tenant.PasswordHash))
+            {
+                ErrorMessage = "Invalid email or password.";
+                return Page();
+            }
+
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, tenant.TenantId.ToString()),
+                new Claim(ClaimTypes.Name, tenant.Email)
+            };
+
+            var identity = new ClaimsIdentity(claims, "Cookies");
+            var principal = new ClaimsPrincipal(identity);
+
+            await HttpContext.SignInAsync("Cookies", principal);
+
+            return RedirectToPage("/Agents");
+        }
+    }
+}

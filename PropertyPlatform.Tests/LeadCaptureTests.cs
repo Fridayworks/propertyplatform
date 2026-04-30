@@ -34,10 +34,27 @@ namespace PropertyPlatform.Tests
             var tenant = new Tenant
             {
                 TenantId = Guid.NewGuid(),
-                Email = "leadagent@test.com",
-                PasswordHash = "hashed",
+                Name = "Test Agency",
+                ContactEmail = "leadagency@test.com",
                 CreatedAt = DateTime.UtcNow
             };
+
+            _context.Tenants.Add(tenant);
+            await _context.SaveChangesAsync();
+
+            // Seed test agent
+            var agent = new AgentProfile
+            {
+                AgentId = Guid.NewGuid(),
+                TenantId = tenant.TenantId,
+                Name = "Test Agent",
+                Email = "leadagent@test.com",
+                PasswordHash = "hashed",
+                REN_ID = "REN001"
+            };
+
+            _context.AgentProfiles.Add(agent);
+            await _context.SaveChangesAsync();
 
             var listing = new PropertyListing
             {
@@ -52,7 +69,6 @@ namespace PropertyPlatform.Tests
                 Media = new List<PropertyMedia>()
             };
 
-            _context.Tenants.Add(tenant);
             _context.PropertyListings.Add(listing);
             await _context.SaveChangesAsync();
         }

@@ -35,12 +35,26 @@ namespace PropertyPlatform.Tests
             var tenant = new Tenant
             {
                 TenantId = Guid.NewGuid(),
-                Email = "integrationagent@test.com",
-                PasswordHash = "hashed",
+                Name = "Integration Test Agency",
+                ContactEmail = "integrationagency@test.com",
                 CreatedAt = DateTime.UtcNow
             };
 
             _context.Tenants.Add(tenant);
+            await _context.SaveChangesAsync();
+
+            // Seed test agent
+            var agent = new AgentProfile
+            {
+                AgentId = Guid.NewGuid(),
+                TenantId = tenant.TenantId,
+                Name = "Integration Test Agent",
+                Email = "integrationagent@test.com",
+                PasswordHash = "hashed",
+                REN_ID = "REN001"
+            };
+
+            _context.AgentProfiles.Add(agent);
             await _context.SaveChangesAsync();
 
             // Seed some initial listings
@@ -84,7 +98,7 @@ namespace PropertyPlatform.Tests
         public async Task EndToEndWorkflow_PDFUpload_ToSearchResult_ShouldCompleteSuccessfully()
         {
             // Arrange - Setup agent and property data
-            var agent = _context.Tenants.First();
+            var tenant = _context.Tenants.First();
             var stopwatch = Stopwatch.StartNew();
 
             // Step 1: Create listing (simulates PDF extraction)
@@ -97,7 +111,7 @@ namespace PropertyPlatform.Tests
                 Description = "Beautiful newly listed property in Seattle",
                 PropertyType = "Condo",
                 Status = "Active",
-                TenantId = agent.TenantId,
+                TenantId = tenant.TenantId,
                 CreatedAt = DateTime.UtcNow,
                 Media = new List<PropertyMedia>()
             };
@@ -110,7 +124,7 @@ namespace PropertyPlatform.Tests
             var searchResults = await _context.PropertyListings
                 .Where(l => l.Location == "Seattle, WA" 
                     && l.Status == "Active"
-                    && l.TenantId == agent.TenantId)
+                    && l.TenantId == tenant.TenantId)
                 .ToListAsync();
 
             stopwatch.Stop();
@@ -179,32 +193,57 @@ namespace PropertyPlatform.Tests
         public async Task MultiUserWorkflow_ConcurrentOperations_ShouldMaintainDataIntegrity()
         {
             // Arrange - Create multiple agents
-            var agent1 = new Tenant
+            var tenant1 = new Tenant
             {
                 TenantId = Guid.NewGuid(),
+                Name = "Test Agency 1",
+                ContactEmail = "agency1.concurrent@test.com",
+                CreatedAt = DateTime.UtcNow
+            };
+
+            var tenant2 = new Tenant
+            {
+                TenantId = Guid.NewGuid(),
+                Name = "Test Agency 2",
+                ContactEmail = "agency2.concurrent@test.com",
+                CreatedAt = DateTime.UtcNow
+            };
+
+            _context.Tenants.Add(tenant1);
+            _context.Tenants.Add(tenant2);
+            await _context.SaveChangesAsync();
+
+            // Create agent profiles for authentication
+            var agent1 = new AgentProfile
+            {
+                AgentId = Guid.NewGuid(),
+                TenantId = tenant1.TenantId,
+                Name = "Agent 1",
                 Email = "agent1.concurrent@test.com",
                 PasswordHash = "hashed",
-                CreatedAt = DateTime.UtcNow
+                REN_ID = "REN001"
             };
 
-            var agent2 = new Tenant
+            var agent2 = new AgentProfile
             {
-                TenantId = Guid.NewGuid(),
+                AgentId = Guid.NewGuid(),
+                TenantId = tenant2.TenantId,
+                Name = "Agent 2",
                 Email = "agent2.concurrent@test.com",
                 PasswordHash = "hashed",
-                CreatedAt = DateTime.UtcNow
+                REN_ID = "REN002"
             };
 
-            _context.Tenants.Add(agent1);
-            _context.Tenants.Add(agent2);
+            _context.AgentProfiles.Add(agent1);
+            _context.AgentProfiles.Add(agent2);
             await _context.SaveChangesAsync();
 
             var stopwatch = Stopwatch.StartNew();
 
             // Act - Simulate concurrent operations
-            var task1 = CreateListingsForAgent(agent1, 5);
-            var task2 = CreateListingsForAgent(agent2, 5);
-            var task3 = SearchListingsForAgent(agent1);
+            var task1 = CreateListingsForAgent(tenant1, 5);
+            var task2 = CreateListingsForAgent(tenant2, 5);
+            var task3 = SearchListingsForAgent(tenant1);
 
             await Task.WhenAll(task1, task2, task3);
 
@@ -212,11 +251,11 @@ namespace PropertyPlatform.Tests
 
             // Assert - Verify data integrity
             var agent1Listings = await _context.PropertyListings
-                .Where(l => l.TenantId == agent1.TenantId)
+                .Where(l => l.TenantId == tenant1.TenantId)
                 .CountAsync();
 
             var agent2Listings = await _context.PropertyListings
-                .Where(l => l.TenantId == agent2.TenantId)
+                .Where(l => l.TenantId == tenant2.TenantId)
                 .CountAsync();
 
             Assert.Equal(5, agent1Listings);
@@ -257,8 +296,38 @@ namespace PropertyPlatform.Tests
             });
         }
 
+        /// <summary>
+        /// INTEGRATION_005: Update agent profile
+        /// Expected: Profile properties are updated successfully in the database
+        /// </summary>
+        [Fact]
+        public async Task UpdateAgentProfile_ShouldUpdateSuccessfully()
+        {
+            // Arrange
+            var agent = await _context.AgentProfiles.FirstAsync();
+            var newName = "Updated Agent Name";
+            var newBio = "This is an updated bio for the integration test.";
+            var newPhone = "555-999-8888";
+
+            // Act
+            agent.Name = newName;
+            agent.Bio = newBio;
+            agent.Phone = newPhone;
+            _context.AgentProfiles.Update(agent);
+            await _context.SaveChangesAsync();
+
+            // Assert
+            var updatedAgent = await _context.AgentProfiles
+                .FirstOrDefaultAsync(a => a.AgentId == agent.AgentId);
+
+            Assert.NotNull(updatedAgent);
+            Assert.Equal(newName, updatedAgent.Name);
+            Assert.Equal(newBio, updatedAgent.Bio);
+            Assert.Equal(newPhone, updatedAgent.Phone);
+        }
+
         // Helper method to create listings for an agent
-        private async Task CreateListingsForAgent(Tenant agent, int count)
+        private async Task CreateListingsForAgent(Tenant tenant, int count)
         {
             var listings = new List<PropertyListing>();
             for (int i = 0; i < count; i++)
@@ -266,12 +335,12 @@ namespace PropertyPlatform.Tests
                 listings.Add(new PropertyListing
                 {
                     ListingId = Guid.NewGuid(),
-                    Title = $"Concurrent Listing {i + 1} for {agent.Email}",
+                    Title = $"Concurrent Listing {i + 1} for {tenant.Name}",
                     Location = "Concurrent Test City",
                     Price = 300000 + (i * 50000),
                     PropertyType = "Condo",
                     Status = "Active",
-                    TenantId = agent.TenantId,
+                    TenantId = tenant.TenantId,
                     CreatedAt = DateTime.UtcNow,
                     Media = new List<PropertyMedia>()
                 });

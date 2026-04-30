@@ -34,15 +34,28 @@ namespace PropertyPlatform.Tests
 
         private async Task SeedTestData()
         {
-            // Create test tenant first
+            // Create test tenant (organization)
             var tenant = new Tenant
             {
                 TenantId = Guid.NewGuid(),
-                Email = "test@example.com",
-                PasswordHash = "hashed_password",
+                Name = "Test Agency",
+                ContactEmail = "agency@example.com",
                 CreatedAt = DateTime.UtcNow
             };
             _context.Tenants.Add(tenant);
+            await _context.SaveChangesAsync();
+
+            // Create agent profile for authentication
+            var agent = new AgentProfile
+            {
+                AgentId = Guid.NewGuid(),
+                TenantId = tenant.TenantId,
+                Name = "Test Agent",
+                Email = "test@example.com",
+                PasswordHash = "hashed_password",
+                REN_ID = "REN123"
+            };
+            _context.AgentProfiles.Add(agent);
             await _context.SaveChangesAsync();
 
             // Create test listings

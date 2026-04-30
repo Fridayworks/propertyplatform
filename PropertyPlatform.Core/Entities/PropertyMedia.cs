@@ -1,9 +1,11 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace PropertyPlatform.Core.Entities
 {
     public class PropertyMedia
     {
+        [Key]
         public Guid MediaId { get; set; } = Guid.NewGuid();
         public Guid ListingId { get; set; }
         

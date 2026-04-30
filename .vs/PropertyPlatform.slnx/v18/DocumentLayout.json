@@ -3,6 +3,38 @@
   "WorkspaceRootPath": "D:\\code\\propertyplatform\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{EB9FD0A9-FE22-6F27-241D-E95B72527D54}|PropertyPlatform.Infrastructure\\PropertyPlatform.Infrastructure.csproj|d:\\code\\propertyplatform\\propertyplatform.infrastructure\\dependencyinjection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EB9FD0A9-FE22-6F27-241D-E95B72527D54}|PropertyPlatform.Infrastructure\\PropertyPlatform.Infrastructure.csproj|solutionrelative:propertyplatform.infrastructure\\dependencyinjection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EB9FD0A9-FE22-6F27-241D-E95B72527D54}|PropertyPlatform.Infrastructure\\PropertyPlatform.Infrastructure.csproj|d:\\code\\propertyplatform\\propertyplatform.infrastructure\\migrations\\20260421150000_addauthenticationtoagentprofile.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EB9FD0A9-FE22-6F27-241D-E95B72527D54}|PropertyPlatform.Infrastructure\\PropertyPlatform.Infrastructure.csproj|solutionrelative:propertyplatform.infrastructure\\migrations\\20260421150000_addauthenticationtoagentprofile.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{07D88B28-4534-7AAB-D2FB-F691B2DBA0D4}|PropertyPlatform.Web\\PropertyPlatform.Web.csproj|d:\\code\\propertyplatform\\propertyplatform.web\\pages\\listing.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{07D88B28-4534-7AAB-D2FB-F691B2DBA0D4}|PropertyPlatform.Web\\PropertyPlatform.Web.csproj|solutionrelative:propertyplatform.web\\pages\\listing.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{07D88B28-4534-7AAB-D2FB-F691B2DBA0D4}|PropertyPlatform.Web\\PropertyPlatform.Web.csproj|d:\\code\\propertyplatform\\propertyplatform.web\\pages\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{07D88B28-4534-7AAB-D2FB-F691B2DBA0D4}|PropertyPlatform.Web\\PropertyPlatform.Web.csproj|solutionrelative:propertyplatform.web\\pages\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EB9FD0A9-FE22-6F27-241D-E95B72527D54}|PropertyPlatform.Infrastructure\\PropertyPlatform.Infrastructure.csproj|d:\\code\\propertyplatform\\propertyplatform.infrastructure\\propertyplatform.infrastructure.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{EB9FD0A9-FE22-6F27-241D-E95B72527D54}|PropertyPlatform.Infrastructure\\PropertyPlatform.Infrastructure.csproj|solutionrelative:propertyplatform.infrastructure\\propertyplatform.infrastructure.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{07D88B28-4534-7AAB-D2FB-F691B2DBA0D4}|PropertyPlatform.Web\\PropertyPlatform.Web.csproj|d:\\code\\propertyplatform\\propertyplatform.web\\pages\\admin\\featureconfig.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{07D88B28-4534-7AAB-D2FB-F691B2DBA0D4}|PropertyPlatform.Web\\PropertyPlatform.Web.csproj|solutionrelative:propertyplatform.web\\pages\\admin\\featureconfig.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{07D88B28-4534-7AAB-D2FB-F691B2DBA0D4}|PropertyPlatform.Web\\PropertyPlatform.Web.csproj|d:\\code\\propertyplatform\\propertyplatform.web\\pages\\agents.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{07D88B28-4534-7AAB-D2FB-F691B2DBA0D4}|PropertyPlatform.Web\\PropertyPlatform.Web.csproj|solutionrelative:propertyplatform.web\\pages\\agents.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{07D88B28-4534-7AAB-D2FB-F691B2DBA0D4}|PropertyPlatform.Web\\PropertyPlatform.Web.csproj|d:\\code\\propertyplatform\\propertyplatform.web\\pages\\selectlistingtype.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{07D88B28-4534-7AAB-D2FB-F691B2DBA0D4}|PropertyPlatform.Web\\PropertyPlatform.Web.csproj|solutionrelative:propertyplatform.web\\pages\\selectlistingtype.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{5A4A414E-4152-7339-C4E7-E82BBAA93348}|PropertyPlatform.Tests\\PropertyPlatform.Tests.csproj|d:\\code\\propertyplatform\\propertyplatform.tests\\listingcreationtests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5A4A414E-4152-7339-C4E7-E82BBAA93348}|PropertyPlatform.Tests\\PropertyPlatform.Tests.csproj|solutionrelative:propertyplatform.tests\\listingcreationtests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -39,6 +71,18 @@
     {
       "AbsoluteMoniker": "D:0:0:{5A4A414E-4152-7339-C4E7-E82BBAA93348}|PropertyPlatform.Tests\\PropertyPlatform.Tests.csproj|d:\\code\\propertyplatform\\propertyplatform.tests\\leadcapturetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5A4A414E-4152-7339-C4E7-E82BBAA93348}|PropertyPlatform.Tests\\PropertyPlatform.Tests.csproj|solutionrelative:propertyplatform.tests\\leadcapturetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7658A0CE-40D7-368C-2870-8A13F7206D8E}|PropertyPlatform.Core\\PropertyPlatform.Core.csproj|d:\\code\\propertyplatform\\propertyplatform.core\\entities\\agentprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7658A0CE-40D7-368C-2870-8A13F7206D8E}|PropertyPlatform.Core\\PropertyPlatform.Core.csproj|solutionrelative:propertyplatform.core\\entities\\agentprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{61F46670-3161-E438-858C-81A7170E679E}|PropertyPlatform.API\\PropertyPlatform.API.csproj|d:\\code\\propertyplatform\\propertyplatform.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{61F46670-3161-E438-858C-81A7170E679E}|PropertyPlatform.API\\PropertyPlatform.API.csproj|solutionrelative:propertyplatform.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EB9FD0A9-FE22-6F27-241D-E95B72527D54}|PropertyPlatform.Infrastructure\\PropertyPlatform.Infrastructure.csproj|d:\\code\\propertyplatform\\propertyplatform.infrastructure\\migrations\\20260421150000_addauthenticationtoagentprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EB9FD0A9-FE22-6F27-241D-E95B72527D54}|PropertyPlatform.Infrastructure\\PropertyPlatform.Infrastructure.csproj|solutionrelative:propertyplatform.infrastructure\\migrations\\20260421150000_addauthenticationtoagentprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -48,23 +92,156 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "DependencyInjection.cs",
+              "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Infrastructure\\DependencyInjection.cs",
+              "RelativeDocumentMoniker": "PropertyPlatform.Infrastructure\\DependencyInjection.cs",
+              "ToolTip": "D:\\code\\propertyplatform\\PropertyPlatform.Infrastructure\\DependencyInjection.cs",
+              "RelativeToolTip": "PropertyPlatform.Infrastructure\\DependencyInjection.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAtwCoAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-25T09:40:26.213Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "20260421150000_AddAuthenticationToAgentProfile.Designer.cs",
+              "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Infrastructure\\Migrations\\20260421150000_AddAuthenticationToAgentProfile.Designer.cs",
+              "RelativeDocumentMoniker": "PropertyPlatform.Infrastructure\\Migrations\\20260421150000_AddAuthenticationToAgentProfile.Designer.cs",
+              "ToolTip": "D:\\code\\propertyplatform\\PropertyPlatform.Infrastructure\\Migrations\\20260421150000_AddAuthenticationToAgentProfile.Designer.cs",
+              "RelativeToolTip": "PropertyPlatform.Infrastructure\\Migrations\\20260421150000_AddAuthenticationToAgentProfile.Designer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-24T22:14:20.824Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "20260421150000_AddAuthenticationToAgentProfile.cs",
+              "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Infrastructure\\Migrations\\20260421150000_AddAuthenticationToAgentProfile.cs",
+              "RelativeDocumentMoniker": "PropertyPlatform.Infrastructure\\Migrations\\20260421150000_AddAuthenticationToAgentProfile.cs",
+              "ToolTip": "D:\\code\\propertyplatform\\PropertyPlatform.Infrastructure\\Migrations\\20260421150000_AddAuthenticationToAgentProfile.cs",
+              "RelativeToolTip": "PropertyPlatform.Infrastructure\\Migrations\\20260421150000_AddAuthenticationToAgentProfile.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-24T22:14:06.092Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.API\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "PropertyPlatform.API\\Controllers\\AuthController.cs",
+              "ToolTip": "D:\\code\\propertyplatform\\PropertyPlatform.API\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "PropertyPlatform.API\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAAH0AAAAAAAAAAIBJwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-24T22:09:26.63Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "AgentProfile.cs",
+              "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Core\\Entities\\AgentProfile.cs",
+              "RelativeDocumentMoniker": "PropertyPlatform.Core\\Entities\\AgentProfile.cs",
+              "ToolTip": "D:\\code\\propertyplatform\\PropertyPlatform.Core\\Entities\\AgentProfile.cs",
+              "RelativeToolTip": "PropertyPlatform.Core\\Entities\\AgentProfile.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAIBWwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-24T22:08:43.448Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Listing.cshtml",
+              "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Web\\Pages\\Listing.cshtml",
+              "RelativeDocumentMoniker": "PropertyPlatform.Web\\Pages\\Listing.cshtml",
+              "ToolTip": "D:\\code\\propertyplatform\\PropertyPlatform.Web\\Pages\\Listing.cshtml",
+              "RelativeToolTip": "PropertyPlatform.Web\\Pages\\Listing.cshtml",
+              "ViewState": "AgIAAH0AAAAAAAAAAAAMwJIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-24T22:06:11.92Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Web\\Pages\\Login.cshtml",
+              "RelativeDocumentMoniker": "PropertyPlatform.Web\\Pages\\Login.cshtml",
+              "ToolTip": "D:\\code\\propertyplatform\\PropertyPlatform.Web\\Pages\\Login.cshtml",
+              "RelativeToolTip": "PropertyPlatform.Web\\Pages\\Login.cshtml",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-23T12:51:01.423Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "PropertyPlatform.Infrastructure.csproj",
+              "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Infrastructure\\PropertyPlatform.Infrastructure.csproj",
+              "RelativeDocumentMoniker": "PropertyPlatform.Infrastructure\\PropertyPlatform.Infrastructure.csproj",
+              "ToolTip": "D:\\code\\propertyplatform\\PropertyPlatform.Infrastructure\\PropertyPlatform.Infrastructure.csproj",
+              "RelativeToolTip": "PropertyPlatform.Infrastructure\\PropertyPlatform.Infrastructure.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-04-23T12:15:49.989Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "FeatureConfig.cshtml",
+              "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Web\\Pages\\Admin\\FeatureConfig.cshtml",
+              "RelativeDocumentMoniker": "PropertyPlatform.Web\\Pages\\Admin\\FeatureConfig.cshtml",
+              "ToolTip": "D:\\code\\propertyplatform\\PropertyPlatform.Web\\Pages\\Admin\\FeatureConfig.cshtml",
+              "RelativeToolTip": "PropertyPlatform.Web\\Pages\\Admin\\FeatureConfig.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-23T11:41:17.953Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Agents.cshtml",
+              "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Web\\Pages\\Agents.cshtml",
+              "RelativeDocumentMoniker": "PropertyPlatform.Web\\Pages\\Agents.cshtml",
+              "ToolTip": "D:\\code\\propertyplatform\\PropertyPlatform.Web\\Pages\\Agents.cshtml",
+              "RelativeToolTip": "PropertyPlatform.Web\\Pages\\Agents.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-23T11:41:04.836Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 7,
+              "Title": "SelectListingType.cshtml",
+              "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Web\\Pages\\SelectListingType.cshtml",
+              "RelativeDocumentMoniker": "PropertyPlatform.Web\\Pages\\SelectListingType.cshtml",
+              "ToolTip": "D:\\code\\propertyplatform\\PropertyPlatform.Web\\Pages\\SelectListingType.cshtml",
+              "RelativeToolTip": "PropertyPlatform.Web\\Pages\\SelectListingType.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-23T11:34:28.32Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
               "Title": "PropertySearchTests.cs",
               "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\PropertySearchTests.cs",
               "RelativeDocumentMoniker": "PropertyPlatform.Tests\\PropertySearchTests.cs",
               "ToolTip": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\PropertySearchTests.cs",
               "RelativeToolTip": "PropertyPlatform.Tests\\PropertySearchTests.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAANAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAACMAAAAAAAAAAIBJwN0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-20T16:10:49.05Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 14,
               "Title": "PropertySearchTests.cs",
               "DocumentMoniker": "C:\\Users\\carso\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\1863584566\\PropertySearchTests.cs",
               "ToolTip": "C:\\Users\\carso\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\1863584566\\PropertySearchTests.cs",
@@ -74,32 +251,31 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 13,
               "Title": "IntegrationTests.cs",
               "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\IntegrationTests.cs",
               "RelativeDocumentMoniker": "PropertyPlatform.Tests\\IntegrationTests.cs",
               "ToolTip": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\IntegrationTests.cs",
               "RelativeToolTip": "PropertyPlatform.Tests\\IntegrationTests.cs",
-              "ViewState": "AgIAAO4AAAAAAAAAAABBwCUBAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAACoBAAAAAAAAAABQwEwBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-20T15:59:48.836Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 8,
               "Title": "ListingCreationTests.cs",
               "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\ListingCreationTests.cs",
               "RelativeDocumentMoniker": "PropertyPlatform.Tests\\ListingCreationTests.cs",
               "ToolTip": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\ListingCreationTests.cs",
               "RelativeToolTip": "PropertyPlatform.Tests\\ListingCreationTests.cs",
-              "ViewState": "AgIAAI8AAAAAAAAAAAAcwKUAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABAAAAAAAAAAAAAawLMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-20T15:58:35.76Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-20T15:58:35.76Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 16,
               "Title": "LeadCaptureTests.cs",
               "DocumentMoniker": "C:\\Users\\carso\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\1863584566\\LeadCaptureTests.cs",
               "ToolTip": "C:\\Users\\carso\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\1863584566\\LeadCaptureTests.cs",
@@ -109,61 +285,61 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 12,
               "Title": "AIRiskValidationTests.cs",
               "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\AIRiskValidationTests.cs",
               "RelativeDocumentMoniker": "PropertyPlatform.Tests\\AIRiskValidationTests.cs",
               "ToolTip": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\AIRiskValidationTests.cs",
               "RelativeToolTip": "PropertyPlatform.Tests\\AIRiskValidationTests.cs",
-              "ViewState": "AgIAAI4AAAAAAAAAAIBJwMgAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAADAAAAAAAAAAAIBJwNkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-20T15:59:32.181Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 17,
               "Title": "LeadCaptureTests.cs",
               "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\LeadCaptureTests.cs",
               "RelativeDocumentMoniker": "PropertyPlatform.Tests\\LeadCaptureTests.cs",
               "ToolTip": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\LeadCaptureTests.cs",
               "RelativeToolTip": "PropertyPlatform.Tests\\LeadCaptureTests.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAKUAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAEYAAAAAAAAAAABBwLUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-20T16:11:12.881Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 11,
               "Title": "SecurityComplianceTests.cs",
               "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\SecurityComplianceTests.cs",
               "RelativeDocumentMoniker": "PropertyPlatform.Tests\\SecurityComplianceTests.cs",
               "ToolTip": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\SecurityComplianceTests.cs",
               "RelativeToolTip": "PropertyPlatform.Tests\\SecurityComplianceTests.cs",
-              "ViewState": "AgIAAFoAAAAAAAAAAIBJwLoAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAEYAAAAAAAAAAABBwMoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-20T15:59:19.281Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 10,
               "Title": "PerformanceTests.cs",
               "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\PerformanceTests.cs",
               "RelativeDocumentMoniker": "PropertyPlatform.Tests\\PerformanceTests.cs",
               "ToolTip": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\PerformanceTests.cs",
               "RelativeToolTip": "PropertyPlatform.Tests\\PerformanceTests.cs",
-              "ViewState": "AgIAACYAAAAAAAAAAABBwMEAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAADMAAAAAAAAAAIBJwM8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-20T15:59:07.134Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 9,
               "Title": "SmartListingEngineTests.cs",
               "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\SmartListingEngineTests.cs",
               "RelativeDocumentMoniker": "PropertyPlatform.Tests\\SmartListingEngineTests.cs",
               "ToolTip": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\SmartListingEngineTests.cs",
               "RelativeToolTip": "PropertyPlatform.Tests\\SmartListingEngineTests.cs",
-              "ViewState": "AgIAAHoAAAAAAAAAAABRwI4AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAEYAAAAAAAAAAABBwJ4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-20T15:58:45.168Z"
             }

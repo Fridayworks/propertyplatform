@@ -93,6 +93,10 @@ namespace PropertyPlatform.Infrastructure.Migrations
                     b.Property<int>("Credits")
                         .HasColumnType("integer");
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<int>("ExperiencePoints")
                         .HasColumnType("integer");
 
@@ -104,6 +108,10 @@ namespace PropertyPlatform.Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("OfficeAddress")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -282,45 +290,7 @@ namespace PropertyPlatform.Infrastructure.Migrations
 
                     b.HasKey("FeatureConfigId");
 
-                    b.HasIndex("FeatureKey")
-                        .IsUnique();
-
                     b.ToTable("FeatureConfigs");
-
-                    b.HasData(
-                        new
-                        {
-                            FeatureConfigId = new Guid("00000000-0000-0000-0000-000000000101"),
-                            Category = "ListingType",
-                            Description = "Allow agents to publish resale or subsale property listings.",
-                            DisplayName = "Sale",
-                            FeatureKey = "sale",
-                            IsEnabled = true,
-                            SortOrder = 1,
-                            UpdatedAt = new DateTime(2026, 4, 21, 0, 0, 0, 0, DateTimeKind.Utc)
-                        },
-                        new
-                        {
-                            FeatureConfigId = new Guid("00000000-0000-0000-0000-000000000102"),
-                            Category = "ListingType",
-                            Description = "Allow agents to publish rental property listings.",
-                            DisplayName = "Rent",
-                            FeatureKey = "rent",
-                            IsEnabled = true,
-                            SortOrder = 2,
-                            UpdatedAt = new DateTime(2026, 4, 21, 0, 0, 0, 0, DateTimeKind.Utc)
-                        },
-                        new
-                        {
-                            FeatureConfigId = new Guid("00000000-0000-0000-0000-000000000103"),
-                            Category = "ListingType",
-                            Description = "Allow agents to publish new launch and project listings.",
-                            DisplayName = "New Project",
-                            FeatureKey = "new-project",
-                            IsEnabled = true,
-                            SortOrder = 3,
-                            UpdatedAt = new DateTime(2026, 4, 21, 0, 0, 0, 0, DateTimeKind.Utc)
-                        });
                 });
 
             modelBuilder.Entity("PropertyPlatform.Core.Entities.FeaturedListing", b =>
@@ -479,28 +449,6 @@ namespace PropertyPlatform.Infrastructure.Migrations
                     b.HasKey("MissionId");
 
                     b.ToTable("Missions");
-
-                    b.HasData(
-                        new
-                        {
-                            MissionId = new Guid("00000000-0000-0000-0000-000000000003"),
-                            Code = "FIRST_LISTING",
-                            CreditReward = 10,
-                            Description = "Upload your very first property listing.",
-                            RequirementCount = 1,
-                            Title = "First Listing",
-                            XPReward = 100
-                        },
-                        new
-                        {
-                            MissionId = new Guid("00000000-0000-0000-0000-000000000004"),
-                            Code = "UPLOAD_5_LISTINGS",
-                            CreditReward = 50,
-                            Description = "Upload 5 properties to the platform.",
-                            RequirementCount = 5,
-                            Title = "Listing Spree",
-                            XPReward = 300
-                        });
                 });
 
             modelBuilder.Entity("PropertyPlatform.Core.Entities.PropertyFeature", b =>
@@ -646,9 +594,6 @@ namespace PropertyPlatform.Infrastructure.Migrations
                     b.Property<Guid>("TenantId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("TenantId1")
-                        .HasColumnType("uuid");
-
                     b.Property<string>("Token")
                         .IsRequired()
                         .HasColumnType("text");
@@ -656,8 +601,6 @@ namespace PropertyPlatform.Infrastructure.Migrations
                     b.HasKey("TokenId");
 
                     b.HasIndex("TenantId");
-
-                    b.HasIndex("TenantId1");
 
                     b.ToTable("RefreshTokens");
                 });
@@ -694,16 +637,45 @@ namespace PropertyPlatform.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<string>("Address")
+                        .HasColumnType("text");
+
+                    b.Property<string>("City")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ContactEmail")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ContactPhone")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Country")
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("Email")
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("LogoUrl")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("PasswordHash")
-                        .IsRequired()
+                    b.Property<string>("PostalCode")
                         .HasColumnType("text");
+
+                    b.Property<string>("State")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("TenantId");
 
@@ -799,7 +771,7 @@ namespace PropertyPlatform.Infrastructure.Migrations
             modelBuilder.Entity("PropertyPlatform.Core.Entities.CreditTransaction", b =>
                 {
                     b.HasOne("PropertyPlatform.Core.Entities.Tenant", "Tenant")
-                        .WithMany()
+                        .WithMany("CreditTransactions")
                         .HasForeignKey("TenantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -895,13 +867,13 @@ namespace PropertyPlatform.Infrastructure.Migrations
             modelBuilder.Entity("PropertyPlatform.Core.Entities.Referral", b =>
                 {
                     b.HasOne("PropertyPlatform.Core.Entities.Tenant", "NewTenant")
-                        .WithMany()
+                        .WithMany("ReferralsReceived")
                         .HasForeignKey("NewTenantId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("PropertyPlatform.Core.Entities.Tenant", "Referrer")
-                        .WithMany()
+                        .WithMany("ReferralsMade")
                         .HasForeignKey("ReferrerTenantId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -914,14 +886,10 @@ namespace PropertyPlatform.Infrastructure.Migrations
             modelBuilder.Entity("PropertyPlatform.Core.Entities.RefreshToken", b =>
                 {
                     b.HasOne("PropertyPlatform.Core.Entities.Tenant", "Tenant")
-                        .WithMany()
+                        .WithMany("RefreshTokens")
                         .HasForeignKey("TenantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("PropertyPlatform.Core.Entities.Tenant", null)
-                        .WithMany("RefreshTokens")
-                        .HasForeignKey("TenantId1");
 
                     b.Navigation("Tenant");
                 });
@@ -929,7 +897,7 @@ namespace PropertyPlatform.Infrastructure.Migrations
             modelBuilder.Entity("PropertyPlatform.Core.Entities.Subscription", b =>
                 {
                     b.HasOne("PropertyPlatform.Core.Entities.Tenant", "Tenant")
-                        .WithMany()
+                        .WithMany("Subscriptions")
                         .HasForeignKey("TenantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -969,9 +937,17 @@ namespace PropertyPlatform.Infrastructure.Migrations
                 {
                     b.Navigation("AgentProfile");
 
+                    b.Navigation("CreditTransactions");
+
                     b.Navigation("PropertyListings");
 
+                    b.Navigation("ReferralsMade");
+
+                    b.Navigation("ReferralsReceived");
+
                     b.Navigation("RefreshTokens");
+
+                    b.Navigation("Subscriptions");
                 });
 #pragma warning restore 612, 618
         }

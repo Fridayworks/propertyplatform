@@ -49,8 +49,8 @@ namespace PropertyPlatform.Web.Pages
             if (!ModelState.IsValid)
                 return Page();
 
-            var existingTenant = _context.Tenants.FirstOrDefault(t => t.Email == Email);
-            if (existingTenant != null)
+            var existingAgent = _context.AgentProfiles.FirstOrDefault(a => a.Email == Email);
+            if (existingAgent != null)
             {
                 ErrorMessage = "Email already in use.";
                 return Page();
@@ -58,16 +58,19 @@ namespace PropertyPlatform.Web.Pages
 
             var tenant = new Tenant
             {
-                Email = Email,
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword(Password)
+                Name = Name,
+                ContactEmail = Email
             };
 
             var agentProfile = new AgentProfile
             {
                 TenantId = tenant.TenantId,
                 Name = Name,
+                Email = Email,
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(Password),
                 Phone = Phone,
-                REN_ID = REN_ID
+                REN_ID = REN_ID,
+                Slug = Name.ToLower().Trim().Replace(" ", "-") + "-" + Guid.NewGuid().ToString().Substring(0, 8)
             };
 
             _context.Tenants.Add(tenant);
@@ -84,7 +87,7 @@ namespace PropertyPlatform.Web.Pages
                 await _context.SaveChangesAsync(); // Save referral first
 
                 // Reward referrer with 50 credits via wallet service
-                await _walletService.AddCreditsAsync(ReferrerId.Value, 50, "Reward", $"Referral reward for new agent: {tenant.Email}");
+                await _walletService.AddCreditsAsync(ReferrerId.Value, 50, "Reward", $"Referral reward for new agent: {Email}");
             }
             else
             {
@@ -95,7 +98,7 @@ namespace PropertyPlatform.Web.Pages
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, tenant.TenantId.ToString()),
-                new Claim(ClaimTypes.Name, tenant.Email)
+                new Claim(ClaimTypes.Name, agentProfile.Email)
             };
 
             var identity = new ClaimsIdentity(claims, "Cookies");

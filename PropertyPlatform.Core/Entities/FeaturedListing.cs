@@ -1,7 +1,10 @@
 namespace PropertyPlatform.Core.Entities
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class FeaturedListing
     {
+        [Key]
         public Guid FeatureId { get; set; } = Guid.NewGuid();
         public Guid ListingId { get; set; }
         public int BoostLevel { get; set; } = 1; // 1 = standard, 2 = premium, 3 = top

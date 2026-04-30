@@ -34,10 +34,27 @@ namespace PropertyPlatform.Tests
             var tenant = new Tenant
             {
                 TenantId = Guid.NewGuid(),
-                Email = "airiskagent@test.com",
-                PasswordHash = "hashed",
+                Name = "Test Agency",
+                ContactEmail = "airiskagency@test.com",
                 CreatedAt = DateTime.UtcNow
             };
+
+            _context.Tenants.Add(tenant);
+            await _context.SaveChangesAsync();
+
+            // Seed test agent
+            var agent = new AgentProfile
+            {
+                AgentId = Guid.NewGuid(),
+                TenantId = tenant.TenantId,
+                Name = "Test Agent",
+                Email = "airiskagent@test.com",
+                PasswordHash = "hashed",
+                REN_ID = "REN001"
+            };
+
+            _context.AgentProfiles.Add(agent);
+            await _context.SaveChangesAsync();
 
             var listing = new PropertyListing
             {

@@ -1,7 +1,10 @@
 namespace PropertyPlatform.Core.Entities
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class ListingAnalytic
     {
+        [Key]
         public Guid AnalyticsId { get; set; } = Guid.NewGuid();
         public Guid ListingId { get; set; }
         public int Views { get; set; } = 0;

@@ -1,7 +1,10 @@
 namespace PropertyPlatform.Core.Entities
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class PropertyFeature
     {
+        [Key]
         public Guid FeatureId { get; set; } = Guid.NewGuid();
         public Guid ListingId { get; set; }
         public string Key { get; set; } = string.Empty;   // e.g. "Bedrooms", "Bathrooms", "Tenure"

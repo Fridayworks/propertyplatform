@@ -1,7 +1,10 @@
 namespace PropertyPlatform.Core.Entities
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class UserEvent
     {
+        [Key]
         public Guid EventId { get; set; } = Guid.NewGuid();
         public Guid? UserId { get; set; }
         public Guid ListingId { get; set; }

@@ -134,16 +134,16 @@
                                 }
                                 <div class="flex items-center gap-4 mb-6">
                                     <div class="h-12 w-12 rounded-full bg-primary-600 flex items-center justify-center text-white text-xl font-bold">
-                                        @(Model.Listing.Tenant?.AgentProfile?.Name?.FirstOrDefault().ToString().ToUpper() ?? Model.Listing.Tenant?.Email?.FirstOrDefault().ToString().ToUpper() ?? "?")
+                                        @(Model.Listing.Tenant?.AgentProfile?.Name?.FirstOrDefault().ToString().ToUpper() ?? "?")
                                     </div>
                                     <div>
                                         @if (!string.IsNullOrEmpty(Model.Listing.Tenant?.AgentProfile?.Slug))
                                         {
-                                            <a href="/a/@Model.Listing.Tenant.AgentProfile.Slug" class="font-medium text-gray-900 hover:text-primary-600 transition-colors">@(Model.Listing.Tenant?.AgentProfile?.Name ?? Model.Listing.Tenant?.Email)</a>
+                                            <a href="/a/@Model.Listing.Tenant.AgentProfile.Slug" class="font-medium text-gray-900 hover:text-primary-600 transition-colors">@Model.Listing.Tenant?.AgentProfile?.Name</a>
                                         }
                                         else
                                         {
-                                            <p class="font-medium text-gray-900">@(Model.Listing.Tenant?.AgentProfile?.Name ?? Model.Listing.Tenant?.Email)</p>
+                                            <p class="font-medium text-gray-900">@Model.Listing.Tenant?.AgentProfile?.Name</p>
                                         }
                                         <p class="text-gray-500 text-sm">Registered Agent</p>
                                     </div>

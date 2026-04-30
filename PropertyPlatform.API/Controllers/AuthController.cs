@@ -44,15 +44,15 @@ namespace PropertyPlatform.API.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterRequest request)
         {
-            if (_context.Tenants.Any(t => t.Email == request.Email))
+            if (_context.AgentProfiles.Any(a => a.Email == request.Email))
             {
                 return BadRequest("Email already exists");
             }
 
             var tenant = new Tenant
             {
-                Email = request.Email,
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password),
+                Name = request.Name,
+                ContactEmail = request.Email,
                 CreatedAt = DateTime.UtcNow
             };
 
@@ -64,6 +64,8 @@ namespace PropertyPlatform.API.Controllers
             {
                 TenantId = tenant.TenantId,
                 Name = request.Name,
+                Email = request.Email,
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password),
                 Phone = request.Phone,
                 REN_ID = string.Empty, // To be filled later
                 OfficeAddress = string.Empty,
@@ -80,18 +82,18 @@ namespace PropertyPlatform.API.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
-            var tenant = _context.Tenants.FirstOrDefault(t => t.Email == request.Email);
-            if (tenant == null || !BCrypt.Net.BCrypt.Verify(request.Password, tenant.PasswordHash))
+            var agent = _context.AgentProfiles.FirstOrDefault(a => a.Email == request.Email);
+            if (agent == null || !BCrypt.Net.BCrypt.Verify(request.Password, agent.PasswordHash))
             {
                 return Unauthorized("Invalid email or password");
             }
 
-            var accessToken = GenerateJwtToken(tenant);
+            var accessToken = GenerateJwtToken(agent.TenantId, agent.Email);
             var refreshToken = Guid.NewGuid().ToString("N");
 
             _context.RefreshTokens.Add(new RefreshToken
             {
-                TenantId = tenant.TenantId,
+                TenantId = agent.TenantId,
                 Token = refreshToken,
                 ExpiryDate = DateTime.UtcNow.AddDays(7)
             });
@@ -116,16 +118,22 @@ namespace PropertyPlatform.API.Controllers
                 return Unauthorized("Invalid refresh token");
             }
 
-            var newAccessToken = GenerateJwtToken(tokenRecord.Tenant);
+            var agent = _context.AgentProfiles.FirstOrDefault(a => a.TenantId == tokenRecord.TenantId);
+            if (agent == null)
+            {
+                return Unauthorized("Agent profile not found");
+            }
+
+            var newAccessToken = GenerateJwtToken(tokenRecord.TenantId, agent.Email);
             return Ok(new { token = newAccessToken });
         }
 
-        private string GenerateJwtToken(Tenant tenant)
+        private string GenerateJwtToken(Guid tenantId, string email)
         {
             var claims = new[]
             {
-                new Claim(ClaimTypes.NameIdentifier, tenant.TenantId.ToString()),
-                new Claim(ClaimTypes.Name, tenant.Email)
+                new Claim(ClaimTypes.NameIdentifier, tenantId.ToString()),
+                new Claim(ClaimTypes.Name, email)
             };
 
             var jwtKey = _configuration["Jwt:Key"];

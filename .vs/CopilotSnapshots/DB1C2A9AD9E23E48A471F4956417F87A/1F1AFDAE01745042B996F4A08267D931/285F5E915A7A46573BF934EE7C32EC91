@@ -1,0 +1,111 @@
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using PropertyPlatform.Core.Entities;
+using PropertyPlatform.Core.Interfaces;
+using PropertyPlatform.Infrastructure.Data;
+using System.Security.Claims;
+
+namespace PropertyPlatform.Web.Pages
+{
+    public class SignupModel : PageModel
+    {
+        private readonly ApplicationDbContext _context;
+        private readonly IWalletService _walletService;
+
+        public SignupModel(ApplicationDbContext context, IWalletService walletService)
+        {
+            _context = context;
+            _walletService = walletService;
+        }
+
+        [BindProperty]
+        public string Email { get; set; } = string.Empty;
+
+        [BindProperty]
+        public string Password { get; set; } = string.Empty;
+        
+        [BindProperty]
+        public string Name { get; set; } = string.Empty;
+
+        [BindProperty]
+        public string Phone { get; set; } = string.Empty;
+
+        [BindProperty]
+        public string REN_ID { get; set; } = string.Empty;
+
+        [BindProperty(SupportsGet = true)]
+        public Guid? ReferrerId { get; set; }
+
+        public string? ErrorMessage { get; set; }
+
+        public void OnGet(Guid? referrer)
+        {
+            if (referrer.HasValue) ReferrerId = referrer;
+        }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (!ModelState.IsValid)
+                return Page();
+
+            var existingAgent = _context.AgentProfiles.FirstOrDefault(a => a.Email == Email);
+            if (existingAgent != null)
+            {
+                ErrorMessage = "Email already in use.";
+                return Page();
+            }
+
+            var tenant = new Tenant
+            {
+                Name = Name,
+                ContactEmail = Email
+            };
+
+            var agentProfile = new AgentProfile
+            {
+                TenantId = tenant.TenantId,
+                Name = Name,
+                Email = Email,
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(Password),
+                Phone = Phone,
+                REN_ID = REN_ID
+            };
+
+            _context.Tenants.Add(tenant);
+            _context.AgentProfiles.Add(agentProfile);
+
+            if (ReferrerId.HasValue && _context.Tenants.Any(t => t.TenantId == ReferrerId.Value))
+            {
+                _context.Referrals.Add(new Referral
+                {
+                    ReferrerTenantId = ReferrerId.Value,
+                    NewTenantId = tenant.TenantId
+                });
+
+                await _context.SaveChangesAsync(); // Save referral first
+
+                // Reward referrer with 50 credits via wallet service
+                await _walletService.AddCreditsAsync(ReferrerId.Value, 50, "Reward", $"Referral reward for new agent: {tenant.Email}");
+            }
+            else
+            {
+                await _context.SaveChangesAsync();
+            }
+
+            // Auto log in after signup
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, tenant.TenantId.ToString()),
+                new Claim(ClaimTypes.Name, tenant.Email)
+            };
+
+            var identity = new ClaimsIdentity(claims, "Cookies");
+            var principal = new ClaimsPrincipal(identity);
+
+            await HttpContext.SignInAsync("Cookies", principal);
+
+            return RedirectToPage("/Agents");
+        }
+    }
+}

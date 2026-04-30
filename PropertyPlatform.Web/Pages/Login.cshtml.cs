@@ -32,9 +32,9 @@ namespace PropertyPlatform.Web.Pages
             if (!ModelState.IsValid)
                 return Page();
 
-            var tenant = _context.Tenants.FirstOrDefault(t => t.Email == Email);
-            
-            if (tenant == null || !BCrypt.Net.BCrypt.Verify(Password, tenant.PasswordHash))
+            var agent = _context.AgentProfiles.FirstOrDefault(a => a.Email == Email);
+
+            if (agent == null || !BCrypt.Net.BCrypt.Verify(Password, agent.PasswordHash))
             {
                 ErrorMessage = "Invalid email or password.";
                 return Page();
@@ -42,8 +42,8 @@ namespace PropertyPlatform.Web.Pages
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.NameIdentifier, tenant.TenantId.ToString()),
-                new Claim(ClaimTypes.Name, tenant.Email)
+                new Claim(ClaimTypes.NameIdentifier, agent.TenantId.ToString()),
+                new Claim(ClaimTypes.Name, agent.Email)
             };
 
             var identity = new ClaimsIdentity(claims, "Cookies");
