@@ -1,0 +1,49 @@
+@page
+@model PropertyPlatform.Web.Pages.Admin.Roles.IndexModel
+@{
+    ViewData["Title"] = "Role Permissions";
+}
+
+<div class="bg-gray-50 py-12 min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-8 flex items-center justify-between">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900">Role Permissions</h1>
+                <p class="mt-2 text-sm text-gray-500">Manage administrative roles and fine-grained access control.</p>
+            </div>
+            <a href="/Admin" class="text-sm font-medium text-gray-500 hover:text-gray-700">&larr; Back to Admin</a>
+        </div>
+
+        <div class="bg-white shadow overflow-hidden sm:rounded-md">
+            <ul role="list" class="divide-y divide-gray-200">
+                @foreach (var role in Model.Roles)
+                {
+                    <li>
+                        <div class="px-4 py-4 sm:px-6 hover:bg-gray-50">
+                            <div class="flex items-center justify-between">
+                                <p class="text-sm font-medium text-primary-600 truncate">@role.Name</p>
+                                <div class="ml-2 flex-shrink-0 flex">
+                                    <p class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                        @role.Permissions.Split(',').Length Permissions
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="mt-2 sm:flex sm:justify-between">
+                                <div class="sm:flex">
+                                    <p class="flex items-center text-sm text-gray-500">
+                                        @role.Description
+                                    </p>
+                                </div>
+                                <div class="mt-2 flex items-center text-sm text-gray-500 sm:mt-0">
+                                    <p>
+                                        Created on <time datetime="@role.CreatedAt.ToString("O")">@role.CreatedAt.ToString("MMM d, yyyy")</time>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>

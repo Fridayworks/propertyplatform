@@ -13,13 +13,24 @@ namespace PropertyPlatform.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            var connectionString = configuration.GetConnectionString("DefaultConnection");
-
+            var databaseProvider = configuration["DatabaseProvider"] ?? "PostgreSQL";
+            
             services.AddHttpContextAccessor();
 
             services.AddDbContext<ApplicationDbContext>((sp, options) =>
             {
-                options.UseNpgsql(connectionString);
+                if (databaseProvider.Equals("SQLite", StringComparison.OrdinalIgnoreCase))
+                {
+                    var connectionString = configuration.GetConnectionString("SqliteConnection") 
+                                           ?? configuration.GetConnectionString("DefaultConnection");
+                    options.UseSqlite(connectionString);
+                }
+                else
+                {
+                    var connectionString = configuration.GetConnectionString("PostgreSqlConnection") 
+                                           ?? configuration.GetConnectionString("DefaultConnection");
+                    options.UseNpgsql(connectionString);
+                }
             });
             
             // Add a factory or interceptor to set TenantId if we needed, but 
@@ -40,7 +51,15 @@ namespace PropertyPlatform.Infrastructure
         {
             using var scope = app.ApplicationServices.CreateScope();
             var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-            context.Database.Migrate();
+            
+            if (context.Database.IsSqlite())
+            {
+                context.Database.EnsureCreated();
+            }
+            else
+            {
+                context.Database.Migrate();
+            }
 
             return app;
         }

@@ -1,0 +1,48 @@
+@page
+@model PropertyPlatform.Web.Pages.Admin.Menus.IndexModel
+@{
+    ViewData["Title"] = "Menu Builder";
+}
+
+<div class="bg-gray-50 py-12 min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-8 flex items-center justify-between">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900">Menu Builder</h1>
+                <p class="mt-2 text-sm text-gray-500">Dynamically configure navigation links across the platform.</p>
+            </div>
+            <a href="/Admin" class="text-sm font-medium text-gray-500 hover:text-gray-700">&larr; Back to Admin</a>
+        </div>
+
+        <div class="bg-white shadow overflow-hidden sm:rounded-md">
+            <ul role="list" class="divide-y divide-gray-200">
+                @foreach (var menu in Model.Menus)
+                {
+                    <li>
+                        <div class="px-4 py-4 sm:px-6 hover:bg-gray-50">
+                            <div class="flex items-center justify-between">
+                                <p class="text-sm font-medium text-primary-600 truncate">@menu.Title</p>
+                                <div class="ml-2 flex-shrink-0 flex">
+                                    <p class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full @(menu.IsActive ? "bg-green-100 text-green-800" : "bg-gray-100 text-gray-800")">
+                                        @(menu.IsActive ? "Active" : "Inactive")
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="mt-2 sm:flex sm:justify-between">
+                                <div class="sm:flex text-sm text-gray-500">
+                                    <p class="mr-6">Location: <span class="font-medium text-gray-900">@menu.Location</span></p>
+                                    <p>URL: <a href="@menu.Url" class="text-primary-600 hover:underline">@menu.Url</a></p>
+                                </div>
+                                <div class="mt-2 flex items-center text-sm text-gray-500 sm:mt-0">
+                                    <p>
+                                        Order: @menu.SortOrder
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>

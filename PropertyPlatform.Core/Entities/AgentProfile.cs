@@ -17,6 +17,11 @@ namespace PropertyPlatform.Core.Entities
         public int Credits { get; set; } = 0;
         public int ExperiencePoints { get; set; } = 0;
         public int Level { get; set; } = 1;
+        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+
+        // Governance
+        public Guid? AdminRoleId { get; set; }
+        public AdminRole? AdminRole { get; set; }
 
         // Navigation
         public Tenant? Tenant { get; set; }

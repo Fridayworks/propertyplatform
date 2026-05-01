@@ -22,6 +22,57 @@ namespace PropertyPlatform.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("PropertyPlatform.Core.Entities.AdminRole", b =>
+                {
+                    b.Property<Guid>("RoleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("Permissions")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("RoleId");
+
+                    b.ToTable("AdminRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000401"),
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Full access to all modules and configurations.",
+                            Name = "Super Admin",
+                            Permissions = "CMS.Manage,Users.Manage,Roles.Manage,Menus.Manage,Config.Manage",
+                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            RoleId = new Guid("00000000-0000-0000-0000-000000000402"),
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Access to manage CMS articles and news only.",
+                            Name = "Content Editor",
+                            Permissions = "CMS.Manage",
+                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        });
+                });
+
             modelBuilder.Entity("PropertyPlatform.Core.Entities.AgentBadge", b =>
                 {
                     b.Property<Guid>("AgentBadgeId")
@@ -82,6 +133,9 @@ namespace PropertyPlatform.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<Guid?>("AdminRoleId")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("Bio")
                         .IsRequired()
                         .HasColumnType("text");
@@ -134,7 +188,12 @@ namespace PropertyPlatform.Infrastructure.Migrations
                     b.Property<Guid>("TenantId")
                         .HasColumnType("uuid");
 
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
                     b.HasKey("AgentId");
+
+                    b.HasIndex("AdminRoleId");
 
                     b.HasIndex("Slug")
                         .IsUnique();
@@ -161,7 +220,8 @@ namespace PropertyPlatform.Infrastructure.Migrations
                             ProfilePhotoUrl = "https://via.placeholder.com/150",
                             REN_ID = "ADMIN-001",
                             Slug = "admin",
-                            TenantId = new Guid("00000000-0000-0000-0000-000000000100")
+                            TenantId = new Guid("00000000-0000-0000-0000-000000000100"),
+                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         });
                 });
 
@@ -373,6 +433,79 @@ namespace PropertyPlatform.Infrastructure.Migrations
                     b.HasIndex("TenantId");
 
                     b.ToTable("CreditTransactions");
+                });
+
+            modelBuilder.Entity("PropertyPlatform.Core.Entities.DynamicMenu", b =>
+                {
+                    b.Property<Guid>("MenuId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<int>("SortOrder")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
+                    b.HasKey("MenuId");
+
+                    b.ToTable("DynamicMenus");
+
+                    b.HasData(
+                        new
+                        {
+                            MenuId = new Guid("00000000-0000-0000-0000-000000000501"),
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            IsActive = true,
+                            Location = "Main",
+                            SortOrder = 1,
+                            Title = "Home",
+                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Url = "/"
+                        },
+                        new
+                        {
+                            MenuId = new Guid("00000000-0000-0000-0000-000000000502"),
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            IsActive = true,
+                            Location = "Main",
+                            SortOrder = 2,
+                            Title = "Find a Home",
+                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Url = "/Search"
+                        },
+                        new
+                        {
+                            MenuId = new Guid("00000000-0000-0000-0000-000000000503"),
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            IsActive = true,
+                            Location = "Main",
+                            SortOrder = 3,
+                            Title = "News",
+                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Url = "/News"
+                        });
                 });
 
             modelBuilder.Entity("PropertyPlatform.Core.Entities.FeatureConfig", b =>
@@ -911,11 +1044,18 @@ namespace PropertyPlatform.Infrastructure.Migrations
 
             modelBuilder.Entity("PropertyPlatform.Core.Entities.AgentProfile", b =>
                 {
+                    b.HasOne("PropertyPlatform.Core.Entities.AdminRole", "AdminRole")
+                        .WithMany()
+                        .HasForeignKey("AdminRoleId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
                     b.HasOne("PropertyPlatform.Core.Entities.Tenant", "Tenant")
                         .WithOne("AgentProfile")
                         .HasForeignKey("PropertyPlatform.Core.Entities.AgentProfile", "TenantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("AdminRole");
 
                     b.Navigation("Tenant");
                 });

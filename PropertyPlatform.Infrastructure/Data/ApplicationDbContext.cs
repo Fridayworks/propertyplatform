@@ -31,6 +31,8 @@ namespace PropertyPlatform.Infrastructure.Data
         public DbSet<FeatureConfig> FeatureConfigs => Set<FeatureConfig>();
         public DbSet<AgentReview> AgentReviews => Set<AgentReview>();
         public DbSet<Article> Articles => Set<Article>();
+        public DbSet<AdminRole> AdminRoles => Set<AdminRole>();
+        public DbSet<DynamicMenu> DynamicMenus => Set<DynamicMenu>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -40,6 +42,7 @@ namespace PropertyPlatform.Infrastructure.Data
             ConfigureListingModule(modelBuilder);
             ConfigureGamificationModule(modelBuilder);
             ConfigureCMSModule(modelBuilder);
+            ConfigureGovernanceModule(modelBuilder);
             ConfigureSeedData(modelBuilder);
         }
 
@@ -234,6 +237,29 @@ namespace PropertyPlatform.Infrastructure.Data
             });
         }
 
+        private void ConfigureGovernanceModule(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<AdminRole>(entity =>
+            {
+                entity.HasKey(x => x.RoleId);
+                entity.Property(x => x.Name).IsRequired().HasMaxLength(100);
+            });
+
+            modelBuilder.Entity<DynamicMenu>(entity =>
+            {
+                entity.HasKey(x => x.MenuId);
+                entity.Property(x => x.Title).IsRequired().HasMaxLength(100);
+                entity.Property(x => x.Url).IsRequired().HasMaxLength(255);
+                entity.Property(x => x.Location).IsRequired().HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<AgentProfile>()
+                .HasOne(x => x.AdminRole)
+                .WithMany()
+                .HasForeignKey(x => x.AdminRoleId)
+                .OnDelete(DeleteBehavior.SetNull);
+        }
+
         private void ConfigureSeedData(ModelBuilder modelBuilder)
         {
             var adminTenantId = new Guid("00000000-0000-0000-0000-000000000100");
@@ -263,9 +289,40 @@ namespace PropertyPlatform.Infrastructure.Data
                     ProfilePhotoUrl = "https://via.placeholder.com/150",
                     CompanyLogoUrl = "https://via.placeholder.com/150",
                     Slug = "admin",
-                    Bio = "System Administrator"
+                    Bio = "System Administrator",
+                    UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
                 }
             );
+
+            // Seed Admin Roles
+            var superAdminRoleId = new Guid("00000000-0000-0000-0000-000000000401");
+            var contentEditorRoleId = new Guid("00000000-0000-0000-0000-000000000402");
+
+            modelBuilder.Entity<AdminRole>().HasData(
+                new AdminRole
+                {
+                    RoleId = superAdminRoleId,
+                    Name = "Super Admin",
+                    Description = "Full access to all modules and configurations.",
+                    Permissions = "CMS.Manage,Users.Manage,Roles.Manage,Menus.Manage,Config.Manage",
+                    CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+                },
+                new AdminRole
+                {
+                    RoleId = contentEditorRoleId,
+                    Name = "Content Editor",
+                    Description = "Access to manage CMS articles and news only.",
+                    Permissions = "CMS.Manage",
+                    CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+                }
+            );
+
+            // Assign Super Admin role to the seeded admin user (if we wanted to hardlink, but for now we rely on config or we can just set it here)
+            // Note: The agent profile is already seeded, so we'd need to modify the seeded AgentProfile. 
+            // We'll just leave AdminRoleId null for the seeded user to avoid primary key conflicts in HasData. 
+            // Actually, we can update the seeded Admin AgentProfile:
 
             modelBuilder.Entity<Badge>().HasData(
                 new Badge { BadgeId = new Guid("00000000-0000-0000-0000-000000000001"), Code = "RISING_STAR", Name = "Rising Star", Description = "Joined the platform and completed initial setup.", IconUrl = "✨" },
@@ -338,6 +395,43 @@ namespace PropertyPlatform.Infrastructure.Data
                     CreatedAt = new DateTime(2026, 2, 1, 0, 0, 0, DateTimeKind.Utc),
                     UpdatedAt = new DateTime(2026, 2, 1, 0, 0, 0, DateTimeKind.Utc),
                     ThumbnailUrl = "https://images.unsplash.com/photo-1460472178825-e52506b3f90a?auto=format&fit=crop&q=80&w=800"
+                }
+            );
+
+            // Seed Dynamic Menus
+            modelBuilder.Entity<DynamicMenu>().HasData(
+                new DynamicMenu
+                {
+                    MenuId = new Guid("00000000-0000-0000-0000-000000000501"),
+                    Title = "Home",
+                    Url = "/",
+                    Location = "Main",
+                    SortOrder = 1,
+                    IsActive = true,
+                    CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+                },
+                new DynamicMenu
+                {
+                    MenuId = new Guid("00000000-0000-0000-0000-000000000502"),
+                    Title = "Find a Home",
+                    Url = "/Search",
+                    Location = "Main",
+                    SortOrder = 2,
+                    IsActive = true,
+                    CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+                },
+                new DynamicMenu
+                {
+                    MenuId = new Guid("00000000-0000-0000-0000-000000000503"),
+                    Title = "News",
+                    Url = "/News",
+                    Location = "Main",
+                    SortOrder = 3,
+                    IsActive = true,
+                    CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
                 }
             );
         }

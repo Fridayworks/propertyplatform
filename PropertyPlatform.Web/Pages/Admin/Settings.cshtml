@@ -1,0 +1,103 @@
+@page
+@model PropertyPlatform.Web.Pages.Admin.SettingsModel
+@{
+    ViewData["Title"] = "General Settings";
+}
+
+<div class="bg-gray-50 py-12 min-h-screen">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-8 flex items-center justify-between">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900">General Settings</h1>
+                <p class="mt-2 text-sm text-gray-500">Manage platform-wide configurations and infrastructure settings.</p>
+            </div>
+            <a href="/Admin" class="text-sm font-medium text-gray-500 hover:text-gray-700">&larr; Back to Admin</a>
+        </div>
+
+        @if (!string.IsNullOrEmpty(Model.SuccessMessage))
+        {
+            <div class="mb-6 bg-green-50 border-l-4 border-green-400 p-4">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <svg class="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm text-green-700">@Model.SuccessMessage</p>
+                    </div>
+                </div>
+            </div>
+        }
+
+        @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+        {
+            <div class="mb-6 bg-red-50 border-l-4 border-red-400 p-4">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm text-red-700">@Model.ErrorMessage</p>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <form method="post" class="space-y-8 divide-y divide-gray-200 bg-white shadow-sm border border-gray-200 rounded-xl p-8">
+            <div class="space-y-6 sm:space-y-5">
+                <div>
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">Database Configuration</h3>
+                    <p class="max-w-2xl text-sm text-gray-500 mt-1">Configure the underlying database provider. Warning: Changing this requires an application restart and manual schema migrations.</p>
+                </div>
+
+                <div class="space-y-6 sm:space-y-5">
+                    <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+                        <label asp-for="DatabaseProvider" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                            Database Provider
+                        </label>
+                        <div class="mt-1 sm:mt-0 sm:col-span-2">
+                            <select asp-for="DatabaseProvider" class="max-w-lg block focus:ring-primary-500 focus:border-primary-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+                                <option value="PostgreSQL">PostgreSQL</option>
+                                <option value="SQLite">SQLite</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+                        <label asp-for="PostgreSqlConnection" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                            PostgreSQL Connection
+                        </label>
+                        <div class="mt-1 sm:mt-0 sm:col-span-2">
+                            <textarea asp-for="PostgreSqlConnection" rows="2" class="max-w-lg shadow-sm block w-full focus:ring-primary-500 focus:border-primary-500 sm:text-sm border border-gray-300 rounded-md font-mono text-sm"></textarea>
+                            <p class="mt-1 text-sm text-gray-500">Example: <code>Host=localhost;Database=propertydb;Username=postgres;Password=...</code></p>
+                        </div>
+                    </div>
+
+                    <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+                        <label asp-for="SqliteConnection" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                            SQLite Connection
+                        </label>
+                        <div class="mt-1 sm:mt-0 sm:col-span-2">
+                            <textarea asp-for="SqliteConnection" rows="2" class="max-w-lg shadow-sm block w-full focus:ring-primary-500 focus:border-primary-500 sm:text-sm border border-gray-300 rounded-md font-mono text-sm"></textarea>
+                            <p class="mt-1 text-sm text-gray-500">Example: <code>Data Source=propertyplatform.db</code></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-5">
+                <div class="flex justify-end space-x-3">
+                    <button type="button" onclick="window.location.href='/Admin'" class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                        Cancel
+                    </button>
+                    <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                        Save Changes
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
