@@ -30,6 +30,7 @@ namespace PropertyPlatform.Infrastructure.Data
         public DbSet<AgentMission> AgentMissions => Set<AgentMission>();
         public DbSet<FeatureConfig> FeatureConfigs => Set<FeatureConfig>();
         public DbSet<AgentReview> AgentReviews => Set<AgentReview>();
+        public DbSet<Article> Articles => Set<Article>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -38,6 +39,7 @@ namespace PropertyPlatform.Infrastructure.Data
             ConfigureTenantModule(modelBuilder);
             ConfigureListingModule(modelBuilder);
             ConfigureGamificationModule(modelBuilder);
+            ConfigureCMSModule(modelBuilder);
             ConfigureSeedData(modelBuilder);
         }
 
@@ -216,6 +218,22 @@ namespace PropertyPlatform.Infrastructure.Data
                 .OnDelete(DeleteBehavior.Cascade);
         }
 
+        private void ConfigureCMSModule(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Article>(entity =>
+            {
+                entity.HasKey(x => x.ArticleId);
+                entity.Property(x => x.Title).IsRequired().HasMaxLength(200);
+                entity.Property(x => x.Slug).IsRequired().HasMaxLength(250);
+                entity.Property(x => x.Content).IsRequired();
+                entity.Property(x => x.Status).IsRequired().HasMaxLength(20);
+
+                entity.HasIndex(x => x.Slug).IsUnique();
+                entity.HasIndex(x => x.Status);
+                entity.HasIndex(x => x.Category);
+            });
+        }
+
         private void ConfigureSeedData(ModelBuilder modelBuilder)
         {
             var adminTenantId = new Guid("00000000-0000-0000-0000-000000000100");
@@ -287,6 +305,39 @@ namespace PropertyPlatform.Infrastructure.Data
                     IsEnabled = true,
                     SortOrder = 3,
                     UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+                }
+            );
+
+            modelBuilder.Entity<Article>().HasData(
+                new Article
+                {
+                    ArticleId = new Guid("00000000-0000-0000-0000-000000000301"),
+                    Title = "Welcome to the New Property Platform",
+                    Slug = "welcome-to-new-platform",
+                    Excerpt = "We are excited to announce the launch of our next-generation property ecosystem.",
+                    Content = "<p>Welcome to the <strong>Annie Rustic Property Platform</strong>. We have completely rewritten our core engine to provide a seamless, AI-powered experience for agents and buyers alike.</p><p>Explore our new features including AI-driven listing automation, smart lead management, and premium agent microsites.</p>",
+                    Author = "System Admin",
+                    Category = "Company News",
+                    Status = "Published",
+                    PublishedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                    CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                    ThumbnailUrl = "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=800"
+                },
+                new Article
+                {
+                    ArticleId = new Guid("00000000-0000-0000-0000-000000000302"),
+                    Title = "Market Trends: Q1 2026 Residential Outlook",
+                    Slug = "market-trends-q1-2026",
+                    Excerpt = "Analyzing the shift in urban living preferences and price stability in major metropolitan areas.",
+                    Content = "<p>The residential market in early 2026 shows a strong preference for mixed-use developments and smart home integrations.</p><p>Our data indicates a 15% increase in searches for properties with dedicated home office spaces and high-speed fiber connectivity.</p>",
+                    Author = "Market Analytics Team",
+                    Category = "Market Trends",
+                    Status = "Published",
+                    PublishedAt = new DateTime(2026, 2, 1, 0, 0, 0, DateTimeKind.Utc),
+                    CreatedAt = new DateTime(2026, 2, 1, 0, 0, 0, DateTimeKind.Utc),
+                    UpdatedAt = new DateTime(2026, 2, 1, 0, 0, 0, DateTimeKind.Utc),
+                    ThumbnailUrl = "https://images.unsplash.com/photo-1460472178825-e52506b3f90a?auto=format&fit=crop&q=80&w=800"
                 }
             );
         }

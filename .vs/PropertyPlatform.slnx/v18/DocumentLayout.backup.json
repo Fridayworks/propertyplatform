@@ -3,10 +3,6 @@
   "WorkspaceRootPath": "D:\\code\\propertyplatform\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{EB9FD0A9-FE22-6F27-241D-E95B72527D54}|PropertyPlatform.Infrastructure\\PropertyPlatform.Infrastructure.csproj|d:\\code\\propertyplatform\\propertyplatform.infrastructure\\dependencyinjection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{EB9FD0A9-FE22-6F27-241D-E95B72527D54}|PropertyPlatform.Infrastructure\\PropertyPlatform.Infrastructure.csproj|solutionrelative:propertyplatform.infrastructure\\dependencyinjection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{EB9FD0A9-FE22-6F27-241D-E95B72527D54}|PropertyPlatform.Infrastructure\\PropertyPlatform.Infrastructure.csproj|d:\\code\\propertyplatform\\propertyplatform.infrastructure\\migrations\\20260421150000_addauthenticationtoagentprofile.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{EB9FD0A9-FE22-6F27-241D-E95B72527D54}|PropertyPlatform.Infrastructure\\PropertyPlatform.Infrastructure.csproj|solutionrelative:propertyplatform.infrastructure\\migrations\\20260421150000_addauthenticationtoagentprofile.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -97,19 +93,6 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "DependencyInjection.cs",
-              "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Infrastructure\\DependencyInjection.cs",
-              "RelativeDocumentMoniker": "PropertyPlatform.Infrastructure\\DependencyInjection.cs",
-              "ToolTip": "D:\\code\\propertyplatform\\PropertyPlatform.Infrastructure\\DependencyInjection.cs",
-              "RelativeToolTip": "PropertyPlatform.Infrastructure\\DependencyInjection.cs",
-              "ViewState": "AgIAACEAAAAAAAAAAAAtwCoAAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-25T09:40:26.213Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
               "Title": "20260421150000_AddAuthenticationToAgentProfile.Designer.cs",
               "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Infrastructure\\Migrations\\20260421150000_AddAuthenticationToAgentProfile.Designer.cs",
               "RelativeDocumentMoniker": "PropertyPlatform.Infrastructure\\Migrations\\20260421150000_AddAuthenticationToAgentProfile.Designer.cs",
@@ -117,11 +100,12 @@
               "RelativeToolTip": "PropertyPlatform.Infrastructure\\Migrations\\20260421150000_AddAuthenticationToAgentProfile.Designer.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAGMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-24T22:14:20.824Z"
+              "WhenOpened": "2026-04-24T22:14:20.824Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 19,
               "Title": "20260421150000_AddAuthenticationToAgentProfile.cs",
               "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Infrastructure\\Migrations\\20260421150000_AddAuthenticationToAgentProfile.cs",
               "RelativeDocumentMoniker": "PropertyPlatform.Infrastructure\\Migrations\\20260421150000_AddAuthenticationToAgentProfile.cs",
@@ -133,7 +117,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 18,
               "Title": "AuthController.cs",
               "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.API\\Controllers\\AuthController.cs",
               "RelativeDocumentMoniker": "PropertyPlatform.API\\Controllers\\AuthController.cs",
@@ -145,7 +129,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 17,
               "Title": "AgentProfile.cs",
               "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Core\\Entities\\AgentProfile.cs",
               "RelativeDocumentMoniker": "PropertyPlatform.Core\\Entities\\AgentProfile.cs",
@@ -157,7 +141,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "Listing.cshtml",
               "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Web\\Pages\\Listing.cshtml",
               "RelativeDocumentMoniker": "PropertyPlatform.Web\\Pages\\Listing.cshtml",
@@ -169,7 +153,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "Login.cshtml",
               "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Web\\Pages\\Login.cshtml",
               "RelativeDocumentMoniker": "PropertyPlatform.Web\\Pages\\Login.cshtml",
@@ -181,7 +165,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "PropertyPlatform.Infrastructure.csproj",
               "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Infrastructure\\PropertyPlatform.Infrastructure.csproj",
               "RelativeDocumentMoniker": "PropertyPlatform.Infrastructure\\PropertyPlatform.Infrastructure.csproj",
@@ -193,7 +177,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 4,
               "Title": "FeatureConfig.cshtml",
               "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Web\\Pages\\Admin\\FeatureConfig.cshtml",
               "RelativeDocumentMoniker": "PropertyPlatform.Web\\Pages\\Admin\\FeatureConfig.cshtml",
@@ -205,7 +189,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 5,
               "Title": "Agents.cshtml",
               "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Web\\Pages\\Agents.cshtml",
               "RelativeDocumentMoniker": "PropertyPlatform.Web\\Pages\\Agents.cshtml",
@@ -217,7 +201,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 6,
               "Title": "SelectListingType.cshtml",
               "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Web\\Pages\\SelectListingType.cshtml",
               "RelativeDocumentMoniker": "PropertyPlatform.Web\\Pages\\SelectListingType.cshtml",
@@ -229,7 +213,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 14,
               "Title": "PropertySearchTests.cs",
               "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\PropertySearchTests.cs",
               "RelativeDocumentMoniker": "PropertyPlatform.Tests\\PropertySearchTests.cs",
@@ -241,7 +225,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 13,
               "Title": "PropertySearchTests.cs",
               "DocumentMoniker": "C:\\Users\\carso\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\1863584566\\PropertySearchTests.cs",
               "ToolTip": "C:\\Users\\carso\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\1863584566\\PropertySearchTests.cs",
@@ -251,7 +235,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 12,
               "Title": "IntegrationTests.cs",
               "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\IntegrationTests.cs",
               "RelativeDocumentMoniker": "PropertyPlatform.Tests\\IntegrationTests.cs",
@@ -263,7 +247,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 7,
               "Title": "ListingCreationTests.cs",
               "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\ListingCreationTests.cs",
               "RelativeDocumentMoniker": "PropertyPlatform.Tests\\ListingCreationTests.cs",
@@ -275,7 +259,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 15,
               "Title": "LeadCaptureTests.cs",
               "DocumentMoniker": "C:\\Users\\carso\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\1863584566\\LeadCaptureTests.cs",
               "ToolTip": "C:\\Users\\carso\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\1863584566\\LeadCaptureTests.cs",
@@ -285,7 +269,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 11,
               "Title": "AIRiskValidationTests.cs",
               "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\AIRiskValidationTests.cs",
               "RelativeDocumentMoniker": "PropertyPlatform.Tests\\AIRiskValidationTests.cs",
@@ -297,7 +281,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 16,
               "Title": "LeadCaptureTests.cs",
               "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\LeadCaptureTests.cs",
               "RelativeDocumentMoniker": "PropertyPlatform.Tests\\LeadCaptureTests.cs",
@@ -309,7 +293,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 10,
               "Title": "SecurityComplianceTests.cs",
               "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\SecurityComplianceTests.cs",
               "RelativeDocumentMoniker": "PropertyPlatform.Tests\\SecurityComplianceTests.cs",
@@ -321,7 +305,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 9,
               "Title": "PerformanceTests.cs",
               "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\PerformanceTests.cs",
               "RelativeDocumentMoniker": "PropertyPlatform.Tests\\PerformanceTests.cs",
@@ -333,7 +317,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 8,
               "Title": "SmartListingEngineTests.cs",
               "DocumentMoniker": "D:\\code\\propertyplatform\\PropertyPlatform.Tests\\SmartListingEngineTests.cs",
               "RelativeDocumentMoniker": "PropertyPlatform.Tests\\SmartListingEngineTests.cs",

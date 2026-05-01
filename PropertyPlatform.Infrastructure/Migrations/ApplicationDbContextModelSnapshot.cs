@@ -202,6 +202,104 @@ namespace PropertyPlatform.Infrastructure.Migrations
                     b.ToTable("AgentReviews");
                 });
 
+            modelBuilder.Entity("PropertyPlatform.Core.Entities.Article", b =>
+                {
+                    b.Property<Guid>("ArticleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Author")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Excerpt")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<DateTime?>("PublishedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("character varying(250)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("ThumbnailUrl")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("ArticleId");
+
+                    b.HasIndex("Category");
+
+                    b.HasIndex("Slug")
+                        .IsUnique();
+
+                    b.HasIndex("Status");
+
+                    b.ToTable("Articles");
+
+                    b.HasData(
+                        new
+                        {
+                            ArticleId = new Guid("00000000-0000-0000-0000-000000000301"),
+                            Author = "System Admin",
+                            Category = "Company News",
+                            Content = "<p>Welcome to the <strong>Annie Rustic Property Platform</strong>. We have completely rewritten our core engine to provide a seamless, AI-powered experience for agents and buyers alike.</p><p>Explore our new features including AI-driven listing automation, smart lead management, and premium agent microsites.</p>",
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Excerpt = "We are excited to announce the launch of our next-generation property ecosystem.",
+                            PublishedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Slug = "welcome-to-new-platform",
+                            Status = "Published",
+                            ThumbnailUrl = "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=800",
+                            Title = "Welcome to the New Property Platform",
+                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            ArticleId = new Guid("00000000-0000-0000-0000-000000000302"),
+                            Author = "Market Analytics Team",
+                            Category = "Market Trends",
+                            Content = "<p>The residential market in early 2026 shows a strong preference for mixed-use developments and smart home integrations.</p><p>Our data indicates a 15% increase in searches for properties with dedicated home office spaces and high-speed fiber connectivity.</p>",
+                            CreatedAt = new DateTime(2026, 2, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Excerpt = "Analyzing the shift in urban living preferences and price stability in major metropolitan areas.",
+                            PublishedAt = new DateTime(2026, 2, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Slug = "market-trends-q1-2026",
+                            Status = "Published",
+                            ThumbnailUrl = "https://images.unsplash.com/photo-1460472178825-e52506b3f90a?auto=format&fit=crop&q=80&w=800",
+                            Title = "Market Trends: Q1 2026 Residential Outlook",
+                            UpdatedAt = new DateTime(2026, 2, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        });
+                });
+
             modelBuilder.Entity("PropertyPlatform.Core.Entities.Badge", b =>
                 {
                     b.Property<Guid>("BadgeId")

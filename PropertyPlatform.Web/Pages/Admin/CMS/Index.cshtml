@@ -1,0 +1,103 @@
+@page
+@model PropertyPlatform.Web.Pages.Admin.CMS.IndexModel
+@{
+    ViewData["Title"] = "CMS & News Management";
+}
+
+<div class="bg-gray-50 py-12 min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-8 flex items-center justify-between">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900">CMS & News</h1>
+                <p class="mt-2 text-sm text-gray-500">Manage platform-wide articles, news, and marketing content.</p>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="/Admin" class="text-sm font-medium text-gray-500 hover:text-gray-700">&larr; Back to Admin</a>
+                <a href="/Admin/CMS/Editor" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-bold rounded-md text-white bg-primary-600 hover:bg-primary-700 shadow-sm transition-colors">
+                    <svg class="-ml-1 mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
+                    Create Article
+                </a>
+            </div>
+        </div>
+
+        <div class="bg-white shadow-sm border border-gray-200 rounded-xl overflow-hidden">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Article</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Published At</th>
+                        <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    @if (!Model.Articles.Any())
+                    {
+                        <tr>
+                            <td colspan="5" class="px-6 py-12 text-center text-gray-500 italic">
+                                No articles found. Start by creating your first post!
+                            </td>
+                        </tr>
+                    }
+                    @foreach (var article in Model.Articles)
+                    {
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="h-10 w-16 flex-shrink-0 bg-gray-100 rounded overflow-hidden">
+                                        @if (!string.IsNullOrEmpty(article.ThumbnailUrl))
+                                        {
+                                            <img src="@article.ThumbnailUrl" class="h-full w-full object-cover" alt="">
+                                        }
+                                        else
+                                        {
+                                            <div class="h-full w-full flex items-center justify-center text-gray-400">
+                                                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="text-sm font-bold text-gray-900 truncate max-w-xs">@article.Title</div>
+                                        <div class="text-xs text-gray-500">/@article.Slug</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded">@article.Category</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                @if (article.Status == "Published")
+                                {
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                        Published
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-amber-100 text-amber-800">
+                                        Draft
+                                    </span>
+                                }
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                @(article.PublishedAt?.ToString("MMM dd, yyyy") ?? "-")
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <div class="flex items-center justify-end space-x-3">
+                                    <a href="/Admin/CMS/Editor?id=@article.ArticleId" class="text-primary-600 hover:text-primary-900">Edit</a>
+                                    <form method="post" asp-page-handler="Delete" asp-route-id="@article.ArticleId" onsubmit="return confirm('Are you sure you want to delete this article?')">
+                                        <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
+                                    </form>
+                                    <a href="/News/Details?slug=@article.Slug" target="_blank" class="text-gray-400 hover:text-gray-600">
+                                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

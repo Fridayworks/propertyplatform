@@ -1,0 +1,91 @@
+@page
+@model PropertyPlatform.Web.Pages.News.IndexModel
+@{
+    ViewData["Title"] = "Latest News & Property Insights";
+    ViewData["MetaDescription"] = "Stay updated with the latest property market trends, platform updates, and expert guides.";
+}
+
+<div class="bg-white">
+    <!-- Hero Section -->
+    <div class="relative bg-primary-900 py-24 sm:py-32 overflow-hidden">
+        <div class="absolute inset-0 opacity-20">
+            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=2000" class="w-full h-full object-cover" alt="">
+        </div>
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
+                Insights & Updates
+            </h1>
+            <p class="mt-6 text-xl text-primary-100 max-w-3xl mx-auto">
+                Your source for real estate market analysis, platform news, and expert property advice.
+            </p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="flex flex-col lg:flex-row gap-12">
+            <!-- Articles Grid -->
+            <div class="flex-1">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    @foreach (var article in Model.Articles)
+                    {
+                        <article class="flex flex-col overflow-hidden rounded-2xl border border-gray-100 shadow-sm transition-all hover:shadow-xl hover:-translate-y-1">
+                            <div class="flex-shrink-0 h-48 overflow-hidden relative">
+                                <img class="h-full w-full object-cover" src="@(string.IsNullOrEmpty(article.ThumbnailUrl) ? "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=800" : article.ThumbnailUrl)" alt="@article.Title">
+                                <div class="absolute top-4 left-4">
+                                    <span class="px-3 py-1 rounded-full text-xs font-bold bg-white/90 text-primary-700 backdrop-blur-sm uppercase tracking-wider">@article.Category</span>
+                                </div>
+                            </div>
+                            <div class="flex-1 bg-white p-6 flex flex-col justify-between">
+                                <div class="flex-1">
+                                    <p class="text-xs text-gray-500 font-medium">@article.PublishedAt?.ToString("MMMM dd, yyyy")</p>
+                                    <a href="/News/Details?slug=@article.Slug" class="block mt-2">
+                                        <h3 class="text-xl font-bold text-gray-900 hover:text-primary-600 transition-colors">@article.Title</h3>
+                                        <p class="mt-3 text-sm text-gray-500 line-clamp-3">@article.Excerpt</p>
+                                    </a>
+                                </div>
+                                <div class="mt-6 flex items-center">
+                                    <div class="flex-shrink-0">
+                                        <div class="h-8 w-8 rounded-full bg-primary-100 flex items-center justify-center text-primary-600 font-bold text-xs">
+                                            @article.Author.Substring(0, 1)
+                                        </div>
+                                    </div>
+                                    <div class="ml-3">
+                                        <p class="text-xs font-bold text-gray-900">@article.Author</p>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <a href="/News/Details?slug=@article.Slug" class="text-primary-600 font-bold text-xs uppercase tracking-widest hover:text-primary-700">Read More &rarr;</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    }
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="w-full lg:w-80 space-y-12">
+                <!-- Categories -->
+                <div>
+                    <h3 class="text-sm font-bold text-gray-900 uppercase tracking-widest border-b border-gray-100 pb-4 mb-6">Categories</h3>
+                    <ul class="space-y-4">
+                        <li><a href="/News" class="text-sm text-gray-600 hover:text-primary-600 font-medium">All Topics</a></li>
+                        <li><a href="/News?category=Market Trends" class="text-sm text-gray-600 hover:text-primary-600 font-medium">Market Trends</a></li>
+                        <li><a href="/News?category=Company News" class="text-sm text-gray-600 hover:text-primary-600 font-medium">Company News</a></li>
+                        <li><a href="/News?category=Property Guide" class="text-sm text-gray-600 hover:text-primary-600 font-medium">Property Guide</a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter (UI Placeholder) -->
+                <div class="bg-primary-50 rounded-2xl p-8">
+                    <h3 class="text-lg font-bold text-primary-900">Get insights delivered</h3>
+                    <p class="mt-2 text-sm text-primary-700">Subscribe to our weekly newsletter for the latest property news.</p>
+                    <div class="mt-6">
+                        <input type="email" placeholder="Email address" class="block w-full border-primary-200 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm px-4 py-3">
+                        <button class="mt-3 w-full bg-primary-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-primary-700 transition-colors shadow-lg">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
