@@ -435,6 +435,108 @@ namespace PropertyPlatform.Infrastructure.Migrations
                     b.ToTable("CreditTransactions");
                 });
 
+            modelBuilder.Entity("PropertyPlatform.Core.Entities.Developer", b =>
+                {
+                    b.Property<Guid>("DeveloperId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Awards")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Certifications")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("CompanyProfile")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ContactPerson")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("LicenseNumber")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("LogoUrl")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("PostalCode")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProjectPortfolio")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProjectsCompleted")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("RegistrationNumber")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Website")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("YearsOfOperation")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("DeveloperId");
+
+                    b.HasIndex("TenantId");
+
+                    b.ToTable("Developers");
+                });
+
             modelBuilder.Entity("PropertyPlatform.Core.Entities.DynamicMenu", b =>
                 {
                     b.Property<Guid>("MenuId")
@@ -737,6 +839,196 @@ namespace PropertyPlatform.Infrastructure.Migrations
                     b.ToTable("Missions");
                 });
 
+            modelBuilder.Entity("PropertyPlatform.Core.Entities.Project", b =>
+                {
+                    b.Property<Guid>("ProjectId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("BrochureUrl")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("CompletionDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("DeveloperContact")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("DeveloperEmail")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid?>("DeveloperId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("DeveloperLogoUrl")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("DeveloperName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("DeveloperPhone")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("DeveloperWebsite")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("Latitude")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("Longitude")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("PostalCode")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProjectAmenities")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProjectDocuments")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProjectFeatures")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProjectHighlights")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProjectSpecifications")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProjectType")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProjectVideoUrl")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProjectWebsite")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("ProjectId");
+
+                    b.HasIndex("DeveloperId");
+
+                    b.HasIndex("TenantId");
+
+                    b.ToTable("Projects");
+                });
+
+            modelBuilder.Entity("PropertyPlatform.Core.Entities.ProjectMedia", b =>
+                {
+                    b.Property<Guid>("MediaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsPrimary")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("MediaDescription")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("MediaFileName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<long>("MediaFileSize")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("MediaFileType")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("MediaTitle")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("MediaType")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("MediaUrl")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("ProjectId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("SortOrder")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("MediaId");
+
+                    b.HasIndex("ProjectId");
+
+                    b.ToTable("ProjectMedia");
+                });
+
             modelBuilder.Entity("PropertyPlatform.Core.Entities.PropertyFeature", b =>
                 {
                     b.Property<Guid>("FeatureId")
@@ -785,6 +1077,9 @@ namespace PropertyPlatform.Infrastructure.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
 
+                    b.Property<Guid?>("ProjectId")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("PropertyType")
                         .IsRequired()
                         .HasColumnType("text");
@@ -800,6 +1095,9 @@ namespace PropertyPlatform.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<Guid?>("UnitTypeId")
+                        .HasColumnType("uuid");
+
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -809,7 +1107,11 @@ namespace PropertyPlatform.Infrastructure.Migrations
 
                     b.HasIndex("Location");
 
+                    b.HasIndex("ProjectId");
+
                     b.HasIndex("TenantId");
+
+                    b.HasIndex("UnitTypeId");
 
                     b.ToTable("PropertyListings");
                 });
@@ -978,6 +1280,166 @@ namespace PropertyPlatform.Infrastructure.Migrations
                         });
                 });
 
+            modelBuilder.Entity("PropertyPlatform.Core.Entities.UnitType", b =>
+                {
+                    b.Property<Guid>("UnitTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Amenities")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("Area")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("AreaUnit")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Balcony")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("Bathrooms")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Bedrooms")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Features")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("FloorPlan")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Orientation")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Parking")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal>("PricePerSqft")
+                        .HasColumnType("numeric");
+
+                    b.Property<Guid>("ProjectId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Security")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Storage")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Terrace")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Utilities")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("View")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("UnitTypeId");
+
+                    b.HasIndex("ProjectId");
+
+                    b.ToTable("UnitTypes");
+                });
+
+            modelBuilder.Entity("PropertyPlatform.Core.Entities.UnitTypeMedia", b =>
+                {
+                    b.Property<Guid>("MediaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsPrimary")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("MediaDescription")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("MediaFileName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<long>("MediaFileSize")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("MediaFileType")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("MediaTitle")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("MediaType")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("MediaUrl")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("SortOrder")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("UnitTypeId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("MediaId");
+
+                    b.HasIndex("UnitTypeId");
+
+                    b.ToTable("UnitTypeMedia");
+                });
+
             modelBuilder.Entity("PropertyPlatform.Core.Entities.UserEvent", b =>
                 {
                     b.Property<Guid>("EventId")
@@ -1082,6 +1544,17 @@ namespace PropertyPlatform.Infrastructure.Migrations
                     b.Navigation("Tenant");
                 });
 
+            modelBuilder.Entity("PropertyPlatform.Core.Entities.Developer", b =>
+                {
+                    b.HasOne("PropertyPlatform.Core.Entities.Tenant", "Tenant")
+                        .WithMany("Developers")
+                        .HasForeignKey("TenantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Tenant");
+                });
+
             modelBuilder.Entity("PropertyPlatform.Core.Entities.FeaturedListing", b =>
                 {
                     b.HasOne("PropertyPlatform.Core.Entities.PropertyListing", "Listing")
@@ -1134,6 +1607,35 @@ namespace PropertyPlatform.Infrastructure.Migrations
                     b.Navigation("Listing");
                 });
 
+            modelBuilder.Entity("PropertyPlatform.Core.Entities.Project", b =>
+                {
+                    b.HasOne("PropertyPlatform.Core.Entities.Developer", "Developer")
+                        .WithMany("Projects")
+                        .HasForeignKey("DeveloperId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("PropertyPlatform.Core.Entities.Tenant", "Tenant")
+                        .WithMany("Projects")
+                        .HasForeignKey("TenantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Developer");
+
+                    b.Navigation("Tenant");
+                });
+
+            modelBuilder.Entity("PropertyPlatform.Core.Entities.ProjectMedia", b =>
+                {
+                    b.HasOne("PropertyPlatform.Core.Entities.Project", "Project")
+                        .WithMany("Media")
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Project");
+                });
+
             modelBuilder.Entity("PropertyPlatform.Core.Entities.PropertyFeature", b =>
                 {
                     b.HasOne("PropertyPlatform.Core.Entities.PropertyListing", "Listing")
@@ -1147,11 +1649,19 @@ namespace PropertyPlatform.Infrastructure.Migrations
 
             modelBuilder.Entity("PropertyPlatform.Core.Entities.PropertyListing", b =>
                 {
+                    b.HasOne("PropertyPlatform.Core.Entities.Project", null)
+                        .WithMany("Listings")
+                        .HasForeignKey("ProjectId");
+
                     b.HasOne("PropertyPlatform.Core.Entities.Tenant", "Tenant")
                         .WithMany("PropertyListings")
                         .HasForeignKey("TenantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("PropertyPlatform.Core.Entities.UnitType", null)
+                        .WithMany("Listings")
+                        .HasForeignKey("UnitTypeId");
 
                     b.Navigation("Tenant");
                 });
@@ -1208,6 +1718,28 @@ namespace PropertyPlatform.Infrastructure.Migrations
                     b.Navigation("Tenant");
                 });
 
+            modelBuilder.Entity("PropertyPlatform.Core.Entities.UnitType", b =>
+                {
+                    b.HasOne("PropertyPlatform.Core.Entities.Project", "Project")
+                        .WithMany("UnitTypes")
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Project");
+                });
+
+            modelBuilder.Entity("PropertyPlatform.Core.Entities.UnitTypeMedia", b =>
+                {
+                    b.HasOne("PropertyPlatform.Core.Entities.UnitType", "UnitType")
+                        .WithMany("Media")
+                        .HasForeignKey("UnitTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UnitType");
+                });
+
             modelBuilder.Entity("PropertyPlatform.Core.Entities.UserEvent", b =>
                 {
                     b.HasOne("PropertyPlatform.Core.Entities.PropertyListing", "Listing")
@@ -1217,6 +1749,20 @@ namespace PropertyPlatform.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Listing");
+                });
+
+            modelBuilder.Entity("PropertyPlatform.Core.Entities.Developer", b =>
+                {
+                    b.Navigation("Projects");
+                });
+
+            modelBuilder.Entity("PropertyPlatform.Core.Entities.Project", b =>
+                {
+                    b.Navigation("Listings");
+
+                    b.Navigation("Media");
+
+                    b.Navigation("UnitTypes");
                 });
 
             modelBuilder.Entity("PropertyPlatform.Core.Entities.PropertyListing", b =>
@@ -1242,6 +1788,10 @@ namespace PropertyPlatform.Infrastructure.Migrations
 
                     b.Navigation("CreditTransactions");
 
+                    b.Navigation("Developers");
+
+                    b.Navigation("Projects");
+
                     b.Navigation("PropertyListings");
 
                     b.Navigation("ReferralsMade");
@@ -1251,6 +1801,13 @@ namespace PropertyPlatform.Infrastructure.Migrations
                     b.Navigation("RefreshTokens");
 
                     b.Navigation("Subscriptions");
+                });
+
+            modelBuilder.Entity("PropertyPlatform.Core.Entities.UnitType", b =>
+                {
+                    b.Navigation("Listings");
+
+                    b.Navigation("Media");
                 });
 #pragma warning restore 612, 618
         }

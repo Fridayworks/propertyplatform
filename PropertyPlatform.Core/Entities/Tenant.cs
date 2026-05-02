@@ -40,5 +40,7 @@ namespace PropertyPlatform.Core.Entities
         public ICollection<CreditTransaction> CreditTransactions { get; set; } = new List<CreditTransaction>();
         public ICollection<Referral> ReferralsMade { get; set; } = new List<Referral>();
 	public ICollection<Referral> ReferralsReceived { get; set; } = new List<Referral>();
+        public ICollection<Project> Projects { get; set; } = new List<Project>();
+        public ICollection<Developer> Developers { get; set; } = new List<Developer>();
     }
 }

@@ -43,6 +43,7 @@ namespace PropertyPlatform.Infrastructure
             services.AddScoped<IWalletService, WalletService>();
             services.AddScoped<IGamificationService, GamificationService>();
             services.AddScoped<IReviewService, ReviewService>();
+            services.AddScoped<IBrochureIngestionService, BrochureIngestionService>();
 
             return services;
         }

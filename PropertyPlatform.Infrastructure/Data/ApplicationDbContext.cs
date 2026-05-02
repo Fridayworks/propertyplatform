@@ -33,6 +33,11 @@ namespace PropertyPlatform.Infrastructure.Data
         public DbSet<Article> Articles => Set<Article>();
         public DbSet<AdminRole> AdminRoles => Set<AdminRole>();
         public DbSet<DynamicMenu> DynamicMenus => Set<DynamicMenu>();
+        public DbSet<Project> Projects => Set<Project>();
+        public DbSet<Developer> Developers => Set<Developer>();
+        public DbSet<UnitType> UnitTypes => Set<UnitType>();
+        public DbSet<ProjectMedia> ProjectMedia => Set<ProjectMedia>();
+        public DbSet<UnitTypeMedia> UnitTypeMedia => Set<UnitTypeMedia>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -253,6 +258,81 @@ namespace PropertyPlatform.Infrastructure.Data
                 entity.Property(x => x.Location).IsRequired().HasMaxLength(50);
             });
 
+            modelBuilder.Entity<Project>(entity =>
+            {
+                entity.HasKey(x => x.ProjectId);
+                entity.Property(x => x.Name).IsRequired();
+                entity.Property(x => x.Description).IsRequired();
+                entity.Property(x => x.Location).IsRequired();
+                entity.Property(x => x.DeveloperName).IsRequired();
+                entity.Property(x => x.Status).IsRequired();
+                entity.Property(x => x.ProjectType).IsRequired();
+
+                entity.HasOne(x => x.Tenant)
+                      .WithMany(x => x.Projects)
+                      .HasForeignKey(x => x.TenantId)
+                      .OnDelete(DeleteBehavior.Cascade);
+
+                entity.HasOne(x => x.Developer)
+                      .WithMany(x => x.Projects)
+                      .HasForeignKey(x => x.DeveloperId)
+                      .OnDelete(DeleteBehavior.SetNull);
+            });
+
+            modelBuilder.Entity<Developer>(entity =>
+            {
+                entity.HasKey(x => x.DeveloperId);
+                entity.Property(x => x.Name).IsRequired();
+                entity.Property(x => x.Description).IsRequired();
+                entity.Property(x => x.Email).IsRequired();
+                entity.Property(x => x.Phone).IsRequired();
+
+                entity.HasOne(x => x.Tenant)
+                      .WithMany(x => x.Developers)
+                      .HasForeignKey(x => x.TenantId)
+                      .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            modelBuilder.Entity<UnitType>(entity =>
+            {
+                entity.HasKey(x => x.UnitTypeId);
+                entity.Property(x => x.Name).IsRequired();
+                entity.Property(x => x.Description).IsRequired();
+                entity.Property(x => x.Type).IsRequired();
+                entity.Property(x => x.Status).IsRequired();
+                entity.Property(x => x.Price).HasColumnType("numeric");
+
+                entity.HasOne(x => x.Project)
+                      .WithMany(x => x.UnitTypes)
+                      .HasForeignKey(x => x.ProjectId)
+                      .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            modelBuilder.Entity<ProjectMedia>(entity =>
+            {
+                entity.HasKey(x => x.MediaId);
+                entity.Property(x => x.MediaUrl).IsRequired();
+                entity.Property(x => x.MediaTitle).IsRequired();
+                entity.Property(x => x.MediaType).IsRequired();
+
+                entity.HasOne(x => x.Project)
+                      .WithMany(x => x.Media)
+                      .HasForeignKey(x => x.ProjectId)
+                      .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            modelBuilder.Entity<UnitTypeMedia>(entity =>
+            {
+                entity.HasKey(x => x.MediaId);
+                entity.Property(x => x.MediaUrl).IsRequired();
+                entity.Property(x => x.MediaTitle).IsRequired();
+                entity.Property(x => x.MediaType).IsRequired();
+
+                entity.HasOne(x => x.UnitType)
+                      .WithMany(x => x.Media)
+                      .HasForeignKey(x => x.UnitTypeId)
+                      .OnDelete(DeleteBehavior.Cascade);
+            });
             modelBuilder.Entity<AgentProfile>()
                 .HasOne(x => x.AdminRole)
                 .WithMany()

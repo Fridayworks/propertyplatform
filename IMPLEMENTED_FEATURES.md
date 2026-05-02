@@ -1,3 +1,5 @@
+
+
 # PropertyPlatform - Implemented Features
 
 ## Overview
@@ -18,6 +20,14 @@ PropertyPlatform is a comprehensive real estate platform that enables agents to 
 - Listing status management (Draft, Active, etc.)
 - Property media management (images, floor plans)
 - Property features management (bedrooms, bathrooms, etc.)
+
+### Projects & Developers
+- Create, read, update, and delete projects
+- Project entity with developer information, location, and project details
+- Developer entity with company information and contact details
+- UnitType entity with specifications and pricing for different unit types within projects
+- Project media management (images, PDFs, etc.)
+- Bulk project media processing
 
 ### Leads Management
 - Lead capture from property listings
@@ -46,6 +56,12 @@ PropertyPlatform is a comprehensive real estate platform that enables agents to 
 - Feature flag management
 - Configuration updates for platform features
 - Admin-only access controls
+
+### Brochure Ingestion
+- PDF/URL/image ingestion
+- OCR extraction from documents
+- Bulk project media processing
+- Automated content parsing
 
 ## Web UI Features
 
@@ -77,7 +93,8 @@ PropertyPlatform is a comprehensive real estate platform that enables agents to 
 - Credit-based system for premium features
 - User events tracking
 - Property analytics (views, clicks, contacts)
-- Admin configuration panel
+- Project and developer management
+- Brochure ingestion interface
 
 ## Data Model
 
@@ -95,6 +112,11 @@ PropertyPlatform is a comprehensive real estate platform that enables agents to 
 - **Referral**: Referral tracking between users
 - **Tenant**: User account information
 - **RefreshToken**: Token management for authentication
+- **Project**: Project entity with developer information, location, and project details
+- **Developer**: Developer entity with company information and contact details
+- **UnitType**: Unit type entity with specifications and pricing for different unit types within projects
+- **ProjectMedia**: Media files related to projects (images, PDFs, etc.)
+- **UnitTypeMedia**: Media files related to specific unit types
 
 ### Database
 - PostgreSQL database with Entity Framework Core
@@ -122,3 +144,5 @@ PropertyPlatform is a comprehensive real estate platform that enables agents to 
 - Referral system
 - Recommendation engine
 - Analytics tracking
+- Project and developer management
+- Brochure ingestion and OCR processing
