@@ -48,6 +48,14 @@ PropertyPlatform is a comprehensive real estate platform that enables agents to 
 
 ### User Management
 - Agent profile management
+
+## AI Smart Listing Generation Engine
+- AI Selling Point Extraction
+- AI SEO Title Generation
+- AI Description Generation
+- AI FAQ Generation
+- AI Nearby Amenity Narrative
+- AI Editable Draft Composer
 - Credit system for featured listings
 - Subscription management
 - Referral system for user acquisition

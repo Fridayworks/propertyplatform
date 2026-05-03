@@ -44,6 +44,7 @@ namespace PropertyPlatform.Infrastructure
             services.AddScoped<IGamificationService, GamificationService>();
             services.AddScoped<IReviewService, ReviewService>();
             services.AddScoped<IBrochureIngestionService, BrochureIngestionService>();
+            services.AddScoped<IAISmartListingService, AISmartListingService>();
 
             return services;
         }
